@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Signup Form</title>
+   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+ <style>
+     .footer {
+      background-color: #1e1e1e;
+      color: #fff;
+      padding: 40px 20px;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .footer h5 {
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .footer ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .footer ul li a:hover {
+      text-decoration: underline;
+    }
+
+    .social-icons a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 1px solid #fff;
+      border-radius: 50%;
+      color: #fff;
+      text-align: center;
+      line-height: 40px;
+      margin-right: 10px;
+      font-size: 18px;
+    }
+
+    .whatsapp-float {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      color: white;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+     .about-banner {
+      background-image: url('Zi1mcnVpdHMuanBn.webp'); /* Update if hosted */
+      background-size: cover;
+      background-position: center;
+      border-radius: 20px;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .about-banner h2 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .about-banner h2 {
+        font-size: 1.8rem;
+      }
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff;
+     
+    }
+    .form-control, .form-select {
+      border-radius: 10px;
+    }
+    .form-label {
+      font-weight: 600;
+    }
+    .reg-btn {
+      background-color: #1abe59;
+     color: white;
+    }
+    .verify-btn {
+      background-color: #adb5bd;
+      border: none;
+      border-radius: 10px;
+      padding: 8px 16px;
+    }
+    .signup-form {
+         padding-left: 50px;
+         padding-right: 50px;
+         padding-top: 30px;
+    }
+  </style>
+</head>
+<body>
+     <nav class="flex items-center justify-between p-4 shadow-md">
+    <!-- Logo and Tagline -->
+    <div class="flex items-center space-x-2">
+      <img src="your-logo.png" alt="Logo" class="h-12 w-12" />
+      <div>
+        <h1 class="text-lg font-bold text-blue-900 flex items-center">
+          Maids Hands 4U
+          <span class="ml-1 text-blue-500">✨</span>
+        </h1>
+        <p class="text-sm text-gray-400">For a helping hand</p>
+      </div>
+    </div>
+
+    <!-- Navigation Links -->
+    <div class="hidden md:flex space-x-8 text-gray-700 font-medium">
+      <a href="#" >Home</a>
+      <a href="#"class="text-blue-900">About</a>
+      <a href="#">Contact</a>
+      <a href="#">Categories</a>
+      <a href="#">Pricing</a>
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex items-center space-x-3">
+      <button class="bg-blue-50 text-blue-900 font-semibold px-4 py-2 rounded-md">
+        Register as Maid
+      </button>
+      <button class="bg-blue-900 text-white font-semibold px-4 py-2 rounded-md flex items-center space-x-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12H3m0 0l4-4m-4 4l4 4m13-4a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>User Login</span>
+      </button>
+    </div>
+  </nav>
+  
+<div class="container my-5">
+  <div class="about-banner">
+    <h2>Signup</h2>
+  </div>
+</div>
+  <div class="container signup-form">
+    <h2 class="mb-4 text-center fw-bold">Signup Form</h2>
+    <form>
+      <div class="row g-3">
+
+        <!-- Name -->
+        <div class="col-md-6">
+          <label class="form-label">Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" placeholder="Enter your name" required>
+        </div>
+
+        <!-- District -->
+        <div class="col-md-6">
+          <label class="form-label">District <span class="text-danger">*</span></label>
+          <select class="form-select" required>
+            <option value="">Select District</option>
+            <option>District 1</option>
+            <option>District 2</option>
+            <option>District 3</option>
+          </select>
+        </div>
+
+        <!-- Phone -->
+        <div class="col-md-6">
+          <label class="form-label">Phone No. <span class="text-danger">*</span></label>
+          <div class="input-group">
+            <span class="input-group-text">+91</span>
+            <input type="tel" class="form-control" placeholder="Enter your phone number" required>
+           <button class="verify-btn ms-2" type="button" data-bs-toggle="modal" data-bs-target="#otpModal">
+  Verify
+</button>
+
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="col-md-6">
+          <label class="form-label">Address <span class="text-danger">*</span></label>
+          <textarea class="form-control" rows="3" placeholder="Enter your address" required></textarea>
+        </div>
+
+
+        <!-- Pincode -->
+        <div class="col-md-6">
+          <label class="form-label">Pincode <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" placeholder="Enter your pincode" required>
+        </div>
+
+        <!-- Email -->
+        <div class="col-md-6">
+          <label class="form-label">Email Address <span class="text-danger">*</span></label>
+          <input type="email" class="form-control" placeholder="Enter your email" required>
+        </div>
+
+        <!-- Password -->
+        <div class="col-md-6">
+          <label class="form-label">Password <span class="text-danger">*</span></label>
+          <input type="password" class="form-control" placeholder="Enter your password" required>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="col-md-6">
+          <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
+          <input type="password" class="form-control" placeholder="Confirm your password" required>
+        </div>
+
+      </div>
+
+      <div class="mt-4 text-center">
+        <button type="submit" class="reg-btn btn  px-4 py-2 rounded-pill">Register</button>
+      </div>
+    </form>
+  </div>
+<footer class="footer position-relative mt-5 ">
+  <div class="container">
+    <div class="row gy-4">
+      <!-- Logo + Social -->
+         <div class="col-12 col-sm-6 col-lg-3">
+        <img src="logo.png" alt="Logo" class="mb-2" style="max-width: 150px;">
+        <h6 class="mt-3">Follow Us</h6>
+        <div class="social-icons mb-3 mt-3">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+         
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+        </div>
+        <p style="font-size: 14px;">
+          We connect you with reliable, pre-verified maids to simplify your household needs.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+        <div class="col-12 col-sm-6 col-lg-3">
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Categories</a></li>
+          <li><a href="#">Register as Maid</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+          <div class="col-12 col-sm-6 col-lg-3">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Cancellation and Refund</a></li>
+          <li><a href="#">Shipping and Delivery</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+          <div class="col-12 col-sm-6 col-lg-3">
+        <h5>Official Info</h5>
+        <p class="mb-2">BELLUCCIYA MARKETING AND MANAGEMENT PRIVATE LIMITED<br>
+          Metro Pillar No. 75, Maniyatt Building,<br>
+          Near Pulinchodu Metro Station, Aluva, Ernakulam, KERALA, PIN : 683106
+        </p>
+        <p><i class="bi bi-telephone me-2"></i>9400438406</p>
+        <p><i class="bi bi-envelope me-2"></i>jeemonwishes@gmail.com</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WhatsApp Floating Icon -->
+  <a href="https://wa.me/919400438406" class="whatsapp-float">
+    <i class="bi bi-whatsapp"></i>
+  </a>
+</footer>
+<!-- OTP Verification Modal -->
+<div class="modal fade" id="otpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-3">
+      <div class="modal-header">
+        <h5 class="modal-title" id="otpModalLabel">OTP Verification</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Please enter the OTP sent to your mobile number.</p>
+        <input type="text" class="form-control mb-3" placeholder="Enter OTP" maxlength="6">
+        <button type="button" class="btn btn-success w-100">Verify OTP</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
