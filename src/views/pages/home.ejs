@@ -1,6 +1,309 @@
 <%- include('../partials/header') %>
 
+<<<<<<< HEAD
 <h1><%= title %></h1>
 <p>Hello world....</p>
 
+=======
+<nav class="flex items-center justify-between p-4 shadow-md">
+    <!-- Logo and Tagline -->
+    <div class="flex items-center space-x-2">
+      <img src="your-logo.png" alt="Logo" class="h-12 w-12" />
+      <div>
+        <h1 class="text-lg font-bold text-green-500 flex items-center">
+          Tele Tree
+          <span class="ml-1 text-green-500">✨</span>
+        </h1>
+        <p class="text-sm text-gray-400">For a helping hand</p>
+      </div>
+    </div>
+
+    <!-- Navigation Links -->
+    <div class="hidden md:flex space-x-8 text-gray-700 font-medium">
+      <a href="#" class="text-green-900">Home</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a href="#">Categories</a>
+      <a href="#">Pricing</a>
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex items-center space-x-3">
+      <button class="bg-blue-50 text-green-900 font-semibold px-4 py-2 rounded-md">
+        Register as Maid
+      </button>
+        <% if (user) { %>
+      <!-- Show profile icon if user is logged in -->
+   
+         <a href="/profile">
+          <i class="fas fa-user-circle fa-xl"></i>
+        </a>
+      
+    <% } else { %>
+       <button class="bg-green-500 text-white font-semibold px-4 py-2 rounded-md flex items-center space-x-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12H3m0 0l4-4m-4 4l4 4m13-4a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>User Login</span>
+      </button>
+    <% } %>
+     
+    </div>
+  </nav>
+  
+<div class="container">
+  <div class="filter-container">
+    <form>
+      <div class="row g-3 align-items-center">
+        <div class="col-md-2 col-6">
+          <label for="district" class="form-label fw-semibold">District</label>
+          <select class="form-select" id="district">
+            <option selected disabled>District</option>
+            <option>District A</option>
+            <option>District B</option>
+          </select>
+        </div>
+        <div class="col-md-2 col-6">
+          <label for="constituency" class="form-label fw-semibold">Constituency</label>
+          <select class="form-select" id="constituency">
+            <option selected disabled>Constituency</option>
+            <option>Constituency A</option>
+            <option>Constituency B</option>
+          </select>
+        </div>
+        <div class="col-md-2 col-6">
+          <label for="age" class="form-label fw-semibold">Age</label>
+          <select class="form-select" id="age">
+            <option selected disabled>Select Age</option>
+            <option>18-25</option>
+            <option>26-40</option>
+            <option>41+</option>
+          </select>
+        </div>
+        <div class="col-md-2 col-6">
+          <label for="religion" class="form-label fw-semibold">Religion</label>
+          <select class="form-select" id="religion">
+            <option selected disabled>Select Religion</option>
+            <option>Hindu</option>
+            <option>Muslim</option>
+            <option>Christian</option>
+          </select>
+        </div>
+        <div class="col-md-2 col-6">
+          <label for="gender" class="form-label fw-semibold">Gender</label>
+          <select class="form-select" id="gender">
+            <option selected disabled>Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="col-md-2 col-6">
+          <label for="shift" class="form-label fw-semibold">Shift</label>
+          <select class="form-select" id="shift">
+            <option selected disabled>Select Shift</option>
+            <option>Morning</option>
+            <option>Evening</option>
+            <option>Night</option>
+          </select>
+        </div>
+        <div class="col-md-2 col-6 mt-3">
+          <label for="expertise" class="form-label fw-semibold">Expertise</label>
+          <select class="form-select" id="expertise">
+            <option selected disabled>Select Expertise</option>
+            <option>Lawyer</option>
+            <option>Doctor</option>
+            <option>Engineer</option>
+          </select>
+        </div>
+        <div class="col-md-1 col-12 d-flex align-items-end mt-3">
+          <button type="submit" class="search-btn"><i class="bi bi-search"></i> 🔍</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="container py-5">
+  <div class="text-center mb-5">
+    <div class="section-title">
+      <span>Explore Our Services</span>
+    </div>
+    <h2 class="fw-bold mt-2">Find the Right Help for Every<br class="d-none d-md-block"> Household Need</h2>
+  </div>
+
+  <div class="row g-4 justify-content-center">
+    <!-- Card 1 -->
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="service-card">
+        <img src="hi.jpg" alt="House Cleaning">
+        <div class="service-title">House cleaning</div>
+      </div>
+    </div>
+    <!-- Card 2 -->
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="service-card">
+        <img src="hi.jpg" alt="Elderly Care">
+        <div class="service-title">Elderly care</div>
+      </div>
+    </div>
+    <!-- Card 3 -->
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="service-card">
+        <img src="hi.jpg" alt="Child Care and Baby Sitting">
+        <div class="service-title">Child care and baby sitting</div>
+      </div>
+    </div>
+    <!-- Card 4 -->
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="service-card">
+        <img src="hi.jpg" alt="Pet Care">
+        <div class="service-title">Pet care</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="hero-section d-flex flex-column flex-md-row align-items-center justify-content-between">
+    <div class="hero-text text-white">
+      <h1 class="fw-bold mb-4">Become a Trusted Maid<br>with Maid Hands 4 U</h1>
+      <p class="mb-3">Join our team of skilled professionals and help households with their daily needs.</p>
+      <ul class="list-unstyled">
+        <li class="icon-bullet mb-2">Pre-verified and secure platform</li>
+        <li class="icon-bullet mb-2">Flexible hours and competitive pay</li>
+        <li class="icon-bullet mb-4">Empowering professionals like you to thrive</li>
+      </ul>
+      <button class="signup-btn">Sign up</button>
+    </div>
+    <div class="hero-image mt-4 mt-md-0 ms-md-4">
+     </div>
+  </div>
+</div>
+<div class="container py-4">
+    <div class="row g-4 justify-content-center">
+     <div class="col-12 col-sm-6 col-lg-3">
+      <div class="profile-card">
+        <img src="hi.jpg" alt="Dineshan" class="img-fluid">
+        <div class="profile-info d-flex align-items-center">
+          <div class="text-start">
+            <div class="profile-name">DINESHAN</div>
+            <div class="location"><i class="bi bi-geo-alt"></i> kozhikode</div>
+          </div>
+          <a href="tel:+911234567890" class="call-icon ms-auto">
+            <i class="bi bi-telephone"></i>
+          </a>
+        </div>
+      </div>
+       
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="profile-card">
+        <img src="hi.jpg" alt="Dineshan" class="img-fluid">
+        <div class="profile-info d-flex align-items-center">
+          <div class="text-start">
+            <div class="profile-name">DINESHAN</div>
+            <div class="location"><i class="bi bi-geo-alt"></i> kozhikode</div>
+          </div>
+          <a href="tel:+911234567890" class="call-icon ms-auto">
+            <i class="bi bi-telephone"></i>
+          </a>
+        </div>
+      </div>
+       
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="profile-card">
+        <img src="hi.jpg" alt="Dineshan" class="img-fluid">
+        <div class="profile-info d-flex align-items-center">
+          <div class="text-start">
+            <div class="profile-name">DINESHAN</div>
+            <div class="location"><i class="bi bi-geo-alt"></i> kozhikode</div>
+          </div>
+          <a href="tel:+911234567890" class="call-icon ms-auto">
+            <i class="bi bi-telephone"></i>
+          </a>
+        </div>
+      </div>
+       
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="profile-card">
+        <img src="hi.jpg" alt="Dineshan" class="img-fluid">
+        <div class="profile-info d-flex align-items-center">
+          <div class="text-start">
+            <div class="profile-name">DINESHAN</div>
+            <div class="location"><i class="bi bi-geo-alt"></i> kozhikode</div>
+          </div>
+          <a href="tel:+911234567890" class="call-icon ms-auto">
+            <i class="bi bi-telephone"></i>
+          </a>
+        </div>
+      </div>
+       
+    </div>
+  </div>
+</div>
+<footer class="footer position-relative">
+  <div class="container">
+    <div class="row gy-4">
+      <!-- Logo + Social -->
+         <div class="col-12 col-sm-6 col-lg-3">
+        <img src="logo.png" alt="Logo" class="mb-2" style="max-width: 150px;">
+        <h6 class="mt-3">Follow Us</h6>
+        <div class="social-icons mb-3 mt-3">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+         
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+        </div>
+        <p style="font-size: 14px;">
+          We connect you with reliable, pre-verified maids to simplify your household needs.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+        <div class="col-12 col-sm-6 col-lg-3">
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Categories</a></li>
+          <li><a href="#">Register as Maid</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+          <div class="col-12 col-sm-6 col-lg-3">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Cancellation and Refund</a></li>
+          <li><a href="#">Shipping and Delivery</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+          <div class="col-12 col-sm-6 col-lg-3">
+        <h5>Official Info</h5>
+        <p class="mb-2">BELLUCCIYA MARKETING AND MANAGEMENT PRIVATE LIMITED<br>
+          Metro Pillar No. 75, Maniyatt Building,<br>
+          Near Pulinchodu Metro Station, Aluva, Ernakulam, KERALA, PIN : 683106
+        </p>
+        <p><i class="bi bi-telephone me-2"></i>9400438406</p>
+        <p><i class="bi bi-envelope me-2"></i>jeemonwishes@gmail.com</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WhatsApp Floating Icon -->
+  <a href="https://wa.me/919400438406" class="whatsapp-float">
+    <i class="bi bi-whatsapp"></i>
+  </a>
+</footer>
+>>>>>>> 015e47b095f8a90b74d7f4e2eeb9f102f2ffc4e7
 <%- include('../partials/footer') %>

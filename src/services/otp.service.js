@@ -7,7 +7,11 @@ const sendOtpToPhone = async (phone) => {
   await OTP.deleteMany({phone});
   await OTP.create({ phone, otp });
 
+<<<<<<< HEAD
   // await sendOtp(phone,`Your OTP is: ${otp} Don't share it with anyone`);
+=======
+  await sendOtp(phone,`Your OTP is: ${otp} Don't share it with anyone`);
+>>>>>>> 015e47b095f8a90b74d7f4e2eeb9f102f2ffc4e7
 };
 
 const verifyOtp = async (phone, submittedOtp) => {
