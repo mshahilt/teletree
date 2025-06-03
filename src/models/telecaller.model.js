@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const telecallerSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Change this to your actual user model name
+    ref: 'User',
     required: true
   },
   name: {

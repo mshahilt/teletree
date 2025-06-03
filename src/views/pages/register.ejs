@@ -715,42 +715,41 @@
       registerBtnText.classList.add('d-none');
       registerBtnSpinner.classList.remove('d-none');
       
-      try {
-        const response = await fetch('/registerAsTelecaller', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            name: data.name,
-            district: data.district,
-            phone: data.phone,
-            address: data.address,
-            pincode: data.pincode,
-            email: data.email,
-           profilePhoto: data.profilePhoto,
-           gender: data.gender,
-           experience: data.experience,
-           age: data.age,
-           languages: data.languages,
-           jobCategory: data.jobCategory
+    try {
+  console.log("data.profilePhoto:", data.profilePhoto);
 
-          })
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-          showAlert('Registration successful! Welcome to TeleTree', 'success');
-          // Reset form
-          this.reset();
-          isPhoneVerified = false;
-          updateVerifyButton();
-          updateRegisterButton();
-        } else {
-          showAlert(result.message || 'Registration failed. Please try again.', 'danger');
-        }
-      } catch (error) {
+  const formData = new FormData();
+  formData.append('name', data.name);
+  formData.append('district', data.district);
+  formData.append('phone', data.phone);
+  formData.append('address', data.address);
+  formData.append('pincode', data.pincode);
+  formData.append('email', data.email);
+  formData.append('profilePhoto', data.profilePhoto);
+  formData.append('gender', data.gender);
+  formData.append('experience', data.experience);
+  formData.append('age', data.age);
+  formData.append('languages', JSON.stringify(data.languages));
+  formData.append('jobCategory', data.jobCategory);
+
+  const response = await fetch('/registerAsTelecaller', {
+    method: 'POST',
+    body: formData
+  });
+
+  const result = await response.json();
+
+  if (result.success) {
+    showAlert('Registration successful! Welcome to TeleTree', 'success');
+    this.reset();
+    isPhoneVerified = false;
+    updateVerifyButton();
+    updateRegisterButton();
+  } else {
+    showAlert(result.message || 'Registration failed. Please try again.', 'danger');
+  }
+
+} catch (error) {
         console.error('Error during registration:', error);
         showAlert('Network error. Please check your connection and try again.', 'danger');
       } finally {

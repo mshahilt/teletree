@@ -1,10 +1,6 @@
 const bcrypt = require('bcrypt');
 const userRepository = require('../repositories/user.repository');
-<<<<<<< HEAD
-
-=======
 const telecallerRepository = require('../repositories/telecaller.repository');
->>>>>>> 015e47b095f8a90b74d7f4e2eeb9f102f2ffc4e7
 const signupUser = async (userData) => {
   console.log("user data: ", userData);
   const { email, phone, password } = userData;
@@ -22,8 +18,6 @@ const signupUser = async (userData) => {
 
   return createdUser;
 };
-<<<<<<< HEAD
-=======
 const registerUser = async (userData) => {
   console.log("user data: ", userData);
 
@@ -57,7 +51,6 @@ const registerUser = async (userData) => {
   return createdUser;
 };
 
->>>>>>> 015e47b095f8a90b74d7f4e2eeb9f102f2ffc4e7
 
 const loginUser = async ({ phone, password }) => {
   const user = await userRepository.findByPhone(phone);
@@ -71,10 +64,6 @@ const loginUser = async ({ phone, password }) => {
 
 module.exports = {
   signupUser,
-<<<<<<< HEAD
-  loginUser
-=======
   loginUser,
   registerUser
->>>>>>> 015e47b095f8a90b74d7f4e2eeb9f102f2ffc4e7
 };
