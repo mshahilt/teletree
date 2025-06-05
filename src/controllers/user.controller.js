@@ -1,8 +1,19 @@
 const userService = require('../services/user.service');
-
-const getHomePage = (req, res) => {
+const Telecaller=require('../models/telecaller.model');
+const getHomePage = async(req, res) => {
   const user = req.session.user;
-  res.render('pages/home', { title: 'Home Page',user });
+  let telecallers = await Telecaller.find();
+ 
+    console.log("telecallers: ", telecallers);
+  res.render('pages/home', { title: 'Home Page',user ,telecallers});
+};
+const getAboutPage = async(req, res) => {
+  const user = req.session.user;
+  res.render('pages/about', { title: 'about Page',user });
+};
+const getContactPage = async(req, res) => {
+  const user = req.session.user;
+  res.render('pages/contact', { title: 'Contact Page',user });
 };
 
 const getLoginPage = (req, res) => {
@@ -64,5 +75,7 @@ module.exports = {
   getRegister,
   getLoginPage,
   getSignupPage,
+  getAboutPage,
+  getContactPage,
   registerAsTelecaller
 };

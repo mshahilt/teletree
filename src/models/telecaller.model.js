@@ -23,7 +23,7 @@ const telecallerSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  profilePhotoc: {
+  profilePhoto: {
     type: String // Store the file path or URL
   },
   district: {

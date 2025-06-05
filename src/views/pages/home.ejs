@@ -179,85 +179,42 @@
 </div>
 <div class="container py-4">
     <div class="row g-4 justify-content-center">
-     <div class="col-12 col-sm-6 col-lg-3">
-      <div class="profile-card">
-        <img src="hi.jpg" alt="Dineshan" class="img-fluid">
-        <div class="profile-info d-flex align-items-center">
-          <div class="text-start">
-            <div class="profile-name">DINESHAN</div>
-            <div class="location"><i class="bi bi-geo-alt"></i> kozhikode</div>
-          </div>
-          <a href="tel:+911234567890" class="call-icon ms-auto">
-            <i class="bi bi-telephone"></i>
-          </a>
+   <% telecallers.forEach(telecaller => { %>
+  <div class="col-12 col-sm-6 col-lg-3">
+    <div class="profile-card">
+      <img src="/uploads/profilephotos/<%= telecaller.profilePhoto %>" alt="<%= telecaller.name %>" class="img-fluid">
+      <div class="profile-info d-flex align-items-center">
+        <div class="text-start">
+          <div class="profile-name"><%= telecaller.name.toUpperCase() %></div>
+          <div class="location"><i class="bi bi-geo-alt"></i> <%= telecaller.location || "Unknown" %></div>
         </div>
+        <a href="tel:+91<%= telecaller.phone %>" class="call-icon ms-auto">
+          <i class="bi bi-telephone"></i>
+        </a>
       </div>
-       
-    </div>
-    <div class="col-12 col-sm-6 col-lg-3">
-      <div class="profile-card">
-        <img src="hi.jpg" alt="Dineshan" class="img-fluid">
-        <div class="profile-info d-flex align-items-center">
-          <div class="text-start">
-            <div class="profile-name">DINESHAN</div>
-            <div class="location"><i class="bi bi-geo-alt"></i> kozhikode</div>
-          </div>
-          <a href="tel:+911234567890" class="call-icon ms-auto">
-            <i class="bi bi-telephone"></i>
-          </a>
-        </div>
-      </div>
-       
-    </div>
-    <div class="col-12 col-sm-6 col-lg-3">
-      <div class="profile-card">
-        <img src="hi.jpg" alt="Dineshan" class="img-fluid">
-        <div class="profile-info d-flex align-items-center">
-          <div class="text-start">
-            <div class="profile-name">DINESHAN</div>
-            <div class="location"><i class="bi bi-geo-alt"></i> kozhikode</div>
-          </div>
-          <a href="tel:+911234567890" class="call-icon ms-auto">
-            <i class="bi bi-telephone"></i>
-          </a>
-        </div>
-      </div>
-       
-    </div>
-    <div class="col-12 col-sm-6 col-lg-3">
-      <div class="profile-card">
-        <img src="hi.jpg" alt="Dineshan" class="img-fluid">
-        <div class="profile-info d-flex align-items-center">
-          <div class="text-start">
-            <div class="profile-name">DINESHAN</div>
-            <div class="location"><i class="bi bi-geo-alt"></i> kozhikode</div>
-          </div>
-          <a href="tel:+911234567890" class="call-icon ms-auto">
-            <i class="bi bi-telephone"></i>
-          </a>
-        </div>
-      </div>
-       
     </div>
   </div>
-</div>
-<footer class="footer position-relative">
-  <div class="container">
-    <div class="row gy-4">
-      <!-- Logo + Social -->
-         <div class="col-12 col-sm-6 col-lg-3">
-        <img src="logo.png" alt="Logo" class="mb-2" style="max-width: 150px;">
-        <h6 class="mt-3">Follow Us</h6>
-        <div class="social-icons mb-3 mt-3">
-          <a href="#"><i class="bi bi-facebook"></i></a>
-          <a href="#"><i class="bi bi-instagram"></i></a>
-         
-          <a href="#"><i class="bi bi-linkedin"></i></a>
+<% }) %>
+
+   
+   
+ 
+ <footer class="footer position-relative mt-5">
+    <div class="container">
+      <div class="row gy-4">
+        <!-- Logo + Social -->
+        <div class="col-12 col-sm-6 col-lg-3">
+          <img src="logo.png" alt="Logo" class="mb-2" style="max-width: 150px;">
+          <h6 class="mt-3">Follow Us</h6>
+          <div class="social-icons mb-3 mt-3">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+          <p style="font-size: 14px;">
+            We connect you with reliable, pre-verified maids to simplify your household needs.
+          </p>
         </div>
-        <p style="font-size: 14px;">
-          We connect you with reliable, pre-verified maids to simplify your household needs.
-        </p>
-      </div>
 
       <!-- Quick Links -->
         <div class="col-12 col-sm-6 col-lg-3">

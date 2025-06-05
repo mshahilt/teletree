@@ -7,6 +7,12 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link r<<<<<<< HEAD
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+=======
+>>>>>>> 7c93782a7322920fbe3f7d9ec7a8e37d45b77b92
   <style>
     .footer {
       background-color: #1e1e1e;
@@ -286,10 +292,11 @@
    
 
     <!-- Profile Photo Upload -->
-    <div class="col-md-6">
-      <label class="form-label">Profile Photo <span class="text-danger">*</span></label>
-      <input type="file" name="profilePhoto" class="form-control" accept="image/*" required>
-    </div>
+  <div class="col-md-6">
+  <label class="form-label">Profile Photo <span class="text-danger">*</span></label>
+  <input type="file" id="profileInput" class="form-control" accept="image/*" required>
+  <input type="hidden" name="profilePhoto" id="croppedImageData"> <!-- Hidden field to store base64 -->
+</div>
 
     <!-- Gender Selection -->
     <div class="col-md-6">
@@ -448,322 +455,417 @@
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Global variables
-    let isPhoneVerified = false;
-    let resendCountdown = 0;
-    let countdownInterval;
-    const otpModal = new bootstrap.Modal(document.getElementById('otpModal'));
+<!-- Crop Modal -->
+<div class="modal fade" id="cropModal" tabindex="-1" aria-labelledby="cropModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Crop Profile Photo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img id="imagePreview" style="max-width: 100%;">
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cropBtn" class="btn btn-primary">Crop</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-    // Form validation
-    document.getElementById('signupForm').addEventListener('input', function(e) {
-     
-      
-      if (e.target.name === 'phone') {
-        // Reset verification status when phone number changes
-        if (isPhoneVerified) {
-          isPhoneVerified = false;
-          updateVerifyButton();
-          updateRegisterButton();
-        }
-      }
-    });
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  let cropper;
+  const profileInput = document.getElementById('profileInput');
+  const imagePreview = document.getElementById('imagePreview');
+  const cropModal = new bootstrap.Modal(document.getElementById('cropModal'));
 
-    // Password validation
-  
-    // OTP input handling
-    document.querySelectorAll('.otp-input').forEach((input, index) => {
-      input.addEventListener('input', function(e) {
-        if (e.target.value.length === 1 && index < 5) {
-          document.getElementById(`otp${index + 2}`).focus();
-        }
-      });
-      
-      input.addEventListener('keydown', function(e) {
-        if (e.key === 'Backspace' && !e.target.value && index > 0) {
-          document.getElementById(`otp${index}`).focus();
-        }
-      });
-    });
+  profileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
 
-    // Show alert messages
-    function showAlert(message, type = 'info') {
-      const alertContainer = document.getElementById('alertContainer');
-      const alertDiv = document.createElement('div');
-      alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
-      alertDiv.innerHTML = `
-        ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-      `;
-      alertContainer.appendChild(alertDiv);
-      
-      // Auto-dismiss after 5 seconds
-      setTimeout(() => {
-        if (alertDiv.parentNode) {
-          alertDiv.remove();
-        }
-      }, 5000);
-    }
-
-    // Send OTP
-    async function sendOTP() {
-      const phoneInput = document.getElementById('phoneInput');
-      const phone = phoneInput.value.trim();
-      
-      if (!phone || phone.length !== 10) {
-        showAlert('Please enter a valid 10-digit phone number', 'warning');
-        phoneInput.focus();
-        return;
-      }
-      
-      const verifyBtn = document.getElementById('verifyBtn');
-      const verifyBtnText = document.getElementById('verifyBtnText');
-      const verifyBtnSpinner = document.getElementById('verifyBtnSpinner');
-      
-      // Show loading state
-      verifyBtn.disabled = true;
-      verifyBtnText.classList.add('d-none');
-      verifyBtnSpinner.classList.remove('d-none');
-      
-      try {
-        const response = await fetch(`/otp/send?phone=${phone}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        
-        const data = await response.json();
-        
-        if (data.success) {
-          // Show OTP modal
-          document.getElementById('otpPhoneNumber').textContent = phone;
-          clearOTPInputs();
-          otpModal.show();
-          startResendCountdown();
-          showAlert('OTP sent successfully to your phone number', 'success');
-        } else {
-          showAlert(data.message || 'Failed to send OTP. Please try again.', 'danger');
-        }
-      } catch (error) {
-        console.error('Error sending OTP:', error);
-        showAlert('Network error. Please check your connection and try again.', 'danger');
-      } finally {
-        // Reset button state
-        verifyBtn.disabled = false;
-        verifyBtnText.classList.remove('d-none');
-        verifyBtnSpinner.classList.add('d-none');
-      }
-    }
-
-    // Verify OTP
-    async function verifyOTP() {
-      const otpInputs = document.querySelectorAll('.otp-input');
-      const otp = Array.from(otpInputs).map(input => input.value).join('');
-      
-      if (otp.length !== 6) {
-        showAlert('Please enter complete 6-digit OTP', 'warning');
-        return;
-      }
-      
-      const phone = document.getElementById('phoneInput').value.trim();
-      const verifyOtpBtn = document.getElementById('verifyOtpBtn');
-      const verifyOtpBtnText = document.getElementById('verifyOtpBtnText');
-      const verifyOtpBtnSpinner = document.getElementById('verifyOtpBtnSpinner');
-      
-      // Show loading state
-      verifyOtpBtn.disabled = true;
-      verifyOtpBtnText.classList.add('d-none');
-      verifyOtpBtnSpinner.classList.remove('d-none');
-      
-      try {
-        const response = await fetch('/otp/verify', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            phone: phone,
-            otp: otp
-          })
-        });
-        
-        const data = await response.json();
-        
-        if (data.success) {
-          isPhoneVerified = true;
-          otpModal.hide();
-          updateVerifyButton();
-          updateRegisterButton();
-          showAlert('Phone number verified successfully!', 'success');
-          clearInterval(countdownInterval);
-        } else {
-          showAlert(data.message || 'Invalid OTP. Please try again.', 'danger');
-          // Clear OTP inputs on failure
-          clearOTPInputs();
-        }
-      } catch (error) {
-        console.error('Error verifying OTP:', error);
-        showAlert('Network error. Please check your connection and try again.', 'danger');
-      } finally {
-        // Reset button state
-        verifyOtpBtn.disabled = false;
-        verifyOtpBtnText.classList.remove('d-none');
-        verifyOtpBtnSpinner.classList.add('d-none');
-      }
-    }
-
-    // Resend OTP
-    async function resendOTP() {
-      const phone = document.getElementById('phoneInput').value.trim();
-      
-      try {
-        const response = await fetch(`/otp/send?phone=${phone}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        
-        const data = await response.json();
-        
-        if (data.success) {
-          clearOTPInputs();
-          startResendCountdown();
-          showAlert('OTP resent successfully', 'success');
-        } else {
-          showAlert(data.message || 'Failed to resend OTP', 'danger');
-        }
-      } catch (error) {
-        console.error('Error resending OTP:', error);
-        showAlert('Network error. Please try again.', 'danger');
-      }
-    }
-
-    // Update verify button appearance
-    function updateVerifyButton() {
-      const verifyBtn = document.getElementById('verifyBtn');
-      const verifyBtnText = document.getElementById('verifyBtnText');
-      
-      if (isPhoneVerified) {
-        verifyBtn.classList.add('verified');
-        verifyBtn.disabled = true;
-        verifyBtnText.innerHTML = '<i class="bi bi-check-circle me-1"></i>Verified';
-      } else {
-        verifyBtn.classList.remove('verified');
-        verifyBtn.disabled = false;
-        verifyBtnText.textContent = 'Verify';
-      }
-    }
-
-    // Update register button state
-    function updateRegisterButton() {
-      const registerBtn = document.getElementById('registerBtn');
-      registerBtn.disabled = !isPhoneVerified;
-    }
-
-    // Clear OTP inputs
-    function clearOTPInputs() {
-      document.querySelectorAll('.otp-input').forEach(input => {
-        input.value = '';
-      });
-      document.getElementById('otp1').focus();
-    }
-
-    // Start resend countdown
-    function startResendCountdown() {
-      resendCountdown = 60;
-      const resendTimer = document.getElementById('resendTimer');
-      const resendOtpBtn = document.getElementById('resendOtpBtn');
-      
-      resendOtpBtn.disabled = true;
-      
-      countdownInterval = setInterval(() => {
-        resendCountdown--;
-        resendTimer.textContent = `Resend OTP in ${resendCountdown}s`;
-        
-        if (resendCountdown <= 0) {
-          clearInterval(countdownInterval);
-          resendTimer.textContent = 'Did not receive OTP?';
-          resendOtpBtn.disabled = false;
-        }
-      }, 1000);
-    }
-
-    // Handle form submission
-    document.getElementById('signupForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      if (!isPhoneVerified) {
-        showAlert('Please verify your phone number first', 'warning');
-        return;
-      }
-      
-      const formData = new FormData(this);
-      const data = Object.fromEntries(formData.entries());
-      
-      // Validate password match
-    
-      
-      const registerBtn = document.getElementById('registerBtn');
-      const registerBtnText = document.getElementById('registerBtnText');
-      const registerBtnSpinner = document.getElementById('registerBtnSpinner');
-      
-      // Show loading state
-      registerBtn.disabled = true;
-      registerBtnText.classList.add('d-none');
-      registerBtnSpinner.classList.remove('d-none');
-      
-    try {
-  console.log("data.profilePhoto:", data.profilePhoto);
-
-  const formData = new FormData();
-  formData.append('name', data.name);
-  formData.append('district', data.district);
-  formData.append('phone', data.phone);
-  formData.append('address', data.address);
-  formData.append('pincode', data.pincode);
-  formData.append('email', data.email);
-  formData.append('profilePhoto', data.profilePhoto);
-  formData.append('gender', data.gender);
-  formData.append('experience', data.experience);
-  formData.append('age', data.age);
-  formData.append('languages', JSON.stringify(data.languages));
-  formData.append('jobCategory', data.jobCategory);
-
-  const response = await fetch('/registerAsTelecaller', {
-    method: 'POST',
-    body: formData
+    const reader = new FileReader();
+    reader.onload = () => {
+      imagePreview.src = reader.result;
+      cropModal.show();
+    };
+    reader.readAsDataURL(file);
   });
 
-  const result = await response.json();
+  document.getElementById('cropModal').addEventListener('shown.bs.modal', () => {
+    cropper = new Cropper(imagePreview, {
+      aspectRatio: 1,
+      viewMode: 1,
+    });
+  });
 
-  if (result.success) {
-    showAlert('Registration successful! Welcome to TeleTree', 'success');
-    this.reset();
-    isPhoneVerified = false;
-    updateVerifyButton();
-    updateRegisterButton();
-  } else {
-    showAlert(result.message || 'Registration failed. Please try again.', 'danger');
+  document.getElementById('cropModal').addEventListener('hidden.bs.modal', () => {
+    cropper.destroy();
+    cropper = null;
+  });
+
+  document.getElementById('cropBtn').addEventListener('click', () => {
+    const canvas = cropper.getCroppedCanvas({
+      width: 300,
+      height: 300,
+    });
+    const croppedImageData = canvas.toDataURL('image/png');
+    document.getElementById('croppedImageData').value = croppedImageData;
+    cropModal.hide();
+  });
+
+  // Helper function to convert base64 to File object
+  function base64ToFile(base64String, fileName) {
+    // Remove the data URL prefix (e.g., "data:image/png;base64,")
+    const base64Data = base64String.split(',')[1];
+    const mimeType = base64String.match(/data:([^;]+)/)[1];
+    
+    // Convert base64 to binary
+    const byteCharacters = atob(base64Data);
+    const byteNumbers = new Array(byteCharacters.length);
+    
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: mimeType });
+    
+    // Create a File object from the blob
+    return new File([blob], fileName, { type: mimeType });
   }
+</script>
 
-} catch (error) {
-        console.error('Error during registration:', error);
-        showAlert('Network error. Please check your connection and try again.', 'danger');
-      } finally {
-        // Reset button state
-        registerBtn.disabled = !isPhoneVerified;
-        registerBtnText.classList.remove('d-none');
-        registerBtnSpinner.classList.add('d-none');
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Global variables
+  let isPhoneVerified = false;
+  let resendCountdown = 0;
+  let countdownInterval;
+  const otpModal = new bootstrap.Modal(document.getElementById('otpModal'));
+
+  // Form validation
+  document.getElementById('signupForm').addEventListener('input', function(e) {
+    if (e.target.name === 'phone') {
+      // Reset verification status when phone number changes
+      if (isPhoneVerified) {
+        isPhoneVerified = false;
+        updateVerifyButton();
+        updateRegisterButton();
+      }
+    }
+  });
+
+  // OTP input handling
+  document.querySelectorAll('.otp-input').forEach((input, index) => {
+    input.addEventListener('input', function(e) {
+      if (e.target.value.length === 1 && index < 5) {
+        document.getElementById(`otp${index + 2}`).focus();
       }
     });
-
-    // Initialize page
-    document.addEventListener('DOMContentLoaded', function() {
-      updateRegisterButton();
+    
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Backspace' && !e.target.value && index > 0) {
+        document.getElementById(`otp${index}`).focus();
+      }
     });
-  </script>
-</body>
-</html>
+  });
+
+  // Show alert messages
+  function showAlert(message, type = 'info') {
+    const alertContainer = document.getElementById('alertContainer');
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+    alertDiv.innerHTML = `
+      ${message}
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    alertContainer.appendChild(alertDiv);
+    
+    // Auto-dismiss after 5 seconds
+    setTimeout(() => {
+      if (alertDiv.parentNode) {
+        alertDiv.remove();
+      }
+    }, 5000);
+  }
+
+  // Send OTP
+  async function sendOTP() {
+    const phoneInput = document.getElementById('phoneInput');
+    const phone = phoneInput.value.trim();
+    
+    if (!phone || phone.length !== 10) {
+      showAlert('Please enter a valid 10-digit phone number', 'warning');
+      phoneInput.focus();
+      return;
+    }
+    
+    const verifyBtn = document.getElementById('verifyBtn');
+    const verifyBtnText = document.getElementById('verifyBtnText');
+    const verifyBtnSpinner = document.getElementById('verifyBtnSpinner');
+    
+    // Show loading state
+    verifyBtn.disabled = true;
+    verifyBtnText.classList.add('d-none');
+    verifyBtnSpinner.classList.remove('d-none');
+    
+    try {
+      const response = await fetch(`/otp/send?phone=${phone}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // Show OTP modal
+        document.getElementById('otpPhoneNumber').textContent = phone;
+        clearOTPInputs();
+        otpModal.show();
+        startResendCountdown();
+        showAlert('OTP sent successfully to your phone number', 'success');
+      } else {
+        showAlert(data.message || 'Failed to send OTP. Please try again.', 'danger');
+      }
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+      showAlert('Network error. Please check your connection and try again.', 'danger');
+    } finally {
+      // Reset button state
+      verifyBtn.disabled = false;
+      verifyBtnText.classList.remove('d-none');
+      verifyBtnSpinner.classList.add('d-none');
+    }
+  }
+
+  // Verify OTP
+  async function verifyOTP() {
+    const otpInputs = document.querySelectorAll('.otp-input');
+    const otp = Array.from(otpInputs).map(input => input.value).join('');
+    
+    if (otp.length !== 6) {
+      showAlert('Please enter complete 6-digit OTP', 'warning');
+      return;
+    }
+    
+    const phone = document.getElementById('phoneInput').value.trim();
+    const verifyOtpBtn = document.getElementById('verifyOtpBtn');
+    const verifyOtpBtnText = document.getElementById('verifyOtpBtnText');
+    const verifyOtpBtnSpinner = document.getElementById('verifyOtpBtnSpinner');
+    
+    // Show loading state
+    verifyOtpBtn.disabled = true;
+    verifyOtpBtnText.classList.add('d-none');
+    verifyOtpBtnSpinner.classList.remove('d-none');
+    
+    try {
+      const response = await fetch('/otp/verify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          phone: phone,
+          otp: otp
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        isPhoneVerified = true;
+        otpModal.hide();
+        updateVerifyButton();
+        updateRegisterButton();
+        showAlert('Phone number verified successfully!', 'success');
+        clearInterval(countdownInterval);
+      } else {
+        showAlert(data.message || 'Invalid OTP. Please try again.', 'danger');
+        // Clear OTP inputs on failure
+        clearOTPInputs();
+      }
+    } catch (error) {
+      console.error('Error verifying OTP:', error);
+      showAlert('Network error. Please check your connection and try again.', 'danger');
+    } finally {
+      // Reset button state
+      verifyOtpBtn.disabled = false;
+      verifyOtpBtnText.classList.remove('d-none');
+      verifyOtpBtnSpinner.classList.add('d-none');
+    }
+  }
+
+  // Resend OTP
+  async function resendOTP() {
+    const phone = document.getElementById('phoneInput').value.trim();
+    
+    try {
+      const response = await fetch(`/otp/send?phone=${phone}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        clearOTPInputs();
+        startResendCountdown();
+        showAlert('OTP resent successfully', 'success');
+      } else {
+        showAlert(data.message || 'Failed to resend OTP', 'danger');
+      }
+    } catch (error) {
+      console.error('Error resending OTP:', error);
+      showAlert('Network error. Please try again.', 'danger');
+    }
+  }
+
+  // Update verify button appearance
+  function updateVerifyButton() {
+    const verifyBtn = document.getElementById('verifyBtn');
+    const verifyBtnText = document.getElementById('verifyBtnText');
+    
+    if (isPhoneVerified) {
+      verifyBtn.classList.add('verified');
+      verifyBtn.disabled = true;
+      verifyBtnText.innerHTML = '<i class="bi bi-check-circle me-1"></i>Verified';
+    } else {
+      verifyBtn.classList.remove('verified');
+      verifyBtn.disabled = false;
+      verifyBtnText.textContent = 'Verify';
+    }
+  }
+
+  // Update register button state
+  function updateRegisterButton() {
+    const registerBtn = document.getElementById('registerBtn');
+    registerBtn.disabled = !isPhoneVerified;
+  }
+
+  // Clear OTP inputs
+  function clearOTPInputs() {
+    document.querySelectorAll('.otp-input').forEach(input => {
+      input.value = '';
+    });
+    document.getElementById('otp1').focus();
+  }
+
+  // Start resend countdown
+  function startResendCountdown() {
+    resendCountdown = 60;
+    const resendTimer = document.getElementById('resendTimer');
+    const resendOtpBtn = document.getElementById('resendOtpBtn');
+    
+    resendOtpBtn.disabled = true;
+    
+    countdownInterval = setInterval(() => {
+      resendCountdown--;
+      resendTimer.textContent = `Resend OTP in ${resendCountdown}s`;
+      
+      if (resendCountdown <= 0) {
+        clearInterval(countdownInterval);
+        resendTimer.textContent = 'Did not receive OTP?';
+        resendOtpBtn.disabled = false;
+      }
+    }, 1000);
+  }
+
+  // Handle form submission
+  document.getElementById('signupForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    if (!isPhoneVerified) {
+      showAlert('Please verify your phone number first', 'warning');
+      return;
+    }
+    
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
+    
+    const registerBtn = document.getElementById('registerBtn');
+    const registerBtnText = document.getElementById('registerBtnText');
+    const registerBtnSpinner = document.getElementById('registerBtnSpinner');
+    
+    // Show loading state
+    registerBtn.disabled = true;
+    registerBtnText.classList.add('d-none');
+    registerBtnSpinner.classList.remove('d-none');
+    
+    try {
+      console.log("Processing form data...");
+
+      const submitFormData = new FormData();
+      
+      // Add all form fields
+      submitFormData.append('name', data.name || '');
+      submitFormData.append('district', data.district || '');
+      submitFormData.append('phone', data.phone || '');
+      submitFormData.append('address', data.address || '');
+      submitFormData.append('pincode', data.pincode || '');
+      submitFormData.append('email', data.email || '');
+      submitFormData.append('gender', data.gender || '');
+      submitFormData.append('experience', data.experience || '');
+      submitFormData.append('age', data.age || '');
+      submitFormData.append('jobCategory', data.jobCategory || '');
+      
+      // Handle languages array
+      if (data.languages) {
+        submitFormData.append('languages', JSON.stringify(data.languages));
+      }
+      
+      // Handle profile photo - convert base64 to File if exists
+      const croppedImageData = document.getElementById('croppedImageData').value;
+      if (croppedImageData) {
+        console.log("Converting base64 image to file...");
+        const imageFile = base64ToFile(croppedImageData, 'profile-photo.png');
+        submitFormData.append('profilePhoto', imageFile);
+      } else if (profileInput.files[0]) {
+        // If no cropped image but original file exists
+        submitFormData.append('profilePhoto', profileInput.files[0]);
+      }
+
+      const response = await fetch('/registerAsTelecaller', {
+        method: 'POST',
+        body: submitFormData
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        showAlert('Registration successful! Welcome to TeleTree', 'success');
+        this.reset();
+        // Clear cropped image data
+        document.getElementById('croppedImageData').value = '';
+        isPhoneVerified = false;
+        updateVerifyButton();
+        updateRegisterButton();
+      } else {
+        showAlert(result.message || 'Registration failed. Please try again.', 'danger');
+      }
+
+    } catch (error) {
+      console.error('Error during registration:', error);
+      showAlert('Network error. Please check your connection and try again.', 'danger');
+    } finally {
+      // Reset button state
+      registerBtn.disabled = !isPhoneVerified;
+      registerBtnText.classList.remove('d-none');
+      registerBtnSpinner.classList.add('d-none');
+    }
+  });
+
+  // Initialize page
+  document.addEventListener('DOMContentLoaded', function() {
+    updateRegisterButton();
+  });
+</script>
+
+
