@@ -1,7 +1,7 @@
 const OTP = require('../models/otp.model');
 const generateOtp = require('../utils/generateOtp');
 const {sendOtp} = require('../utils/sendOtp');
-
+ 
 const sendOtpToPhone = async (phone) => {
   const otp = generateOtp();
   await OTP.deleteMany({phone});
