@@ -11,8 +11,9 @@ const createPlan = async (req, res) => {
 
 const getAllPlans = async (req, res) => {
   try {
+     const user = req.session.user;
     const plans = await planService.getAllPlans();
-    res.status(200).json({ success: true, data: plans });
+   res.render('pages/plan', { title: 'plan Page',user });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }

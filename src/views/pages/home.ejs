@@ -182,11 +182,11 @@
    <% telecallers.forEach(telecaller => { %>
   <div class="col-12 col-sm-6 col-lg-3">
     <div class="profile-card">
-      <img src="/uploads/profilephotos/<%= telecaller.profilePhoto %>" alt="<%= telecaller.name %>" class="img-fluid">
+      <img src="uploads/profilephotos/<%= telecaller.profilePhoto %>" alt="<%= telecaller.name %>" class="img-fluid">
       <div class="profile-info d-flex align-items-center">
         <div class="text-start">
           <div class="profile-name"><%= telecaller.name.toUpperCase() %></div>
-          <div class="location"><i class="bi bi-geo-alt"></i> <%= telecaller.location || "Unknown" %></div>
+          <div class="location"><i class="bi bi-geo-alt"></i> <%= telecaller.address || "Unknown" %></div>
         </div>
         <a href="tel:+91<%= telecaller.phone %>" class="call-icon ms-auto">
           <i class="bi bi-telephone"></i>

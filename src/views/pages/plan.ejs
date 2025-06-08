@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<%- include('../partials/header') %>
+
+<nav class="flex items-center justify-between p-4 shadow-md">
+    <!-- Logo and Tagline -->
+    <div class="flex items-center space-x-2">
+      <img src="your-logo.png" alt="Logo" class="h-12 w-12" />
+      <div>
+        <h1 class="text-lg font-bold text-green-500 flex items-center">
+          Tele Tree
+          <span class="ml-1 text-green-500">✨</span>
+        </h1>
+        <p class="text-sm text-gray-400">For a helping hand</p>
+      </div>
+    </div>
+
+    <!-- Navigation Links -->
+    <div class="hidden md:flex space-x-8 text-gray-700 font-medium">
+      <a href="#" class="text-green-900">Home</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a href="#">Categories</a>
+      <a href="#">Pricing</a>
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex items-center space-x-3">
+      <button class="bg-blue-50 text-green-900 font-semibold px-4 py-2 rounded-md">
+        Register as Maid
+      </button>
+        <% if (user) { %>
+      <!-- Show profile icon if user is logged in -->
+   
+         <a href="/profile">
+          <i class="fas fa-user-circle fa-xl"></i>
+        </a>
+      
+    <% } else { %>
+       <button class="bg-green-500 text-white font-semibold px-4 py-2 rounded-md flex items-center space-x-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12H3m0 0l4-4m-4 4l4 4m13-4a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>User Login</span>
+      </button>
+    <% } %>
+     
+    </div>
+  </nav>
+
+  <div class="container mx-auto px-4 py-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <!-- Standard Plan -->
+      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-4xl font-bold text-blue-900">₹3000</h2>
+          <span class="text-blue-900 font-medium">/ 10 days</span>
+        </div>
+        <h3 class="text-orange-600 font-semibold mb-2">Standard Plan</h3>
+        <p class="text-lg font-semibold text-blue-900 mb-2">Save up to 20% compared to one-time bookings.</p>
+        <p class="text-gray-600 mb-4">Ideal for regular assistance, providing more flexibility and priority access to our skilled professionals.</p>
+        <ul class="text-gray-700 space-y-2 mb-6">
+          <li>🔹 Access 10 numbers</li>
+          <li>🔹 Access available for 10 days</li>
+        </ul>
+        <button class="w-full bg-blue-900 text-white font-semibold py-2 rounded-lg hover:bg-blue-800">Plan Details</button>
+      </div>
+
+      <!-- Premium Plan -->
+      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-4xl font-bold text-blue-900">₹4000</h2>
+          <span class="text-blue-900 font-medium">/ 15 days</span>
+        </div>
+        <h3 class="text-orange-600 font-semibold mb-2">Premium Plan</h3>
+        <p class="text-lg font-semibold text-blue-900 mb-2">Save up to 30% compared to one-time bookings.</p>
+        <p class="text-gray-600 mb-4">Designed for households needing frequent support, with unlimited bookings, premium services, and exclusive benefits.</p>
+        <ul class="text-gray-700 space-y-2 mb-6">
+          <li>🔹 Access 15 numbers</li>
+          <li>🔹 Access available for 15 days</li>
+        </ul>
+        <button class="w-full bg-blue-900 text-white font-semibold py-2 rounded-lg hover:bg-blue-800">Plan Details</button>
+      </div>
+
+      <!-- VIP Plan -->
+      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-4xl font-bold text-blue-900">₹5000</h2>
+          <span class="text-blue-900 font-medium">/ 20 days</span>
+        </div>
+        <h3 class="text-orange-600 font-semibold mb-2">VIP Plan</h3>
+        <p class="text-lg font-semibold text-blue-900 mb-2">Save up to 40% compared to one-time bookings.</p>
+        <p class="text-gray-600 mb-4">Designed for households needing frequent support, with unlimited bookings, premium services, and exclusive benefits.</p>
+        <ul class="text-gray-700 space-y-2 mb-6">
+          <li>🔹 Access 20 numbers</li>
+          <li>🔹 Access available for 20 days</li>
+        </ul>
+        <button class="w-full bg-blue-900 text-white font-semibold py-2 rounded-lg hover:bg-blue-800">Plan Details</button>
+      </div>
+
+    </div>
+  </div>
+
+ 
+ <footer class="footer position-relative mt-5">
+    <div class="container">
+      <div class="row gy-4">
+        <!-- Logo + Social -->
+        <div class="col-12 col-sm-6 col-lg-3">
+          <img src="logo.png" alt="Logo" class="mb-2" style="max-width: 150px;">
+          <h6 class="mt-3">Follow Us</h6>
+          <div class="social-icons mb-3 mt-3">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+          <p style="font-size: 14px;">
+            We connect you with reliable, pre-verified maids to simplify your household needs.
+          </p>
+        </div>
+
+      <!-- Quick Links -->
+        <div class="col-12 col-sm-6 col-lg-3">
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Categories</a></li>
+          <li><a href="#">Register as Maid</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+          <div class="col-12 col-sm-6 col-lg-3">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Cancellation and Refund</a></li>
+          <li><a href="#">Shipping and Delivery</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+          <div class="col-12 col-sm-6 col-lg-3">
+        <h5>Official Info</h5>
+        <p class="mb-2">BELLUCCIYA MARKETING AND MANAGEMENT PRIVATE LIMITED<br>
+          Metro Pillar No. 75, Maniyatt Building,<br>
+          Near Pulinchodu Metro Station, Aluva, Ernakulam, KERALA, PIN : 683106
+        </p>
+        <p><i class="bi bi-telephone me-2"></i>9400438406</p>
+        <p><i class="bi bi-envelope me-2"></i>jeemonwishes@gmail.com</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WhatsApp Floating Icon -->
+  <a href="https://wa.me/919400438406" class="whatsapp-float">
+    <i class="bi bi-whatsapp"></i>
+  </a>
+</footer>
+<%- include('../partials/footer') %>

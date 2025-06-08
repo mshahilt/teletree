@@ -1,4 +1,4 @@
-const SubscriptionRepository = require('../repositories/subscription.repository');
+// const SubscriptionRepository = require('../repositories/subscription.repository');
 const PlanRepository = require('../repositories/plan.repository');
 
 class SubscriptionService {
