@@ -9,16 +9,24 @@ const createPlan = async (req, res) => {
   }
 };
 
-const getAllPlans = async (req, res) => {
+const renderPlanPage = async (req, res) => {
   try {
      const user = req.session.user;
     const plans = await planService.getAllPlans();
-   res.render('pages/plan', { title: 'plan Page',user });
+    res.render('pages/plan', { title: 'plan Page',user, plans });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
 };
 
+const getAllPlans = async (req, res) => {
+  try {
+    const plans = await planService.getAllPlans();
+    res.status(200).json({ success: true, data: plans });
+  } catch (error) {
+    res.status(404).json({ success: false, message: error.message });
+  }
+}
 const getPlanById = async (req, res) => {
   try {
     const plan = await planService.getPlanById(req.params.id);
@@ -52,4 +60,5 @@ module.exports = {
   getPlanById,
   updatePlan,
   deletePlan,
+  renderPlanPage
 };

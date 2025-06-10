@@ -8,7 +8,9 @@ const planController = require('../controllers/plan.controller');
 router.post('/', planController.createPlan);
 
 // Get all plans
-router.get('/', planController.getAllPlans);
+router.get('/', planController.renderPlanPage);
+
+router.get('/all', planController.getAllPlans);
 
 // Get a specific plan by ID
 router.get('/:id', planController.getPlanById);

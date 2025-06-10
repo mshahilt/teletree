@@ -1,22 +1,56 @@
-// const SubscriptionRepository = require('../repositories/subscription.repository');
+const SubscriptionRepository = require('../repositories/subscription.respository');
 const PlanRepository = require('../repositories/plan.repository');
+const verifyRazorpaySignature = require('../utils/verifySignature');
 
 class SubscriptionService {
-  async createSubscription({ userId, planId }) {
+  async createSubscription({userId, planId, razorpayOrderId }) {
+    console.log("user id :", userId);
     const plan = await PlanRepository.getPlanById(planId);
-    if (!plan) {
-      throw new Error('Invalid plan selected');
-    }
-
-    const subscriptionData = {
-      userId,
-      planId,
-      benefits: plan.benefits,
-      numberOfUsagesLeft: plan.numberOfAllowedUsages,
-    };
-
-    return await SubscriptionRepository.createSubscription(subscriptionData);
+  if (!plan) {
+    throw new Error('Invalid plan selected');
   }
+
+  const subscriptionData = {
+    userId,
+    planId,
+    benefits: plan.benefits,
+    numberOfUsagesLeft: plan.numberOfAllowedUsages,
+    razorpayOrderId: razorpayOrderId,
+    status: 'created',
+    verified: false
+  };
+
+  return await SubscriptionRepository.createSubscription(subscriptionData);
+  }
+
+  
+async verifyPayment({ orderId, paymentId, signature }) {
+  const isValid = verifyRazorpaySignature(
+    orderId,
+    paymentId,
+    signature,
+    process.env.RAZORPAYKEYSECRET
+  );
+
+  if (!isValid) {
+    throw new Error('Invalid Razorpay signature');
+  }
+
+  const updateData = {
+    razorpayPaymentId: paymentId,
+    razorpaySignature: signature,
+    status: 'paid',
+    verified: true
+  };
+
+  const updatedSubscription = await SubscriptionRepository.updateSubscriptionByOrderId(orderId, updateData);
+
+  if (!updatedSubscription) {
+    throw new Error('Subscription not found for this Razorpay order ID');
+  }
+
+  return updatedSubscription;
+}
 
   async getAllSubscriptions(filter = {}, projection = null, options = {}) {
     return await SubscriptionRepository.getAllSubscriptions(filter, projection, options);

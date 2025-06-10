@@ -4,7 +4,8 @@ const subscriptionController = require('../controllers/subscription.controller')
 
 // Create a new subscription
 router.post('/', subscriptionController.createSubscription);
-
+router.post('/create-order', subscriptionController.createRazorPayOrder);
+router.post('/verify-payment', subscriptionController.verifyRazorPayPayment);
 // Get all subscriptions
 router.get('/', subscriptionController.getAllSubscriptions);
 

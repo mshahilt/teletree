@@ -38,7 +38,13 @@ class SubscriptionRepository {
       throw new Error(`Error fetching subscriptions for user: ${error.message}`);
     }
   }
-
+  async updateSubscriptionByOrderId(orderId, updateData) {
+      return await Subscription.findOneAndUpdate(
+        { razorpayOrderId: orderId },
+        updateData,
+        { new: true }
+      );
+  }
   async updateSubscription(id, updateData) {
     try {
       return await Subscription.findByIdAndUpdate(id, updateData, {

@@ -15,13 +15,35 @@ const SubscriptionSchema = new mongoose.Schema({
         type: [String],
         default: []
     },
+    verified: {
+        type: Boolean,
+        default: false
+    },
     numberOfUsagesLeft: {
         type: Number,
         required: true,
         min: 0
+    },
+    razorpayOrderId: {
+        type: String,
+        required: true
+    },
+    razorpayPaymentId: {
+        type: String
+    },
+    razorpaySignature: {
+        type: String
+    },
+    status: {
+        type: String,
+        enum: ['created', 'paid', 'failed'],
+        default: 'created'
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
-}, {
-    timestamps: true
 });
+
 
 module.exports = mongoose.model('Subscription', SubscriptionSchema);
