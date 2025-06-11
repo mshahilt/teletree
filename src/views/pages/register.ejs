@@ -3,22 +3,220 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Register Form</title>
+  <title>Register Form - Maids Hands 4U</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <link r<<<<<<< HEAD
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-=======
->>>>>>> 7c93782a7322920fbe3f7d9ec7a8e37d45b77b92
   <style>
+    :root {
+      --primary-blue: #1e40af;
+      --primary-green: #10b981;
+      --light-blue: #dbeafe;
+      --light-green: #d1fae5;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      min-height: 100vh;
+    }
+
+    .navbar-custom {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 2.5rem;
+      margin: 2rem auto;
+      max-width: 1000px;
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+      border-radius: 20px;
+      height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="25" cy="75" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="25" r="2.5" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+      animation: float 20s infinite linear;
+    }
+
+    @keyframes float {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .hero-banner h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin: 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-control, .form-select {
+      border-radius: 12px;
+      border: 2px solid #e5e7eb;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 0.25rem rgba(30, 64, 175, 0.1);
+      background: rgba(255, 255, 255, 1);
+    }
+
+    .form-control:disabled, .form-select:disabled {
+      background: rgba(248, 250, 252, 0.8);
+      color: #6b7280;
+      border-color: #d1d5db;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .register-btn {
+      background: linear-gradient(135deg, var(--primary-blue), var(--primary-green));
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 1rem 3rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 30px rgba(30, 64, 175, 0.3);
+    }
+
+    .register-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(30, 64, 175, 0.4);
+    }
+
+    .register-btn:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #ffffff;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .alert {
+      border-radius: 12px;
+      border: none;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1.5rem;
+    }
+
+    .info-badge {
+      background: linear-gradient(135deg, #e0f2fe, #b3e5fc);
+      color: #0277bd;
+      padding: 1.25rem 1.5rem;
+      border-radius: 16px;
+      border-left: 4px solid #0288d1;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 15px rgba(2, 136, 209, 0.1);
+    }
+
+    .photo-upload-container {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .photo-preview {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid var(--primary-blue);
+      object-fit: cover;
+      margin: 1rem auto;
+      display: block;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .photo-upload-label {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--light-blue), #bfdbfe);
+      color: var(--primary-blue);
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      border: 2px dashed var(--primary-blue);
+    }
+
+    .photo-upload-label:hover {
+      background: linear-gradient(135deg, #dbeafe, #93c5fd);
+      transform: translateY(-1px);
+    }
+
+    .crop-container {
+      max-height: 400px;
+      margin: 1rem 0;
+    }
+
+    .modal-content {
+      border-radius: 20px;
+      border: none;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15);
+    }
+
+    .modal-header {
+      border-bottom: 1px solid #e5e7eb;
+      border-radius: 20px 20px 0 0;
+      background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    }
+
     .footer {
-      background-color: #1e1e1e;
+      background: linear-gradient(135deg, #1e293b, #334155);
       color: #fff;
       padding: 40px 20px;
       border-radius: 20px 20px 0 0;
+      margin-top: 4rem;
     }
 
     .footer h5 {
@@ -36,836 +234,661 @@
     }
 
     .footer ul li a {
-      color: #fff;
+      color: #cbd5e1;
       text-decoration: none;
+      transition: color 0.3s ease;
     }
 
     .footer ul li a:hover {
-      text-decoration: underline;
+      color: #ffffff;
     }
 
     .social-icons a {
       display: inline-block;
-      width: 40px;
-      height: 40px;
-      border: 1px solid #fff;
+      width: 45px;
+      height: 45px;
+      border: 2px solid #475569;
       border-radius: 50%;
-      color: #fff;
+      color: #cbd5e1;
       text-align: center;
-      line-height: 40px;
+      line-height: 41px;
       margin-right: 10px;
       font-size: 18px;
-    }
-
-    .whatsapp-float {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      background-color: #25d366;
-      color: white;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-    }
-
-    .about-banner {
-      background-image: url('dummy-image.webp');
-      background-size: cover;
-      background-position: center;
-      border-radius: 20px;
-      height: 300px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-    }
-
-    .about-banner h2 {
-      font-size: 2.5rem;
-      font-weight: bold;
-      margin: 0;
-    }
-
-    @media (max-width: 768px) {
-      .about-banner h2 {
-        font-size: 1.8rem;
-      }
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fff;
-    }
-
-    .form-control, .form-select {
-      border-radius: 10px;
-    }
-
-    .form-label {
-      font-weight: 600;
-    }
-
-    .reg-btn {
-      background-color: #1abe59;
-      color: white;
-    }
-
-    .reg-btn:disabled {
-      background-color: #adb5bd;
-      cursor: not-allowed;
-    }
-
-    .verify-btn {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 8px 16px;
       transition: all 0.3s ease;
     }
 
-    .verify-btn:hover:not(:disabled) {
-      background-color: #0056b3;
+    .social-icons a:hover {
+      border-color: var(--primary-green);
+      color: var(--primary-green);
+      transform: translateY(-2px);
     }
 
-    .verify-btn:disabled {
-      background-color: #adb5bd;
-      cursor: not-allowed;
-    }
-
-    .verify-btn.verified {
-      background-color: #28a745;
-    }
-
-    .signup-form {
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 30px;
-    }
-
-    .loading-spinner {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      border: 2px solid #ffffff;
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: white;
       border-radius: 50%;
-      border-top-color: transparent;
-      animation: spin 1s ease-in-out infinite;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+      transition: all 0.3s ease;
+      z-index: 1000;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
     }
 
-    .alert {
-      border-radius: 10px;
-      margin-bottom: 1rem;
+    @media (max-width: 768px) {
+      .hero-banner h1 {
+        font-size: 2rem;
+      }
+      .form-container {
+        padding: 1.5rem;
+        margin: 1rem;
+      }
     }
 
-    .otp-input {
-      width: 50px;
-      height: 50px;
-      text-align: center;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border: 2px solid #dee2e6;
-      border-radius: 8px;
-      margin: 0 5px;
+    .fade-in {
+      animation: fadeIn 0.6s ease-out;
     }
 
-    .otp-input:focus {
-      border-color: #007bff;
-      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    }
-
-    .countdown {
-      font-size: 0.9rem;
-      color: #6c757d;
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 <body>
-  <nav class="flex items-center justify-between p-4 shadow-md">
+  <nav class="navbar-custom flex items-center justify-between p-4">
     <!-- Logo and Tagline -->
-    <div class="flex items-center space-x-2">
-      <img src="your-logo.png" alt="Logo" class="h-12 w-12" />
+    <div class="flex items-center space-x-3">
+      <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-green-500 rounded-full flex items-center justify-center">
+        <i class="bi bi-house-heart text-white text-xl"></i>
+      </div>
       <div>
-        <h1 class="text-lg font-bold text-blue-900 flex items-center">
+        <h1 class="text-xl font-bold text-blue-900 flex items-center">
           Maids Hands 4U
-          <span class="ml-1 text-blue-500">✨</span>
+          <span class="ml-2 text-green-500">✨</span>
         </h1>
-        <p class="text-sm text-gray-400">For a helping hand</p>
+        <p class="text-sm text-gray-500">For a helping hand</p>
       </div>
     </div>
 
     <!-- Navigation Links -->
     <div class="hidden md:flex space-x-8 text-gray-700 font-medium">
-      <a href="#">Home</a>
+      <a href="#" class="hover:text-blue-900 transition-colors">Home</a>
       <a href="#" class="text-blue-900">About</a>
-      <a href="#">Contact</a>
-      <a href="#">Categories</a>
-      <a href="#">Pricing</a>
+      <a href="#" class="hover:text-blue-900 transition-colors">Contact</a>
+      <a href="#" class="hover:text-blue-900 transition-colors">Categories</a>
+      <a href="#" class="hover:text-blue-900 transition-colors">Pricing</a>
     </div>
 
     <!-- Buttons -->
     <div class="flex items-center space-x-3">
-      <button class="bg-blue-50 text-blue-900 font-semibold px-4 py-2 rounded-md">
+      <button class="bg-blue-50 text-blue-900 font-semibold px-5 py-2.5 rounded-lg hover:bg-blue-100 transition-colors">
         Register as Maid
       </button>
-      <button class="bg-blue-900 text-white font-semibold px-4 py-2 rounded-md flex items-center space-x-1">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15 12H3m0 0l4-4m-4 4l4 4m13-4a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
+      <button class="bg-gradient-to-r from-blue-900 to-blue-800 text-white font-semibold px-5 py-2.5 rounded-lg flex items-center space-x-2 hover:shadow-lg transition-all">
+        <i class="bi bi-box-arrow-in-right"></i>
         <span>User Login</span>
       </button>
     </div>
   </nav>
   
   <div class="container my-5">
-    <div class="about-banner">
-      <h2>Register</h2>
+    <div class="hero-banner fade-in">
+      <h1>Register as Maid</h1>
     </div>
   </div>
 
-  <div class="container signup-form">
-    <h2 class="mb-4 text-center fw-bold">Register Form</h2>
+  <div class="form-container fade-in">
+    <div class="text-center mb-4">
+      <h2 class="fw-bold text-gray-800" style="font-size: 2rem;">Join Our Team</h2>
+      <p class="text-gray-600 mt-2">Create your professional profile to connect with families</p>
+    </div>
+    
+    <!-- Info Badge -->
+    <div class="info-badge">
+      <i class="bi bi-info-circle me-2"></i>
+      <strong>Note:</strong> Basic details like name, phone, email, and address have been fetched from your profile. Please verify and provide the additional information below.
+    </div>
     
     <!-- Alert Messages -->
     <div id="alertContainer"></div>
     
-   <form id="signupForm" enctype="multipart/form-data">
-  <div class="row g-3">
-    <!-- Name -->
-    <div class="col-md-6">
-      <label class="form-label">Name <span class="text-danger">*</span></label>
-      <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
-    </div>
+    <form id="signupForm" enctype="multipart/form-data">
+      <div class="row g-4">
+        <!-- Profile Photo Upload -->
+        <div class="col-12 text-center mb-4">
+          <div class="photo-upload-container">
+            <img id="photoPreview" class="photo-preview d-none" alt="Profile Preview">
+            <div id="photoPlaceholder" class="photo-preview bg-light d-flex align-items-center justify-content-center">
+              <i class="bi bi-person-circle text-muted" style="font-size: 3rem;"></i>
+            </div>
+            <div class="mt-3">
+              <input type="file" id="profileInput" class="d-none" accept="image/*" required>
+              <label for="profileInput" class="photo-upload-label">
+                <i class="bi bi-camera me-2"></i>
+                Upload Profile Photo
+              </label>
+              <input type="hidden" name="profilePhoto" id="croppedImageData">
+            </div>
+            <p class="text-muted mt-2 small">
+              <i class="bi bi-info-circle me-1"></i>
+              Upload a clear photo for better profile visibility
+            </p>
+          </div>
+        </div>
 
-    <!-- District -->
-    <div class="col-md-6">
-      <label class="form-label">District <span class="text-danger">*</span></label>
-      <select name="district" class="form-select" required>
-        <option value="">Select District</option>
-        <option>District 1</option>
-        <option>District 2</option>
-        <option>District 3</option>
-      </select>
-    </div>
+        <!-- Fetched fields -->
+        <div class="col-md-6">
+          <label class="form-label">
+            <i class="bi bi-person me-2"></i>
+            Name <span class="text-danger">*</span>
+          </label>
+          <input type="text" name="name" class="form-control" placeholder="Loading..." required>
+        </div>
 
-    <!-- Phone -->
-    <div class="col-md-6">
-      <label class="form-label">Phone No. <span class="text-danger">*</span></label>
-      <div class="input-group">
-        <span class="input-group-text">+91</span>
-        <input type="tel" name="phone" id="phoneInput" class="form-control" placeholder="Enter your phone number" required maxlength="10">
-        <button class="verify-btn ms-2" type="button" id="verifyBtn" onclick="sendOTP()">
-          <span id="verifyBtnText">Verify</span>
-          <span id="verifyBtnSpinner" class="loading-spinner d-none"></span>
+        <div class="col-md-6">
+          <label class="form-label">
+            <i class="bi bi-telephone me-2"></i>
+            Phone Number <span class="text-danger">*</span>
+          </label>
+          <input type="text" name="phone" class="form-control" placeholder="Loading..." required>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">
+            <i class="bi bi-envelope me-2"></i>
+            Email <span class="text-danger">*</span>
+          </label>
+          <input type="email" name="email" class="form-control" placeholder="Loading..." required>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">
+            <i class="bi bi-geo-alt me-2"></i>
+            Address <span class="text-danger">*</span>
+          </label>
+          <input type="text" name="address" class="form-control" placeholder="Loading..." required>
+        </div>
+
+        <!-- Gender Selection -->
+        <div class="col-md-6">
+          <label class="form-label">
+            <i class="bi bi-gender-ambiguous me-2"></i>
+            Gender <span class="text-danger">*</span>
+          </label>
+          <select name="gender" class="form-select" required>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <!-- Age -->
+        <div class="col-md-6">
+          <label class="form-label">
+            <i class="bi bi-calendar me-2"></i>
+            Age <span class="text-danger">*</span>
+          </label>
+          <input type="number" name="age" class="form-control" min="18" max="100" placeholder="Enter your age" required>
+        </div>
+
+        <!-- Experience -->
+        <div class="col-md-6">
+          <label class="form-label">
+            <i class="bi bi-award me-2"></i>
+            Experience (Years) <span class="text-danger">*</span>
+          </label>
+          <input type="number" name="experience" class="form-control" min="0" max="50" placeholder="Years of experience" required>
+        </div>
+
+        <!-- Languages -->
+        <div class="col-md-6">
+          <label class="form-label">
+            <i class="bi bi-translate me-2"></i>
+            Languages Known <span class="text-danger">*</span>
+          </label>
+          <input type="text" name="languages" class="form-control" placeholder="e.g. English, Hindi, Arabic" required>
+        </div>
+
+        <!-- Job Category -->
+        <div class="col-12">
+          <label class="form-label">
+            <i class="bi bi-briefcase me-2"></i>
+            Job Category <span class="text-danger">*</span>
+          </label>
+          <select name="jobCategory" class="form-select" required>
+            <option value="">Select Your Specialty</option>
+            <option value="Housekeeping">🏠 Housekeeping</option>
+            <option value="Cooking">🍳 Cooking</option>
+            <option value="Cleaning">🧹 Cleaning</option>
+            <option value="Babysitting">👶 Babysitting</option>
+            <option value="Elderly Care">👴 Elderly Care</option>
+            <option value="Laundry">👕 Laundry</option>
+            <option value="General Maid">✨ General Maid</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mt-5 text-center">
+        <button type="submit" id="registerBtn" class="register-btn">
+          <span id="registerBtnText">Create My Profile</span>
+          <span id="registerBtnSpinner" class="loading-spinner d-none ms-2"></span>
         </button>
+        <p class="mt-3 text-muted small">
+          <i class="bi bi-shield-check me-1"></i>
+          Your information is secure and will be verified before activation
+        </p>
       </div>
-    </div>
-
-    <!-- Address -->
-    <div class="col-md-6">
-      <label class="form-label">Address <span class="text-danger">*</span></label>
-      <textarea name="address" class="form-control" rows="3" placeholder="Enter your address" required></textarea>
-    </div>
-
-    <!-- Pincode -->
-    <div class="col-md-6">
-      <label class="form-label">Pincode <span class="text-danger">*</span></label>
-      <input type="text" name="pincode" class="form-control" placeholder="Enter your pincode" required maxlength="6">
-    </div>
-
-    <!-- Email -->
-    <div class="col-md-6">
-      <label class="form-label">Email Address <span class="text-danger">*</span></label>
-      <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
-    </div>
-
-   
-
-    <!-- Profile Photo Upload -->
-  <div class="col-md-6">
-  <label class="form-label">Profile Photo <span class="text-danger">*</span></label>
-  <input type="file" id="profileInput" class="form-control" accept="image/*" required>
-  <input type="hidden" name="profilePhoto" id="croppedImageData"> <!-- Hidden field to store base64 -->
-</div>
-
-    <!-- Gender Selection -->
-    <div class="col-md-6">
-      <label class="form-label">Gender <span class="text-danger">*</span></label>
-      <select name="gender" class="form-select" required>
-        <option value="">Select Gender</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
-      </select>
-    </div>
-
-    <!-- Age -->
-    <div class="col-md-6">
-      <label class="form-label">Age <span class="text-danger">*</span></label>
-      <input type="number" name="age" class="form-control" min="18" max="100" placeholder="Enter your age" required>
-    </div>
-
-    <!-- Experience -->
-    <div class="col-md-6">
-      <label class="form-label">Experience (Years) <span class="text-danger">*</span></label>
-      <input type="number" name="experience" class="form-control" min="0" max="50" placeholder="Enter your experience in years" required>
-    </div>
-
-    <!-- Languages -->
-    <div class="col-md-6">
-      <label class="form-label">Languages Known <span class="text-danger">*</span></label>
-      <input type="text" name="languages" class="form-control" placeholder="e.g. English, Hindi, Arabic" required>
-    </div>
-
-    <!-- Job Category -->
-    <div class="col-md-6">
-      <label class="form-label">Job Category <span class="text-danger">*</span></label>
-      <select name="jobCategory" class="form-select" required>
-        <option value="">Select Job Category</option>
-        <option value="IT">IT</option>
-        <option value="Sales">Sales</option>
-        <option value="Marketing">Marketing</option>
-        <option value="Healthcare">Healthcare</option>
-        <option value="Education">Education</option>
-        <option value="Construction">Construction</option>
-      </select>
-    </div>
+    </form>
   </div>
 
-  <div class="mt-4 text-center">
-    <button type="submit" id="registerBtn" class="reg-btn btn px-4 py-2 rounded-pill" disabled>
-      <span id="registerBtnText">Register</span>
-      <span id="registerBtnSpinner" class="loading-spinner d-none"></span>
-    </button>
-    <p class="mt-2 text-muted small">
-      <i class="bi bi-info-circle me-1"></i>
-      Please verify your phone number to enable registration
-    </p>
-  </div>
-</form>
-
-  </div>
-
-  <footer class="footer position-relative mt-5">
-    <div class="container">
-      <div class="row gy-4">
-        <!-- Logo + Social -->
-        <div class="col-12 col-sm-6 col-lg-3">
-          <img src="logo.png" alt="Logo" class="mb-2" style="max-width: 150px;">
-          <h6 class="mt-3">Follow Us</h6>
-          <div class="social-icons mb-3 mt-3">
-            <a href="#"><i class="bi bi-facebook"></i></a>
-            <a href="#"><i class="bi bi-instagram"></i></a>
-            <a href="#"><i class="bi bi-linkedin"></i></a>
+  <!-- Crop Modal -->
+  <div class="modal fade" id="cropModal" tabindex="-1" aria-labelledby="cropModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">
+            <i class="bi bi-crop me-2"></i>
+            Crop Your Profile Photo
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="crop-container">
+            <img id="imagePreview" style="max-width: 100%; display: block;">
           </div>
-          <p style="font-size: 14px;">
-            We connect you with reliable, pre-verified maids to simplify your household needs.
-          </p>
-        </div>
-
-        <!-- Quick Links -->
-        <div class="col-12 col-sm-6 col-lg-3">
-          <h5>Quick Links</h5>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Categories</a></li>
-            <li><a href="#">Register as Maid</a></li>
-          </ul>
-        </div>
-
-        <!-- Legal -->
-        <div class="col-12 col-sm-6 col-lg-3">
-          <h5>Legal</h5>
-          <ul>
-            <li><a href="#">Terms & Conditions</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Cancellation and Refund</a></li>
-            <li><a href="#">Shipping and Delivery</a></li>
-          </ul>
-        </div>
-
-        <!-- Contact Info -->
-        <div class="col-12 col-sm-6 col-lg-3">
-          <h5>Official Info</h5>
-          <p class="mb-2">BELLUCCIYA MARKETING AND MANAGEMENT PRIVATE LIMITED<br>
-            Metro Pillar No. 75, Maniyatt Building,<br>
-            Near Pulinchodu Metro Station, Aluva, Ernakulam, KERALA, PIN : 683106
-          </p>
-          <p><i class="bi bi-telephone me-2"></i>9400438406</p>
-          <p><i class="bi bi-envelope me-2"></i>jeemonwishes@gmail.com</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- WhatsApp Floating Icon -->
-    <a href="https://wa.me/919400438406" class="whatsapp-float">
-      <i class="bi bi-whatsapp"></i>
-    </a>
-  </footer>
-
-  <!-- OTP Verification Modal -->
-  <div class="modal fade" id="otpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content rounded-3">
-        <div class="modal-header border-0 pb-0">
-          <h5 class="modal-title" id="otpModalLabel">OTP Verification</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body pt-2">
-          <p class="text-center mb-3">
-            Please enter the 6-digit OTP sent to<br>
-            <strong>+91 <span id="otpPhoneNumber"></span></strong>
-          </p>
-          
-          <div class="d-flex justify-content-center mb-3">
-            <input type="text" class="otp-input" maxlength="1" id="otp1">
-            <input type="text" class="otp-input" maxlength="1" id="otp2">
-            <input type="text" class="otp-input" maxlength="1" id="otp3">
-            <input type="text" class="otp-input" maxlength="1" id="otp4">
-            <input type="text" class="otp-input" maxlength="1" id="otp5">
-            <input type="text" class="otp-input" maxlength="1" id="otp6">
+          <div class="text-center mt-3">
+            <p class="text-muted mb-0">
+              <i class="bi bi-info-circle me-1"></i>
+              Drag to reposition and use the corners to resize
+            </p>
           </div>
-          
-          <div class="text-center mb-3">
-            <span class="countdown" id="resendTimer">Resend OTP in 60s</span>
-          </div>
-          
-          <button type="button" class="btn btn-success w-100 mb-2" id="verifyOtpBtn" onclick="verifyOTP()">
-            <span id="verifyOtpBtnText">Verify OTP</span>
-            <span id="verifyOtpBtnSpinner" class="loading-spinner d-none"></span>
-          </button>
-          
-          <button type="button" class="btn btn-outline-primary w-100" id="resendOtpBtn" onclick="resendOTP()" disabled>
-            Resend OTP
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" id="cropBtn" class="btn btn-primary">
+            <i class="bi bi-check2 me-2"></i>
+            Apply Crop
           </button>
         </div>
       </div>
     </div>
   </div>
 
-<!-- Crop Modal -->
-<div class="modal fade" id="cropModal" tabindex="-1" aria-labelledby="cropModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Crop Profile Photo</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body text-center">
-        <img id="imagePreview" style="max-width: 100%;">
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="cropBtn" class="btn btn-primary">Crop</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  let cropper;
-  const profileInput = document.getElementById('profileInput');
-  const imagePreview = document.getElementById('imagePreview');
-  const cropModal = new bootstrap.Modal(document.getElementById('cropModal'));
-
-  profileInput.addEventListener('change', (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      imagePreview.src = reader.result;
-      cropModal.show();
-    };
-    reader.readAsDataURL(file);
-  });
-
-  document.getElementById('cropModal').addEventListener('shown.bs.modal', () => {
-    cropper = new Cropper(imagePreview, {
-      aspectRatio: 1,
-      viewMode: 1,
-    });
-  });
-
-  document.getElementById('cropModal').addEventListener('hidden.bs.modal', () => {
-    cropper.destroy();
-    cropper = null;
-  });
-
-  document.getElementById('cropBtn').addEventListener('click', () => {
-    const canvas = cropper.getCroppedCanvas({
-      width: 300,
-      height: 300,
-    });
-    const croppedImageData = canvas.toDataURL('image/png');
-    document.getElementById('croppedImageData').value = croppedImageData;
-    cropModal.hide();
-  });
-
-  // Helper function to convert base64 to File object
-  function base64ToFile(base64String, fileName) {
-    // Remove the data URL prefix (e.g., "data:image/png;base64,")
-    const base64Data = base64String.split(',')[1];
-    const mimeType = base64String.match(/data:([^;]+)/)[1];
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let cropper;
+    const profileInput = document.getElementById('profileInput');
+    const imagePreview = document.getElementById('imagePreview');
+    const photoPreview = document.getElementById('photoPreview');
+    const photoPlaceholder = document.getElementById('photoPlaceholder');
+    const cropModal = new bootstrap.Modal(document.getElementById('cropModal'));
     
-    // Convert base64 to binary
-    const byteCharacters = atob(base64Data);
-    const byteNumbers = new Array(byteCharacters.length);
-    
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    // Load user profile data
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const response = await fetch('/getMe', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch profile data');
+        }
+
+        const data = await response.json();
+        const thisUser = data.thisUser;
+
+        // Populate form fields
+        document.querySelector('input[name="name"]').value = thisUser.name || '';
+        document.querySelector('input[name="phone"]').value = thisUser.phone || '';
+        document.querySelector('input[name="email"]').value = thisUser.email || '';
+        document.querySelector('input[name="address"]').value = thisUser.address || '';
+
+        // Disable and clear placeholders for pre-filled fields
+        document.querySelectorAll('input[name="name"], input[name="phone"], input[name="email"], input[name="address"]').forEach(input => {
+          input.placeholder = '';
+          input.disabled = true;
+        });
+
+      } catch (error) {
+        console.error('Error fetching profile data:', error);
+        showAlert('Failed to fetch profile data. Please try again.', 'danger');
+      }
+    });
+
+    // Handle profile photo upload
+    profileInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        showAlert('Please select a valid image file.', 'warning');
+        return;
+      }
+
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        showAlert('Image size should be less than 5MB.', 'warning');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        imagePreview.src = reader.result;
+        cropModal.show();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Initialize cropper when modal is shown
+    document.getElementById('cropModal').addEventListener('shown.bs.modal', () => {
+      cropper = new Cropper(imagePreview, {
+        aspectRatio: 1,
+        viewMode: 2,
+        dragMode: 'move',
+        autoCropArea: 0.8,
+        restore: false,
+        guides: true,
+        center: true,
+        highlight: false,
+        cropBoxMovable: true,
+        cropBoxResizable: true,
+        toggleDragModeOnDblclick: false,
+        minContainerWidth: 400,
+        minContainerHeight: 300,
+        background: false,
+        modal: true,
+        zoomable: true,
+        scalable: true,
+        rotatable: true,
+        checkOrientation: false,
+        ready: function () {
+          // Optional: Add ready callback
+        }
+      });
+    });
+
+    // Destroy cropper when modal is hidden
+    document.getElementById('cropModal').addEventListener('hidden.bs.modal', () => {
+      if (cropper) {
+        cropper.destroy();
+        cropper = null;
+      }
+    });
+
+    // Handle crop button click
+    document.getElementById('cropBtn').addEventListener('click', () => {
+      if (!cropper) return;
+
+      const canvas = cropper.getCroppedCanvas({
+        width: 300,
+        height: 300,
+        minWidth: 256,
+        minHeight: 256,
+        maxWidth: 512,
+        maxHeight: 512,
+        fillColor: '#fff',
+        imageSmoothingEnabled: true,
+        imageSmoothingQuality: 'high',
+      });
+
+      const croppedImageData = canvas.toDataURL('image/jpeg', 0.9);
+      document.getElementById('croppedImageData').value = croppedImageData;
+      
+      // Show preview
+      photoPreview.src = croppedImageData;
+      photoPreview.classList.remove('d-none');
+      photoPlaceholder.classList.add('d-none');
+      
+      cropModal.hide();
+      showAlert('Profile photo uploaded successfully!', 'success');
+    });
+
+    // Show alert messages
+    function showAlert(message, type = 'info') {
+      const alertContainer = document.getElementById('alertContainer');
+      const alertDiv = document.createElement('div');
+      alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+      
+      const iconMap = {
+        success: 'bi-check-circle-fill',
+        danger: 'bi-exclamation-triangle-fill',
+        warning: 'bi-exclamation-triangle-fill',
+        info: 'bi-info-circle-fill'
+      };
+      
+      alertDiv.innerHTML = `
+        <i class="bi ${iconMap[type]} me-2"></i>
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      `;
+      alertContainer.appendChild(alertDiv);
+      
+      // Auto-dismiss after 5 seconds
+      setTimeout(() => {
+        if (alertDiv.parentNode) {
+          alertDiv.remove();
+        }
+      }, 5000);
     }
-    
-    const byteArray = new Uint8Array(byteNumbers);
-    const blob = new Blob([byteArray], { type: mimeType });
-    
-    // Create a File object from the blob
-    return new File([blob], fileName, { type: mimeType });
+
+    // Form validation
+    function validateForm(formData) {
+      const errors = [];
+      
+      // Check required fields
+      if (!formData.get('profilePhoto')) {
+        errors.push('Profile photo is required');
+      }
+      
+      if (!formData.get('gender')) {
+        errors.push('Gender is required');
+      }
+      
+      if (!formData.get('age') || formData.get('age') < 18 || formData.get('age') > 100) {
+        errors.push('Age must be between 18 and 100');
+      }
+      
+      if (!formData.get('experience') || formData.get('experience') < 0) {
+        errors.push('Experience cannot be negative');
+      }
+      
+      if (!formData.get('languages')) {
+        errors.push('Languages are required');
+      }
+      
+      if (!formData.get('jobCategory')) {
+        errors.push('Job category is required');
+      }
+      
+      return errors;
+    }
+
+    // Handle form submission
+    document.getElementById('signupForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const registerBtn = document.getElementById('registerBtn');
+      const registerBtnText = document.getElementById('registerBtnText');
+      const registerBtnSpinner = document.getElementById('registerBtnSpinner');
+      
+      // Validate form
+      const validationErrors = validateForm(formData);
+      if (validationErrors.length > 0) {
+        showAlert(validationErrors.join('<br>'), 'danger');
+        return;
+      }
+      
+      // Show loading state
+      registerBtn.disabled = true;
+      registerBtnText.classList.add('d-none');
+      registerBtnSpinner.classList.remove('d-none');
+      
+      try {
+  console.log("Processing form data...");
+
+  const form = new FormData();
+
+  form.append('name', formData.get('name'));
+  form.append('phone', formData.get('phone'));
+  form.append('email', formData.get('email'));
+  form.append('address', formData.get('address'));
+  form.append('experience', formData.get('experience'));
+  form.append('age', formData.get('age'));
+  form.append('gender', formData.get('gender'));
+  form.append('languages', formData.get('languages'));
+  form.append('jobCategory', formData.get('jobCategory'));
+
+  // Convert base64 to Blob before sending
+  const base64Data = document.getElementById('croppedImageData').value;
+  const blob = await (await fetch(base64Data)).blob();
+  form.append('profilePhoto', blob, 'profile.jpg');  // name, blob, filename
+
+  const response = await fetch('/registerAsTelecaller', {
+    method: 'POST',
+    body: form
+  });
+
+  const result = await response.json();
+
+  if (result.success) {
+    showAlert('🎉 Registration successful! Welcome to Maids Hands 4U family!', 'success');
+    this.reset();
+    document.getElementById('croppedImageData').value = '';
+
+    // Reset photo preview
+    photoPreview.classList.add('d-none');
+    photoPlaceholder.classList.remove('d-none');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  } else {
+    showAlert(result.message || 'Registration failed. Please try again.', 'danger');
   }
-</script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+} catch (error) {
+  console.error('Error during registration:', error);
+  showAlert('Network error. Please check your connection and try again.', 'danger');
+} finally {
+  registerBtn.disabled = false;
+  registerBtnText.classList.remove('d-none');
+  registerBtnSpinner.classList.add('d-none');
+}
 
-<script>
-  // Global variables
-  let isPhoneVerified = false;
-  let resendCountdown = 0;
-  let countdownInterval;
-  const otpModal = new bootstrap.Modal(document.getElementById('otpModal'));
-
-  // Form validation
-  document.getElementById('signupForm').addEventListener('input', function(e) {
-    if (e.target.name === 'phone') {
-      // Reset verification status when phone number changes
-      if (isPhoneVerified) {
-        isPhoneVerified = false;
-        updateVerifyButton();
-        updateRegisterButton();
-      }
-    }
-  });
-
-  // OTP input handling
-  document.querySelectorAll('.otp-input').forEach((input, index) => {
-    input.addEventListener('input', function(e) {
-      if (e.target.value.length === 1 && index < 5) {
-        document.getElementById(`otp${index + 2}`).focus();
-      }
     });
-    
-    input.addEventListener('keydown', function(e) {
-      if (e.key === 'Backspace' && !e.target.value && index > 0) {
-        document.getElementById(`otp${index}`).focus();
-      }
-    });
-  });
 
-  // Show alert messages
-  function showAlert(message, type = 'info') {
-    const alertContainer = document.getElementById('alertContainer');
-    const alertDiv = document.createElement('div');
-    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
-    alertDiv.innerHTML = `
-      ${message}
-      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    `;
-    alertContainer.appendChild(alertDiv);
-    
-    // Auto-dismiss after 5 seconds
-    setTimeout(() => {
-      if (alertDiv.parentNode) {
-        alertDiv.remove();
-      }
-    }, 5000);
-  }
-
-  // Send OTP
-  async function sendOTP() {
-    const phoneInput = document.getElementById('phoneInput');
-    const phone = phoneInput.value.trim();
-    
-    if (!phone || phone.length !== 10) {
-      showAlert('Please enter a valid 10-digit phone number', 'warning');
-      phoneInput.focus();
-      return;
-    }
-    
-    const verifyBtn = document.getElementById('verifyBtn');
-    const verifyBtnText = document.getElementById('verifyBtnText');
-    const verifyBtnSpinner = document.getElementById('verifyBtnSpinner');
-    
-    // Show loading state
-    verifyBtn.disabled = true;
-    verifyBtnText.classList.add('d-none');
-    verifyBtnSpinner.classList.remove('d-none');
-    
-    try {
-      const response = await fetch(`/otp/send?phone=${phone}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
+    // Add input animations and validations
+    document.querySelectorAll('.form-control, .form-select').forEach(input => {
+      input.addEventListener('focus', function() {
+        this.parentElement.classList.add('focused');
+      });
+      
+      input.addEventListener('blur', function() {
+        this.parentElement.classList.remove('focused');
+        
+        // Real-time validation
+        if (this.hasAttribute('required') && !this.value.trim()) {
+          this.classList.add('is-invalid');
+        } else {
+          this.classList.remove('is-invalid');
+          this.classList.add('is-valid');
         }
       });
       
-      const data = await response.json();
-      
-      if (data.success) {
-        // Show OTP modal
-        document.getElementById('otpPhoneNumber').textContent = phone;
-        clearOTPInputs();
-        otpModal.show();
-        startResendCountdown();
-        showAlert('OTP sent successfully to your phone number', 'success');
-      } else {
-        showAlert(data.message || 'Failed to send OTP. Please try again.', 'danger');
-      }
-    } catch (error) {
-      console.error('Error sending OTP:', error);
-      showAlert('Network error. Please check your connection and try again.', 'danger');
-    } finally {
-      // Reset button state
-      verifyBtn.disabled = false;
-      verifyBtnText.classList.remove('d-none');
-      verifyBtnSpinner.classList.add('d-none');
-    }
-  }
-
-  // Verify OTP
-  async function verifyOTP() {
-    const otpInputs = document.querySelectorAll('.otp-input');
-    const otp = Array.from(otpInputs).map(input => input.value).join('');
-    
-    if (otp.length !== 6) {
-      showAlert('Please enter complete 6-digit OTP', 'warning');
-      return;
-    }
-    
-    const phone = document.getElementById('phoneInput').value.trim();
-    const verifyOtpBtn = document.getElementById('verifyOtpBtn');
-    const verifyOtpBtnText = document.getElementById('verifyOtpBtnText');
-    const verifyOtpBtnSpinner = document.getElementById('verifyOtpBtnSpinner');
-    
-    // Show loading state
-    verifyOtpBtn.disabled = true;
-    verifyOtpBtnText.classList.add('d-none');
-    verifyOtpBtnSpinner.classList.remove('d-none');
-    
-    try {
-      const response = await fetch('/otp/verify', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          phone: phone,
-          otp: otp
-        })
-      });
-      
-      const data = await response.json();
-      
-      if (data.success) {
-        isPhoneVerified = true;
-        otpModal.hide();
-        updateVerifyButton();
-        updateRegisterButton();
-        showAlert('Phone number verified successfully!', 'success');
-        clearInterval(countdownInterval);
-      } else {
-        showAlert(data.message || 'Invalid OTP. Please try again.', 'danger');
-        // Clear OTP inputs on failure
-        clearOTPInputs();
-      }
-    } catch (error) {
-      console.error('Error verifying OTP:', error);
-      showAlert('Network error. Please check your connection and try again.', 'danger');
-    } finally {
-      // Reset button state
-      verifyOtpBtn.disabled = false;
-      verifyOtpBtnText.classList.remove('d-none');
-      verifyOtpBtnSpinner.classList.add('d-none');
-    }
-  }
-
-  // Resend OTP
-  async function resendOTP() {
-    const phone = document.getElementById('phoneInput').value.trim();
-    
-    try {
-      const response = await fetch(`/otp/send?phone=${phone}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
+      input.addEventListener('input', function() {
+        if (this.classList.contains('is-invalid')) {
+          this.classList.remove('is-invalid');
         }
       });
-      
-      const data = await response.json();
-      
-      if (data.success) {
-        clearOTPInputs();
-        startResendCountdown();
-        showAlert('OTP resent successfully', 'success');
-      } else {
-        showAlert(data.message || 'Failed to resend OTP', 'danger');
-      }
-    } catch (error) {
-      console.error('Error resending OTP:', error);
-      showAlert('Network error. Please try again.', 'danger');
-    }
-  }
-
-  // Update verify button appearance
-  function updateVerifyButton() {
-    const verifyBtn = document.getElementById('verifyBtn');
-    const verifyBtnText = document.getElementById('verifyBtnText');
-    
-    if (isPhoneVerified) {
-      verifyBtn.classList.add('verified');
-      verifyBtn.disabled = true;
-      verifyBtnText.innerHTML = '<i class="bi bi-check-circle me-1"></i>Verified';
-    } else {
-      verifyBtn.classList.remove('verified');
-      verifyBtn.disabled = false;
-      verifyBtnText.textContent = 'Verify';
-    }
-  }
-
-  // Update register button state
-  function updateRegisterButton() {
-    const registerBtn = document.getElementById('registerBtn');
-    registerBtn.disabled = !isPhoneVerified;
-  }
-
-  // Clear OTP inputs
-  function clearOTPInputs() {
-    document.querySelectorAll('.otp-input').forEach(input => {
-      input.value = '';
     });
-    document.getElementById('otp1').focus();
-  }
 
-  // Start resend countdown
-  function startResendCountdown() {
-    resendCountdown = 60;
-    const resendTimer = document.getElementById('resendTimer');
-    const resendOtpBtn = document.getElementById('resendOtpBtn');
-    
-    resendOtpBtn.disabled = true;
-    
-    countdownInterval = setInterval(() => {
-      resendCountdown--;
-      resendTimer.textContent = `Resend OTP in ${resendCountdown}s`;
-      
-      if (resendCountdown <= 0) {
-        clearInterval(countdownInterval);
-        resendTimer.textContent = 'Did not receive OTP?';
-        resendOtpBtn.disabled = false;
-      }
-    }, 1000);
-  }
-
-  // Handle form submission
-  document.getElementById('signupForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    if (!isPhoneVerified) {
-      showAlert('Please verify your phone number first', 'warning');
-      return;
-    }
-    
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData.entries());
-    
-    const registerBtn = document.getElementById('registerBtn');
-    const registerBtnText = document.getElementById('registerBtnText');
-    const registerBtnSpinner = document.getElementById('registerBtnSpinner');
-    
-    // Show loading state
-    registerBtn.disabled = true;
-    registerBtnText.classList.add('d-none');
-    registerBtnSpinner.classList.remove('d-none');
-    
-    try {
-      console.log("Processing form data...");
-
-      const submitFormData = new FormData();
-      
-      // Add all form fields
-      submitFormData.append('name', data.name || '');
-      submitFormData.append('district', data.district || '');
-      submitFormData.append('phone', data.phone || '');
-      submitFormData.append('address', data.address || '');
-      submitFormData.append('pincode', data.pincode || '');
-      submitFormData.append('email', data.email || '');
-      submitFormData.append('gender', data.gender || '');
-      submitFormData.append('experience', data.experience || '');
-      submitFormData.append('age', data.age || '');
-      submitFormData.append('jobCategory', data.jobCategory || '');
-      
-      // Handle languages array
-      if (data.languages) {
-        submitFormData.append('languages', JSON.stringify(data.languages));
-      }
-      
-      // Handle profile photo - convert base64 to File if exists
-      const croppedImageData = document.getElementById('croppedImageData').value;
-      if (croppedImageData) {
-        console.log("Converting base64 image to file...");
-        const imageFile = base64ToFile(croppedImageData, 'profile-photo.png');
-        submitFormData.append('profilePhoto', imageFile);
-      } else if (profileInput.files[0]) {
-        // If no cropped image but original file exists
-        submitFormData.append('profilePhoto', profileInput.files[0]);
-      }
-
-      const response = await fetch('/registerAsTelecaller', {
-        method: 'POST',
-        body: submitFormData
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        showAlert('Registration successful! Welcome to TeleTree', 'success');
-        this.reset();
-        // Clear cropped image data
-        document.getElementById('croppedImageData').value = '';
-        isPhoneVerified = false;
-        updateVerifyButton();
-        updateRegisterButton();
+    // Age validation
+    document.querySelector('input[name="age"]').addEventListener('input', function() {
+      const age = parseInt(this.value);
+      if (age && (age < 18 || age > 100)) {
+        this.setCustomValidity('Age must be between 18 and 100');
       } else {
-        showAlert(result.message || 'Registration failed. Please try again.', 'danger');
+        this.setCustomValidity('');
       }
+    });
 
-    } catch (error) {
-      console.error('Error during registration:', error);
-      showAlert('Network error. Please check your connection and try again.', 'danger');
-    } finally {
-      // Reset button state
-      registerBtn.disabled = !isPhoneVerified;
-      registerBtnText.classList.remove('d-none');
-      registerBtnSpinner.classList.add('d-none');
-    }
-  });
+    // Experience validation
+    document.querySelector('input[name="experience"]').addEventListener('input', function() {
+      const experience = parseInt(this.value);
+      if (experience && experience < 0) {
+        this.setCustomValidity('Experience cannot be negative');
+      } else if (experience && experience > 50) {
+        this.setCustomValidity('Experience seems too high. Please verify.');
+      } else {
+        this.setCustomValidity('');
+      }
+    });
 
-  // Initialize page
-  document.addEventListener('DOMContentLoaded', function() {
-    updateRegisterButton();
-  });
-</script>
+    // Languages formatting
+    document.querySelector('input[name="languages"]').addEventListener('blur', function() {
+      if (this.value) {
+        const languages = this.value.split(',').map(lang => 
+          lang.trim().charAt(0).toUpperCase() + lang.trim().slice(1).toLowerCase()
+        ).join(', ');
+        this.value = languages;
+      }
+    });
 
+    const formInputs = document.querySelectorAll('.form-control, .form-select');
+    formInputs.forEach((input, index) => {
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && e.target.type !== 'textarea') {
+          e.preventDefault();
+          const nextInput = formInputs[index + 1];
+          if (nextInput) {
+            nextInput.focus();
+            nextInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }
+      });
+    });
 
+    document.querySelectorAll('.form-label').forEach(label => {
+      const input = label.parentElement.querySelector('.form-control, .form-select');
+      if (input && !input.id) {
+        const id = 'input_' + Math.random().toString(36).substr(2, 9);
+        input.id = id;
+        label.setAttribute('for', id);
+      }
+    });
+    window.addEventListener('load', function() {
+      document.querySelectorAll('.fade-in').forEach((element, index) => {
+        setTimeout(() => {
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }, index * 200);
+      });
+    });
+  </script>
+</body>
+</html>

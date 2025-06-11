@@ -18,27 +18,16 @@ const signupUser = async (userData) => {
 
   return createdUser;
 };
-const registerUser = async (userData) => {
+const registerUser = async (userData, thisUser) => {
   console.log("user data: ", userData);
 
-  const thisUser = await userRepository.findByEmail(userData.email);
+  console.log("thisUser :" , thisUser);
   const userId = thisUser._id;
 
-  const { name, email, phone, address, pincode, gender, experience, age, languages, jobCategory, district,profilePhoto } = userData;
-
-  const existingEmail = await telecallerRepository.findByEmail(email);
-  if (existingEmail) throw new Error('Email already registered');
-
-  const existingPhone = await telecallerRepository.findByPhone(phone);
-  if (existingPhone) throw new Error('Phone number already registered');
+  const { gender, experience, age, languages, jobCategory, district,profilePhoto } = userData;
 
   const createdUser = await telecallerRepository.createUser({
     userId,
-    name,
-    email,
-    phone,
-    address,
-    pincode,
     gender,
     experience,
     age,

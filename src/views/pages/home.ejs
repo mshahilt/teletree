@@ -1,260 +1,888 @@
-<%- include('../partials/header') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tele Tree - Professional Maid Services</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #22c55e;
+            --dark-green: #166534;
+            --light-green: #dcfce7;
+            --accent-blue: #3b82f6;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+        }
 
-<nav class="flex items-center justify-between p-4 shadow-md">
-    <!-- Logo and Tagline -->
-    <div class="flex items-center space-x-2">
-      <img src="your-logo.png" alt="Logo" class="h-12 w-12" />
-      <div>
-        <h1 class="text-lg font-bold text-green-500 flex items-center">
-          Tele Tree
-          <span class="ml-1 text-green-500">✨</span>
-        </h1>
-        <p class="text-sm text-gray-400">For a helping hand</p>
-      </div>
-    </div>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Navigation Links -->
-    <div class="hidden md:flex space-x-8 text-gray-700 font-medium">
-      <a href="#" class="text-green-900">Home</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
-      <a href="#">Categories</a>
-      <a href="#">Pricing</a>
-    </div>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
 
-    <!-- Buttons -->
-    <div class="flex items-center space-x-3">
-      <button class="bg-blue-50 text-green-900 font-semibold px-4 py-2 rounded-md">
-        Register as Maid
-      </button>
-        <% if (user) { %>
-      <!-- Show profile icon if user is logged in -->
-   
-         <a href="/profile">
-          <i class="fas fa-user-circle fa-xl"></i>
-        </a>
-      
-    <% } else { %>
-       <button class="bg-green-500 text-white font-semibold px-4 py-2 rounded-md flex items-center space-x-1">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15 12H3m0 0l4-4m-4 4l4 4m13-4a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <span>User Login</span>
-      </button>
-    <% } %>
-     
-    </div>
-  </nav>
-  
-<div class="container">
-  <div class="filter-container">
-    <form>
-      <div class="row g-3 align-items-center">
-        <div class="col-md-2 col-6">
-          <label for="district" class="form-label fw-semibold">District</label>
-          <select class="form-select" id="district">
-            <option selected disabled>District</option>
-            <option>District A</option>
-            <option>District B</option>
-          </select>
-        </div>
-        <div class="col-md-2 col-6">
-          <label for="constituency" class="form-label fw-semibold">Constituency</label>
-          <select class="form-select" id="constituency">
-            <option selected disabled>Constituency</option>
-            <option>Constituency A</option>
-            <option>Constituency B</option>
-          </select>
-        </div>
-        <div class="col-md-2 col-6">
-          <label for="age" class="form-label fw-semibold">Age</label>
-          <select class="form-select" id="age">
-            <option selected disabled>Select Age</option>
-            <option>18-25</option>
-            <option>26-40</option>
-            <option>41+</option>
-          </select>
-        </div>
-        <div class="col-md-2 col-6">
-          <label for="religion" class="form-label fw-semibold">Religion</label>
-          <select class="form-select" id="religion">
-            <option selected disabled>Select Religion</option>
-            <option>Hindu</option>
-            <option>Muslim</option>
-            <option>Christian</option>
-          </select>
-        </div>
-        <div class="col-md-2 col-6">
-          <label for="gender" class="form-label fw-semibold">Gender</label>
-          <select class="form-select" id="gender">
-            <option selected disabled>Select Gender</option>
-            <option>Male</option>
-            <option>Female</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="col-md-2 col-6">
-          <label for="shift" class="form-label fw-semibold">Shift</label>
-          <select class="form-select" id="shift">
-            <option selected disabled>Select Shift</option>
-            <option>Morning</option>
-            <option>Evening</option>
-            <option>Night</option>
-          </select>
-        </div>
-        <div class="col-md-2 col-6 mt-3">
-          <label for="expertise" class="form-label fw-semibold">Expertise</label>
-          <select class="form-select" id="expertise">
-            <option selected disabled>Select Expertise</option>
-            <option>Lawyer</option>
-            <option>Doctor</option>
-            <option>Engineer</option>
-          </select>
-        </div>
-        <div class="col-md-1 col-12 d-flex align-items-end mt-3">
-          <button type="submit" class="search-btn"><i class="bi bi-search"></i> 🔍</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
+        /* Navigation Styles */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(34, 197, 94, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
 
-<div class="container py-5">
-  <div class="text-center mb-5">
-    <div class="section-title">
-      <span>Explore Our Services</span>
-    </div>
-    <h2 class="fw-bold mt-2">Find the Right Help for Every<br class="d-none d-md-block"> Household Need</h2>
-  </div>
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--primary-green) !important;
+        }
 
-  <div class="row g-4 justify-content-center">
-    <!-- Card 1 -->
-    <div class="col-12 col-sm-6 col-lg-3">
-      <div class="service-card">
-        <img src="hi.jpg" alt="House Cleaning">
-        <div class="service-title">House cleaning</div>
-      </div>
-    </div>
-    <!-- Card 2 -->
-    <div class="col-12 col-sm-6 col-lg-3">
-      <div class="service-card">
-        <img src="hi.jpg" alt="Elderly Care">
-        <div class="service-title">Elderly care</div>
-      </div>
-    </div>
-    <!-- Card 3 -->
-    <div class="col-12 col-sm-6 col-lg-3">
-      <div class="service-card">
-        <img src="hi.jpg" alt="Child Care and Baby Sitting">
-        <div class="service-title">Child care and baby sitting</div>
-      </div>
-    </div>
-    <!-- Card 4 -->
-    <div class="col-12 col-sm-6 col-lg-3">
-      <div class="service-card">
-        <img src="hi.jpg" alt="Pet Care">
-        <div class="service-title">Pet care</div>
-      </div>
-    </div>
-  </div>
-</div>
+        .nav-link {
+            font-weight: 500;
+            color: var(--gray-600) !important;
+            transition: all 0.3s ease;
+            position: relative;
+        }
 
-<div class="container my-5">
-  <div class="hero-section d-flex flex-column flex-md-row align-items-center justify-content-between">
-    <div class="hero-text text-white">
-      <h1 class="fw-bold mb-4">Become a Trusted Maid<br>with Maid Hands 4 U</h1>
-      <p class="mb-3">Join our team of skilled professionals and help households with their daily needs.</p>
-      <ul class="list-unstyled">
-        <li class="icon-bullet mb-2">Pre-verified and secure platform</li>
-        <li class="icon-bullet mb-2">Flexible hours and competitive pay</li>
-        <li class="icon-bullet mb-4">Empowering professionals like you to thrive</li>
-      </ul>
-      <button class="signup-btn">Sign up</button>
-    </div>
-    <div class="hero-image mt-4 mt-md-0 ms-md-4">
-     </div>
-  </div>
-</div>
-<div class="container py-4">
-    <div class="row g-4 justify-content-center">
-   <% telecallers.forEach(telecaller => { %>
-  <div class="col-12 col-sm-6 col-lg-3">
-    <div class="profile-card">
-      <img src="uploads/profilephotos/<%= telecaller.profilePhoto %>" alt="<%= telecaller.name %>" class="img-fluid">
-      <div class="profile-info d-flex align-items-center">
-        <div class="text-start">
-          <div class="profile-name"><%= telecaller.name.toUpperCase() %></div>
-          <div class="location"><i class="bi bi-geo-alt"></i> <%= telecaller.address || "Unknown" %></div>
+        .nav-link:hover {
+            color: var(--primary-green) !important;
+            transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+            color: var(--dark-green) !important;
+        }
+
+        .btn-register {
+            background: linear-gradient(135deg, var(--light-green) 0%, #bef264 100%);
+            color: var(--dark-green);
+            border: 2px solid transparent;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #059669 100%);
+            border: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.9) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin: 2rem 0;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .form-select {
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .form-select:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #059669 100%);
+            border: none;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+        }
+
+        /* Service Cards */
+        .service-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.15);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .service-card img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            border: 3px solid var(--light-green);
+        }
+
+        .service-title {
+            font-weight: 600;
+            color: var(--gray-800);
+            font-size: 1.1rem;
+        }
+
+        /* Professional Cards */
+        .professional-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+
+        .professional-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .professional-card .card-header {
+            position: relative;
+            padding: 0;
+            background: linear-gradient(135deg, var(--primary-green) 0%, #059669 100%);
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .professional-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .professional-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .professional-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 0.5rem;
+        }
+
+        .professional-category {
+            color: var(--primary-green);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .info-label {
+            color: var(--gray-600);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .info-hidden {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-hidden::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .unlock-btn {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .unlock-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+        }
+
+        .unlock-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .unlock-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Premium Badge */
+        .premium-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 100%);
+            color: white;
+            border-radius: 25px;
+            padding: 3rem;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .signup-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .signup-btn:hover {
+            background: white;
+            color: var(--primary-green);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary-green);
+            transform: translateY(-3px);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            animation: pulse 2s infinite;
+            z-index: 1000;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .filter-section {
+                padding: 1rem;
+                margin: 1rem;
+            }
+            
+            .hero-section {
+                padding: 2rem;
+                margin: 2rem 1rem;
+            }
+            
+            .professional-card .card-header {
+                height: 150px;
+            }
+            
+            .professional-avatar {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        /* Section Headers */
+        .section-title {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #059669 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-heading {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gray-800);
+            line-height: 1.2;
+        }
+
+        @media (max-width: 768px) {
+            .section-heading {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="fas fa-leaf me-2"></i>
+                <span>Tele Tree</span>
+                <span class="ms-1" style="color: #fbbf24;">✨</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-register">
+                        <i class="fas fa-user-plus me-2"></i>Register as Maid
+                    </button>
+                    <button class="btn btn-login text-white">
+                        <i class="fas fa-sign-in-alt me-2"></i>User Login
+                    </button>
+                </div>
+            </div>
         </div>
-        <a href="tel:+91<%= telecaller.phone %>" class="call-icon ms-auto">
-          <i class="bi bi-telephone"></i>
-        </a>
-      </div>
-    </div>
-  </div>
-<% }) %>
+    </nav>
 
-   
-   
- 
- <footer class="footer position-relative mt-5">
+    <!-- Filter Section -->
     <div class="container">
-      <div class="row gy-4">
-        <!-- Logo + Social -->
-        <div class="col-12 col-sm-6 col-lg-3">
-          <img src="logo.png" alt="Logo" class="mb-2" style="max-width: 150px;">
-          <h6 class="mt-3">Follow Us</h6>
-          <div class="social-icons mb-3 mt-3">
-            <a href="#"><i class="bi bi-facebook"></i></a>
-            <a href="#"><i class="bi bi-instagram"></i></a>
-            <a href="#"><i class="bi bi-linkedin"></i></a>
-          </div>
-          <p style="font-size: 14px;">
-            We connect you with reliable, pre-verified maids to simplify your household needs.
-          </p>
+        <div class="filter-section">
+            <form>
+                <div class="row g-3">
+                    <div class="col-md-3 col-6">
+                        <label for="district" class="form-label fw-semibold">District</label>
+                        <select class="form-select" id="district">
+                            <option selected disabled>Select District</option>
+                            <option>Malappuram</option>
+                            <option>Kozhikode</option>
+                            <option>Thrissur</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <label for="age" class="form-label fw-semibold">Age Range</label>
+                        <select class="form-select" id="age">
+                            <option selected disabled>Select Age</option>
+                            <option>18-25</option>
+                            <option>26-40</option>
+                            <option>41+</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <label for="gender" class="form-label fw-semibold">Gender</label>
+                        <select class="form-select" id="gender">
+                            <option selected disabled>Select Gender</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <label for="category" class="form-label fw-semibold">Category</label>
+                        <select class="form-select" id="category">
+                            <option selected disabled>Select Category</option>
+                            <option>Housekeeping</option>
+                            <option>Elderly Care</option>
+                            <option>Child Care</option>
+                            <option>Pet Care</option>
+                        </select>
+                    </div>
+                    <div class="col-12 text-center">
+                        <button type="submit" class="search-btn">
+                            <i class="fas fa-search me-2"></i>Search Professionals
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <div class="section-title">Explore Our Services</div>
+            <h2 class="section-heading mt-2">Find the Right Help for Every<br class="d-none d-md-block"> Household Need</h2>
         </div>
 
-      <!-- Quick Links -->
-        <div class="col-12 col-sm-6 col-lg-3">
-        <h5>Quick Links</h5>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Categories</a></li>
-          <li><a href="#">Register as Maid</a></li>
-        </ul>
-      </div>
-
-      <!-- Legal -->
-          <div class="col-12 col-sm-6 col-lg-3">
-        <h5>Legal</h5>
-        <ul>
-          <li><a href="#">Terms & Conditions</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Cancellation and Refund</a></li>
-          <li><a href="#">Shipping and Delivery</a></li>
-        </ul>
-      </div>
-
-      <!-- Contact Info -->
-          <div class="col-12 col-sm-6 col-lg-3">
-        <h5>Official Info</h5>
-        <p class="mb-2">BELLUCCIYA MARKETING AND MANAGEMENT PRIVATE LIMITED<br>
-          Metro Pillar No. 75, Maniyatt Building,<br>
-          Near Pulinchodu Metro Station, Aluva, Ernakulam, KERALA, PIN : 683106
-        </p>
-        <p><i class="bi bi-telephone me-2"></i>9400438406</p>
-        <p><i class="bi bi-envelope me-2"></i>jeemonwishes@gmail.com</p>
-      </div>
+        <div class="row g-4">
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=100&h=100&fit=crop&crop=face" alt="House Cleaning">
+                    <div class="service-title">House Cleaning</div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&h=100&fit=crop&crop=face" alt="Elderly Care">
+                    <div class="service-title">Elderly Care</div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=100&h=100&fit=crop&crop=face" alt="Child Care">
+                    <div class="service-title">Child Care & Baby Sitting</div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=100&h=100&fit=crop&crop=face" alt="Pet Care">
+                    <div class="service-title">Pet Care</div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <!-- WhatsApp Floating Icon -->
-  <a href="https://wa.me/919400438406" class="whatsapp-float">
-    <i class="bi bi-whatsapp"></i>
-  </a>
-</footer>
-<%- include('../partials/footer') %>
+    <!-- Professionals Section -->
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <div class="section-title">Our Verified Professionals</div>
+            <h2 class="section-heading mt-2">Trusted & Experienced<br class="d-none d-md-block"> Service Providers</h2>
+        </div>
+
+       <div class="row g-4">
+        <% telecallers.forEach(prof => { %>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="professional-card">
+              <div class="premium-badge">
+                <i class="fas fa-crown me-1"></i>Premium
+              </div>
+              <div class="card-header">
+                <img 
+                  src="/uploads/profilePhotos/<%= prof.profilePhoto %>" 
+                  alt="<%= prof.userId.name.toUpperCase() %>" 
+                  class="professional-avatar"
+                >
+              </div>
+              <div class="professional-info">
+                <div class="professional-name"><%= prof.userId.name.toUpperCase() %></div>
+                <div class="professional-category"><%= prof.jobCategory %> Specialist</div>
+
+                <div class="info-row">
+                  <span class="info-label">Experience</span>
+                  <span class="info-value"><%= prof.experience %> Years</span>
+                </div>
+
+                <div class="info-row">
+                  <span class="info-label">Age</span>
+                  <span class="info-value"><%= prof.age %> Years</span>
+                </div>
+
+                <div class="info-row">
+                  <span class="info-label">Languages</span>
+                  <span class="info-value"><%= prof.languages %></span>
+                </div>
+
+                <div class="info-row">
+                  <span class="info-label">Location</span>
+                  <span class="info-value"><%= prof.userId.address.split('\n').pop() %></span>
+                </div>
+
+                <div class="info-row">
+                  <span class="info-label">Phone</span>
+                  <span class="info-hidden">
+                    <i class="fas fa-lock me-1"></i>Hidden
+                  </span>
+                </div>
+
+                <div class="info-row">
+                  <span class="info-label">Email</span>
+                  <span class="info-hidden">
+                    <i class="fas fa-lock me-1"></i>Hidden
+                  </span>
+                </div>
+
+                <div class="text-center mt-3">
+                  <button class="unlock-btn" onclick="window.location.href='/plan'">
+                    <i class="fas fa-unlock me-2"></i>Unlock Contact Info
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+
+    </div>
+
+    <!-- Hero Section -->
+    <div class="container">
+        <div class="hero-section">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="fw-bold mb-4">Become a Trusted Professional<br>with Tele Tree</h1>
+                    <p class="mb-3 fs-5">Join our team of skilled professionals and help households with their daily needs.</p>
+                    <ul class="list-unstyled mb-4">
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle me-2"></i>Pre-verified and secure platform
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle me-2"></i>Flexible hours and competitive pay
+                        </li>
+                        <li class="mb-4">
+                            <i class="fas fa-check-circle me-2"></i>Empowering professionals like you to thrive
+                        </li>
+                    </ul>
+                    <button class="signup-btn">
+                        <i class="fas fa-user-plus me-2"></i>Sign Up Today
+                    </button>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=300&h=300&fit=crop&crop=face" alt="Professional Team" class="img-fluid rounded-circle" style="max-width: 250px; border: 4px solid rgba(255,255,255,0.3);">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Teaser -->
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <div class="section-title">Unlock Premium Access</div>
+            <h2 class="section-heading mt-2">Choose Your Perfect Plan</h2>
+            <p class="lead text-muted">Get access to verified professional contact details and premium features</p>
+        </div>
+        
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-lg h-100" style="border-radius: 20px;">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-star fa-2x text-warning"></i>
+                        </div>
+                        <h4 class="fw-bold">Basic Plan</h4>
+                        <div class="display-6 fw-bold text-primary mb-3">₹99<small class="fs-6 text-muted">/month</small></div>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Contact 5 professionals</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Basic profile access</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Email support</li>
+                        </ul>
+                        <button class="btn btn-outline-primary w-100 mt-3" onclick="window.location.href='/plans'">
+                            Choose Plan
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card border-0 shadow-lg h-100 position-relative" style="border-radius: 20px; border: 2px solid var(--primary-green);">
+                    <div class="position-absolute top-0 start-50 translate-middle">
+                        <span class="badge bg-success px-3 py-2">Most Popular</span>
+                    </div>
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-crown fa-2x text-warning"></i>
+                        </div>
+                        <h4 class="fw-bold">Premium Plan</h4>
+                        <div class="display-6 fw-bold text-success mb-3">₹199<small class="fs-6 text-muted">/month</small></div>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Contact unlimited professionals</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Full profile access</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Priority support</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Advanced filters</li>
+                        </ul>
+                        <button class="btn btn-success w-100 mt-3" onclick="window.location.href='/plans'">
+                            Choose Plan
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card border-0 shadow-lg h-100" style="border-radius: 20px;">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-diamond fa-2x text-info"></i>
+                        </div>
+                        <h4 class="fw-bold">Enterprise</h4>
+                        <div class="display-6 fw-bold text-info mb-3">₹499<small class="fs-6 text-muted">/month</small></div>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Everything in Premium</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Bulk hiring tools</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Dedicated account manager</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Custom integrations</li>
+                        </ul>
+                        <button class="btn btn-outline-info w-100 mt-3" onclick="window.location.href='/plans'">
+                            Choose Plan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row gy-4">
+                <!-- Logo + Social -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-leaf fa-2x text-success me-2"></i>
+                        <h4 class="mb-0 text-white fw-bold">Tele Tree</h4>
+                    </div>
+                    <h6 class="mt-3">Follow Us</h6>
+                    <div class="social-icons mb-3">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                    </div>
+                    <p style="font-size: 14px; color: #9ca3af;">
+                        We connect you with reliable, pre-verified professionals to simplify your household needs.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <h5 class="text-white mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #9ca3af;">Home</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #9ca3af;">About</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #9ca3af;">Contact</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #9ca3af;">Categories</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #9ca3af;">Register as Professional</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <h5 class="text-white mb-3">Legal</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #9ca3af;">Terms & Conditions</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #9ca3af;">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #9ca3af;">Cancellation and Refund</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #9ca3af;">Shipping and Delivery</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <h5 class="text-white mb-3">Official Info</h5>
+                    <p class="mb-3" style="font-size: 14px; color: #9ca3af;">
+                        <strong>BELLUCCIYA MARKETING AND MANAGEMENT PRIVATE LIMITED</strong><br>
+                        Metro Pillar No. 75, Maniyatt Building,<br>
+                        Near Pulinchodu Metro Station, Aluva,<br>
+                        Ernakulam, KERALA, PIN: 683106
+                    </p>
+                    <p class="mb-2" style="color: #9ca3af;">
+                        <i class="bi bi-telephone me-2"></i>9400438406
+                    </p>
+                    <p style="color: #9ca3af;">
+                        <i class="bi bi-envelope me-2"></i>jeemonwishes@gmail.com
+                    </p>
+                </div>
+            </div>
+            
+            <hr class="my-4" style="border-color: #374151;">
+            
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-0" style="color: #9ca3af; font-size: 14px;">
+                        © 2025 Tele Tree. All rights reserved. | Made with <i class="fas fa-heart text-danger"></i> in Kerala
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/919400438406" class="whatsapp-float text-decoration-none" target="_blank">
+        <i class="bi bi-whatsapp"></i>
+    </a>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add loading animation to unlock buttons
+        document.querySelectorAll('.unlock-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const originalHtml = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Loading...';
+                this.disabled = true;
+                
+                setTimeout(() => {
+                    window.location.href = '/plans';
+                }, 1000);
+            });
+        });
+
+        // Add hover effect to professional cards
+        document.querySelectorAll('.professional-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-section');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.1}px)`;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -2,10 +2,15 @@ const userService = require('../services/user.service');
 const Telecaller=require('../models/telecaller.model');
 const getHomePage = async(req, res) => {
   const user = req.session.user;
-  let telecallers = await Telecaller.find();
+  let telecallers = await Telecaller.find().populate("userId");
  
-    console.log("telecallers: ", telecallers);
+    // console.log("telecallers: ", telecallers);
   res.render('pages/home', { title: 'Home Page',user ,telecallers});
+  // res.json(telecallers);
+};
+const getMe = async(req, res) => {
+  const thisUser = await req.session.user;
+  res.status(200).json({message: true,  thisUser})
 };
 const getAboutPage = async(req, res) => {
   const user = req.session.user;
@@ -47,10 +52,11 @@ const registerAsTelecaller = async (req, res) => {
     if (req.file) {
       userData.profilePhoto = req.file.filename; 
     }
-
-    const result = await userService.registerUser(userData);
+    const thisUser = req.session.user;
+    const result = await userService.registerUser(userData, thisUser);
     res.status(200).json({ success: true, user: result });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ success: false, message: error.message });
   }
 };
@@ -77,5 +83,6 @@ module.exports = {
   getSignupPage,
   getAboutPage,
   getContactPage,
-  registerAsTelecaller
+  registerAsTelecaller,
+  getMe
 };

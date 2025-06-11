@@ -2,7 +2,7 @@ const PlanRepository = require('../repositories/plan.repository');
 
 class PlanService {
   async createPlan(planData) {
-    // You can add any business logic/validation here if needed
+    // logic/validation here if needed
     return await PlanRepository.createPlan(planData);
   }
 

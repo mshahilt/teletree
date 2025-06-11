@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { getHomePage, signup, login, getSignupPage, getLoginPage ,getRegister ,registerAsTelecaller, getAboutPage, getContactPage } = require('../controllers/user.controller');
+const { getHomePage, signup, login, getSignupPage, getLoginPage ,getRegister ,registerAsTelecaller, getAboutPage, getContactPage, getMe } = require('../controllers/user.controller');
 const upload = require('../middlewares/upload');  
 router.get('/', getHomePage);
+router.get('/getMe', getMe);
 router.get('/about', getAboutPage);
 router.get('/contact', getContactPage);
 router.post('/sms-deliver-status', (req, res) => {
