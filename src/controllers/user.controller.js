@@ -31,7 +31,7 @@ const getSignupPage = (req, res) => {
 const getRegister= (req, res) => {
   let user = req.session.user;
   if(user){
-   res.render('pages/register',  { title: "register" });
+   res.render('pages/register',  { title: "register", user });
   }else{
     res.redirect('/login');
   }
