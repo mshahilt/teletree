@@ -1,8 +1,7 @@
 <%- include('../partials/header') %>
+
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    
     <style>
         .whatsapp-float {
             position: fixed;
@@ -21,164 +20,229 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
+            text-decoration: none;
         }
+        
         .whatsapp-float:hover {
             transform: scale(1.1);
             background-color: #128c7e;
+            color: #FFF;
         }
+        
         .hero-gradient {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
         }
+        
         .card-hover {
             transition: all 0.3s ease;
         }
+        
         .card-hover:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
+        
         .pulse-animation {
             animation: pulse 2s infinite;
         }
+        
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
+        
         .loading {
             opacity: 0.6;
             pointer-events: none;
         }
+        
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+        
+        .btn-gradient {
+            background: linear-gradient(135deg, #007bff, #6f42c1);
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #0056b3, #5a2d91);
+            transform: scale(1.05);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #28a745;
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .plan-card {
+            position: relative;
+            height: 100%;
+        }
+        
+        .plan-card.popular {
+            border: 2px solid #28a745;
+            transform: scale(1.05);
+        }
     </style>
-
+</head>
+<body>
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/9400438406" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <!-- Hero Section -->
-    <section class="hero-gradient text-white py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6">
-                Your Trusted <span class="text-yellow-300">Household Helper</span>
-            </h1>
-            <p class="text-xl md:text-2xl mb-8 text-gray-100">
-                Connect with verified, reliable maids for all your household needs
-            </p>
-            <button class="bg-white text-purple-700 font-bold py-4 px-8 rounded-full text-lg hover:shadow-xl transition pulse-animation">
-                <i class="fas fa-search mr-2"></i>Find Your Helper Now
-            </button>
+    <section class="hero-gradient py-5">
+        <div class="container py-5">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-10">
+                    <h1 class="display-3 fw-bold mb-4">
+                        Your Trusted <span class="text-warning">Household Helper</span>
+                    </h1>
+                    <p class="lead fs-4 mb-4 text-light">
+                        Connect with verified, reliable maids for all your household needs
+                    </p>
+                    <button class="btn btn-light btn-lg px-5 py-3 text-primary fw-bold pulse-animation">
+                        <i class="fas fa-search me-2"></i>Find Your Helper Now
+                    </button>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Why Choose Tele Tree?</h2>
-                <p class="text-xl text-gray-600">Trusted, verified, and always available</p>
+    <section class="py-5 bg-white">
+        <div class="container py-4">
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-lg-8">
+                    <h2 class="display-5 fw-bold text-dark mb-3">Why Choose Tele Tree?</h2>
+                    <p class="lead text-muted">Trusted, verified, and always available</p>
+                </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="text-center p-6">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-shield-alt text-green-500 text-2xl"></i>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="text-center p-4">
+                        <div class="feature-icon bg-success bg-opacity-10">
+                            <i class="fas fa-shield-alt text-success fs-2"></i>
+                        </div>
+                        <h3 class="h4 fw-semibold mb-3">Verified Professionals</h3>
+                        <p class="text-muted">All our helpers are background-checked and verified</p>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">Verified Professionals</h3>
-                    <p class="text-gray-600">All our helpers are background-checked and verified</p>
                 </div>
-                <div class="text-center p-6">
-                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-clock text-blue-500 text-2xl"></i>
+                
+                <div class="col-md-4">
+                    <div class="text-center p-4">
+                        <div class="feature-icon bg-primary bg-opacity-10">
+                            <i class="fas fa-clock text-primary fs-2"></i>
+                        </div>
+                        <h3 class="h4 fw-semibold mb-3">Flexible Timing</h3>
+                        <p class="text-muted">Book services at your convenient time</p>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">Flexible Timing</h3>
-                    <p class="text-gray-600">Book services at your convenient time</p>
                 </div>
-                <div class="text-center p-6">
-                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-star text-purple-500 text-2xl"></i>
+                
+                <div class="col-md-4">
+                    <div class="text-center p-4">
+                        <div class="feature-icon bg-purple bg-opacity-10" style="background: rgba(108, 117, 125, 0.1) !important;">
+                            <i class="fas fa-star text-warning fs-2"></i>
+                        </div>
+                        <h3 class="h4 fw-semibold mb-3">Quality Assured</h3>
+                        <p class="text-muted">Rated and reviewed by thousands of satisfied customers</p>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">Quality Assured</h3>
-                    <p class="text-gray-600">Rated and reviewed by thousands of satisfied customers</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Pricing Plans -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Choose Your Plan</h2>
-                <p class="text-xl text-gray-600">Flexible plans designed for your needs</p>
+    <section class="py-5 bg-light">
+        <div class="container py-4">
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-lg-8">
+                    <h2 class="display-5 fw-bold text-dark mb-3">Choose Your Plan</h2>
+                    <p class="lead text-muted">Flexible plans designed for your needs</p>
+                </div>
             </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="pricing-plans">
-          <% plans.forEach((plan) => { %>
-            <div class="bg-white rounded-xl shadow-lg p-8 card-hover 
-              <%= plan.plan === 'Standard' ? 'ring-2 ring-green-500 transform scale-105' : '' %>">
-              
-              <% if (plan.plan === 'Standard') { %>
-                <div class="bg-green-500 text-white text-sm font-semibold py-1 px-4 rounded-full inline-block mb-4">
-                  Most Popular
-                </div>
-              <% } %>
+            
+            <div class="row g-4" id="pricing-plans">
+                <% plans.forEach((plan, index) => { %>
+                  <div class="col-lg-4 col-md-6">
+                    <div class="card plan-card card-hover border-0 shadow-sm h-100 <%= index === 1 ? 'popular' : '' %>">
+                      <% if (index === 1) { %>
+                        <div class="popular-badge">Most Popular</div>
+                      <% } %>
+                      <div class="card-body p-4 text-center">
+                        <h3 class="card-title h4 fw-bold mb-3"><%= plan.plan %> Plan</h3>
+                        <div class="mb-3">
+                          <span class="display-4 fw-bold text-primary">₹<%= plan.amount %></span>
+                          <span class="text-muted">/ <%= plan.numberOfAllowedUsages %> uses</span>
+                        </div>
+                        <p class="text-muted mb-4">Subscribe to view <%= plan.numberOfAllowedUsages %> worker contact details.</p>
 
-              <div class="text-center mb-6">
-                <h3 class="text-2xl font-bold text-gray-800 mb-2"><%= plan.plan %> Plan</h3>
-                <div class="flex items-baseline justify-center">
-                  <span class="text-4xl font-bold text-blue-600">₹<%= plan.amount %></span>
-                  <span class="text-gray-500 ml-2">/ <%= plan.numberOfAllowedUsages %> uses</span>
-                </div>
-              </div>
+                        <ul class="list-unstyled mb-4">
+                          <% plan.benefits.forEach(benefit => { %>
+                            <li class="mb-2">
+                              <i class="fas fa-check-circle text-success me-2"></i>
+                              <%= benefit %>
+                            </li>
+                          <% }); %>
+                        </ul>
 
-              <p class="text-center text-gray-600 mb-6">
-                Perfect for 
-                <%= plan.numberOfAllowedUsages <= 5 
-                      ? 'small households' 
-                      : plan.numberOfAllowedUsages <= 10 
-                        ? 'regular families' 
-                        : 'large families' %> 
-                with comprehensive service needs.
-              </p>
-
-              <ul class="space-y-3 mb-8">
-                <% plan.benefits.forEach((benefit) => { %>
-                  <li class="flex items-center text-gray-700">
-                    <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                    <%= benefit %>
-                  </li>
+                        <button 
+                          onclick="initiatePayment('<%= plan._id %>, <%= plan.plan %>, <%= plan.amount %>')" 
+                          class="btn btn-gradient btn-lg w-100 text-white fw-semibold"
+                        >
+                          <i class="fas fa-crown me-2"></i>Subscribe Now
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 <% }); %>
-                <li class="flex items-center text-gray-700">
-                  <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                  Access to <%= plan.numberOfAllowedUsages %> service sessions
-                </li>
-              </ul>
-
-              <button 
-                onclick="initiatePayment(`<%= plan.id %>, &quot;<%= plan.plan %>&quot;, <%= plan.amount %>`)"
-                class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3 rounded-lg hover:from-blue-700 hover:to-purple-700 transition duration-300 transform hover:scale-105"
-              >
-                <i class="fas fa-crown mr-2"></i>Subscribe Now
-              </button>
             </div>
-          <% }); %>
-        </div>
-
         </div>
     </section>
 
-
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
         function initiatePayment(planDetails) {
-            event.target.classList.add('loading');
-            event.target.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processing...';
-            console.log(planDetails)
+            const button = event.target;
+            button.classList.add('loading');
+            button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+            
+            console.log(planDetails);
             const [planId, planName, amount] = planDetails.split(',');
-            console.log("planId :", planId)
-            console.log("name :", planName)
-            console.log("am :", amount)
+            console.log("planId :", planId.trim());
+            console.log("name :", planName.trim());
+            console.log("amount :", amount.trim());
+            
             fetch('/subscription/create-order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    planId: planId,
-                    amount: Number(amount * 100)
+                    planId: planId.trim(),
+                    amount: Number(amount.trim()) * 100
                 })
             })
             .then(response => response.json())
@@ -189,11 +253,11 @@
                         amount: data.order.amount,
                         currency: data.order.currency,
                         name: 'Tele Tree',
-                        description: `${planName} Plan Subscription`,
+                        description: `${planName.trim()} Plan Subscription`,
                         image: '/logo.png',
                         order_id: data.order.id,
                         handler: function (response) {
-                            verifyPayment(response, planId);
+                            verifyPayment(response, planId.trim());
                         },
                         prefill: {
                             name: 'Customer Name',
@@ -201,17 +265,17 @@
                             contact: '9400438406'
                         },
                         notes: {
-                            planId: planId,
-                            planName: planName
+                            planId: planId.trim(),
+                            planName: planName.trim()
                         },
                         theme: {
-                            color: '#10B981'
+                            color: '#007bff'
                         },
                         modal: {
                             ondismiss: function() {
                                 // Reset button state
-                                event.target.classList.remove('loading');
-                                event.target.innerHTML = '<i class="fas fa-crown mr-2"></i>Subscribe Now';
+                                button.classList.remove('loading');
+                                button.innerHTML = '<i class="fas fa-crown me-2"></i>Subscribe Now';
                             }
                         }
                     };
@@ -221,16 +285,16 @@
                 } else {
                     alert('Error creating order: ' + data.message);
                     // Reset button state
-                    event.target.classList.remove('loading');
-                    event.target.innerHTML = '<i class="fas fa-crown mr-2"></i>Subscribe Now';
+                    button.classList.remove('loading');
+                    button.innerHTML = '<i class="fas fa-crown me-2"></i>Subscribe Now';
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
                 alert('Something went wrong. Please try again.');
                 // Reset button state
-                event.target.classList.remove('loading');
-                event.target.innerHTML = '<i class="fas fa-crown mr-2"></i>Subscribe Now';
+                button.classList.remove('loading');
+                button.innerHTML = '<i class="fas fa-crown me-2"></i>Subscribe Now';
             });
         }
 
@@ -264,5 +328,4 @@
             });
         }
     </script>
-    <!-- Footer -->
-  <%- include('../partials/footer') %>
+<%- include('../partials/footer') %>

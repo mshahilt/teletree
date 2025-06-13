@@ -1,8 +1,8 @@
 const userService = require('../services/user.service');
-const Telecaller=require('../models/telecaller.model');
+const TelecallerRepository = require("../repositories/telecaller.repository");
 const getHomePage = async(req, res) => {
   const user = req.session.user;
-  let telecallers = await Telecaller.find().populate("userId");
+  let telecallers = await TelecallerRepository.getAll();
  
     // console.log("telecallers: ", telecallers);
   res.render('pages/home', { title: 'Home Page',user ,telecallers});

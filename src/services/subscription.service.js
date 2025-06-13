@@ -1,4 +1,5 @@
 const SubscriptionRepository = require('../repositories/subscription.respository');
+const telecallerRepository = require("../repositories/telecaller.repository")
 const PlanRepository = require('../repositories/plan.repository');
 const verifyRazorpaySignature = require('../utils/verifySignature');
 
@@ -51,6 +52,14 @@ async verifyPayment({ orderId, paymentId, signature }) {
 
   return updatedSubscription;
 }
+  async viewWorkerContactInfo(userId, workerId){
+    const subscription = this.getSubscriptionsByUserId(userId);
+    if(subscription.numberOfUsagesLeft < 0) {
+      throw new Error("Maximum usage exceeded");
+    }
+    this.decrementUsage(userId);
+    return await telecallerRepository.getWorkerContactDetails(workerId);
+  }
 
   async getAllSubscriptions(filter = {}, projection = null, options = {}) {
     return await SubscriptionRepository.getAllSubscriptions(filter, projection, options);
@@ -65,8 +74,14 @@ async verifyPayment({ orderId, paymentId, signature }) {
   }
 
   async getSubscriptionsByUserId(userId) {
-    return await SubscriptionRepository.getSubscriptionsByUserId(userId);
+    return await SubscriptionRepository.getSubscriptionsByUserId(userId)
   }
+  async hasSubscriptions(userId) {
+    const subs = await SubscriptionRepository.getSubscriptionsByUserId(userId);
+    return !!(subs && subs.numberOfUsagesLeft > 0);
+  }
+
+
 
   async updateSubscription(id, updateData) {
     const updated = await SubscriptionRepository.updateSubscription(id, updateData);
@@ -85,15 +100,21 @@ async verifyPayment({ orderId, paymentId, signature }) {
   }
 
   async decrementUsage(id) {
-    const subscription = await this.getSubscriptionById(id);
+    console.log("decrementUsage called with id:", id);
+    const subscription = await this.getSubscriptionsByUserId(id);
+    console.log("Fetched subscription:", subscription);
     if (subscription.numberOfUsagesLeft <= 0) {
+      console.log("No usages left in this subscription");
       throw new Error('No usages left in this subscription');
     }
 
     subscription.numberOfUsagesLeft -= 1;
-    return await SubscriptionRepository.updateSubscription(id, {
+    console.log("Updated numberOfUsagesLeft:", subscription.numberOfUsagesLeft);
+    const updated = await SubscriptionRepository.updateSubscription(id, {
       numberOfUsagesLeft: subscription.numberOfUsagesLeft,
     });
+    console.log("Subscription after update:", updated);
+    return updated;
   }
 }
 

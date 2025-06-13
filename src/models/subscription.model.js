@@ -16,7 +16,7 @@ const SubscriptionSchema = new mongoose.Schema({
         default: []
     },
     verified: {
-        type: Boolean,
+    type: Boolean,
         default: false
     },
     numberOfUsagesLeft: {

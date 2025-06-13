@@ -121,9 +121,33 @@ const getSubscriptionById = async (req, res) => {
   }
 };
 
+const viewFullProfileInfo = async(req, res) => {
+  try {
+    const userId = req.session?.user?._id;
+    const workerId = req.body?.professionalId;
+    console.log("workerId : ", workerId);
+    const profileInfo = await subscriptionService.viewWorkerContactInfo(userId, workerId);
+    console.log("profileInfo :",profileInfo);
+    res.status(200).json({ success: true, contacts: profileInfo });
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message }); 
+  }
+}
+
+const getHasSubscription = async(req, res) => {
+  try {
+    const userId = req.session?.user?._id;
+    const has = await subscriptionService.hasSubscriptions(userId);
+    res.status(200).json({success: true, data: has});
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message }); 
+    
+  }
+}
 const getSubscriptionsByUserId = async (req, res) => {
   try {
-    const subscriptions = await subscriptionService.getSubscriptionsByUserId(req.params.userId);
+    const userId = req.session?.user?._id;
+    const subscriptions = await subscriptionService.getSubscriptionsByUserId(userId);
     res.status(200).json({ success: true, data: subscriptions });
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });
@@ -167,4 +191,6 @@ module.exports = {
   updateSubscription,
   deleteSubscription,
   decrementUsage,
+  viewFullProfileInfo,
+  getHasSubscription
 };

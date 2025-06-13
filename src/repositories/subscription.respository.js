@@ -32,7 +32,7 @@ class SubscriptionRepository {
 
   async getSubscriptionsByUserId(userId) {
     try {
-      return await Subscription.find({ userId })
+      return await Subscription.findOne({ userId })
         .populate('planId');
     } catch (error) {
       throw new Error(`Error fetching subscriptions for user: ${error.message}`);
@@ -47,7 +47,7 @@ class SubscriptionRepository {
   }
   async updateSubscription(id, updateData) {
     try {
-      return await Subscription.findByIdAndUpdate(id, updateData, {
+      return await Subscription.updateOne({userId: id}, updateData, {
         new: true,
         runValidators: true
       });

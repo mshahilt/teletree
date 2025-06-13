@@ -1,266 +1,574 @@
 <%- include('../partials/header') %>
 
-    <!-- Filter Section -->
-    <div class="container">
-        <div class="filter-section">
-            <form>
-                <div class="row g-3">
-                    <div class="col-md-3 col-6">
-                        <label for="district" class="form-label fw-semibold">District</label>
-                        <select class="form-select" id="district">
-                            <option selected disabled>Select District</option>
-                            <option>Malappuram</option>
-                            <option>Kozhikode</option>
-                            <option>Thrissur</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 col-6">
-                        <label for="age" class="form-label fw-semibold">Age Range</label>
-                        <select class="form-select" id="age">
-                            <option selected disabled>Select Age</option>
-                            <option>18-25</option>
-                            <option>26-40</option>
-                            <option>41+</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 col-6">
-                        <label for="gender" class="form-label fw-semibold">Gender</label>
-                        <select class="form-select" id="gender">
-                            <option selected disabled>Select Gender</option>
-                            <option>Male</option>
-                            <option>Female</option>
-                            <option>Other</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 col-6">
-                        <label for="category" class="form-label fw-semibold">Category</label>
-                        <select class="form-select" id="category">
-                            <option selected disabled>Select Category</option>
-                            <option>Housekeeping</option>
-                            <option>Elderly Care</option>
-                            <option>Child Care</option>
-                            <option>Pet Care</option>
-                        </select>
-                    </div>
-                    <div class="col-12 text-center">
-                        <button type="submit" class="search-btn">
-                            <i class="fas fa-search me-2"></i>Search Professionals
-                        </button>
-                    </div>
+<style>
+    .filter-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 15px;
+        padding: 2rem;
+        margin: 2rem 0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .filter-section .form-label {
+        color: white;
+        font-weight: 600;
+    }
+
+    .search-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    }
+
+    .search-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+    }
+
+    .section-title {
+        color: #6c63ff;
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .section-heading {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #2c3e50;
+        line-height: 1.2;
+    }
+
+    .service-card {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        border: 1px solid #f0f0f0;
+    }
+
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+
+    .service-card img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 1rem;
+        border: 3px solid #f8f9fa;
+    }
+
+    .service-title {
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: #2c3e50;
+    }
+
+    .professional-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        position: relative;
+        border: 1px solid #f0f0f0;
+    }
+
+    .professional-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+
+    .premium-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: linear-gradient(135deg, #ffd700, #ffed4e);
+        color: #333;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        z-index: 2;
+        box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .professional-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid white;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .professional-info {
+        padding: 1.5rem;
+    }
+
+    .professional-name {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+
+    .professional-category {
+        color: #6c63ff;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #f8f9fa;
+    }
+
+    .info-row:last-of-type {
+        border-bottom: none;
+    }
+
+    .info-label {
+        font-weight: 600;
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+
+    .info-value {
+        font-weight: 500;
+        color: #2c3e50;
+        font-size: 0.9rem;
+    }
+
+    .info-hidden {
+        color: #dc3545;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .unlock-btn {
+        background: linear-gradient(135deg, #6c63ff, #5a52d5);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+    }
+
+    .unlock-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
+    }
+
+    .show-contact-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    }
+
+    .show-contact-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+    }
+
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 4rem 2rem;
+        border-radius: 20px;
+        margin: 3rem 0;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+
+    .signup-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    }
+
+    .signup-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+    }
+
+    .loading {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    .contact-info {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 10px;
+        margin-top: 1rem;
+        border-left: 4px solid #28a745;
+    }
+
+    .contact-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.3rem 0;
+    }
+
+    .contact-label {
+        font-weight: 600;
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+
+    .contact-value {
+        font-weight: 500;
+        color: #2c3e50;
+        font-size: 0.9rem;
+    }
+</style>
+
+<!-- Filter Section -->
+<div class="container">
+    <div class="filter-section">
+        <form>
+            <div class="row g-3">
+                <div class="col-md-3 col-6">
+                    <label for="district" class="form-label fw-semibold">District</label>
+                    <select class="form-select" id="district">
+                        <option selected disabled>Select District</option>
+                        <option>Malappuram</option>
+                        <option>Kozhikode</option>
+                        <option>Thrissur</option>
+                    </select>
                 </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Services Section -->
-    <div class="container py-5">
-        <div class="text-center mb-5">
-            <div class="section-title">Explore Our Services</div>
-            <h2 class="section-heading mt-2">Find the Right Help for Every<br class="d-none d-md-block"> Household Need</h2>
-        </div>
-
-        <div class="row g-4">
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="service-card">
-                    <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=100&h=100&fit=crop&crop=face" alt="House Cleaning">
-                    <div class="service-title">House Cleaning</div>
+                <div class="col-md-3 col-6">
+                    <label for="age" class="form-label fw-semibold">Age Range</label>
+                    <select class="form-select" id="age">
+                        <option selected disabled>Select Age</option>
+                        <option>18-25</option>
+                        <option>26-40</option>
+                        <option>41+</option>
+                    </select>
                 </div>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="service-card">
-                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&h=100&fit=crop&crop=face" alt="Elderly Care">
-                    <div class="service-title">Elderly Care</div>
+                <div class="col-md-3 col-6">
+                    <label for="gender" class="form-label fw-semibold">Gender</label>
+                    <select class="form-select" id="gender">
+                        <option selected disabled>Select Gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
                 </div>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="service-card">
-                    <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=100&h=100&fit=crop&crop=face" alt="Child Care">
-                    <div class="service-title">Child Care & Baby Sitting</div>
+                <div class="col-md-3 col-6">
+                    <label for="category" class="form-label fw-semibold">Category</label>
+                    <select class="form-select" id="category">
+                        <option selected disabled>Select Category</option>
+                        <option>Housekeeping</option>
+                        <option>Elderly Care</option>
+                        <option>Child Care</option>
+                        <option>Pet Care</option>
+                    </select>
                 </div>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-3">
-                <div class="service-card">
-                    <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=100&h=100&fit=crop&crop=face" alt="Pet Care">
-                    <div class="service-title">Pet Care</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Professionals Section -->
-    <div class="container py-5">
-        <div class="text-center mb-5">
-            <div class="section-title">Our Verified Professionals</div>
-            <h2 class="section-heading mt-2">Trusted & Experienced<br class="d-none d-md-block"> Service Providers</h2>
-        </div>
-
-       <div class="row g-4">
-        <% telecallers.forEach(prof => { %>
-          <div class="col-12 col-md-6 col-lg-4">
-            <div class="professional-card">
-              <div class="premium-badge">
-                <i class="fas fa-crown me-1"></i>Premium
-              </div>
-              <div class="card-header">
-                <img 
-                  src="/uploads/profilePhotos/<%= prof.profilePhoto %>" 
-                  alt="<%= prof.userId.name.toUpperCase() %>" 
-                  class="professional-avatar"
-                >
-              </div>
-              <div class="professional-info">
-                <div class="professional-name"><%= prof.userId.name.toUpperCase() %></div>
-                <div class="professional-category"><%= prof.jobCategory %> Specialist</div>
-
-                <div class="info-row">
-                  <span class="info-label">Experience</span>
-                  <span class="info-value"><%= prof.experience %> Years</span>
-                </div>
-
-                <div class="info-row">
-                  <span class="info-label">Age</span>
-                  <span class="info-value"><%= prof.age %> Years</span>
-                </div>
-
-                <div class="info-row">
-                  <span class="info-label">Languages</span>
-                  <span class="info-value"><%= prof.languages %></span>
-                </div>
-
-                <div class="info-row">
-                  <span class="info-label">Location</span>
-                  <span class="info-value"><%= prof.userId.address.split('\n').pop() %></span>
-                </div>
-
-                <div class="info-row">
-                  <span class="info-label">Phone</span>
-                  <span class="info-hidden">
-                    <i class="fas fa-lock me-1"></i>Hidden
-                  </span>
-                </div>
-
-                <div class="info-row">
-                  <span class="info-label">Email</span>
-                  <span class="info-hidden">
-                    <i class="fas fa-lock me-1"></i>Hidden
-                  </span>
-                </div>
-
-                <div class="text-center mt-3">
-                  <button class="unlock-btn" onclick="window.location.href='/plan'">
-                    <i class="fas fa-unlock me-2"></i>Unlock Contact Info
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        <% }); %>
-      </div>
-
-    </div>
-
-    <!-- Hero Section -->
-    <div class="container">
-        <div class="hero-section">
-            <div class="row align-items-center">
-                <div class="col-lg-8">
-                    <h1 class="fw-bold mb-4">Become a Trusted Professional<br>with Tele Tree</h1>
-                    <p class="mb-3 fs-5">Join our team of skilled professionals and help households with their daily needs.</p>
-                    <ul class="list-unstyled mb-4">
-                        <li class="mb-2">
-                            <i class="fas fa-check-circle me-2"></i>Pre-verified and secure platform
-                        </li>
-                        <li class="mb-2">
-                            <i class="fas fa-check-circle me-2"></i>Flexible hours and competitive pay
-                        </li>
-                        <li class="mb-4">
-                            <i class="fas fa-check-circle me-2"></i>Empowering professionals like you to thrive
-                        </li>
-                    </ul>
-                    <button class="signup-btn">
-                        <i class="fas fa-user-plus me-2"></i>Sign Up Today
+                <div class="col-12 text-center">
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search me-2"></i>Search Professionals
                     </button>
                 </div>
-                <div class="col-lg-4 text-center">
-                    <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=300&h=300&fit=crop&crop=face" alt="Professional Team" class="img-fluid rounded-circle" style="max-width: 250px; border: 4px solid rgba(255,255,255,0.3);">
-                </div>
             </div>
-        </div>
+        </form>
+    </div>
+</div>
+
+<!-- Services Section -->
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <div class="section-title">Explore Our Services</div>
+        <h2 class="section-heading mt-2">Find the Right Help for Every<br class="d-none d-md-block"> Household Need</h2>
     </div>
 
-    <!-- Pricing Teaser -->
-    <div class="container py-5">
-        <div class="text-center mb-5">
-            <div class="section-title">Unlock Premium Access</div>
-            <h2 class="section-heading mt-2">Choose Your Perfect Plan</h2>
-            <p class="lead text-muted">Get access to verified professional contact details and premium features</p>
+    <div class="row g-4">
+        <div class="col-12 col-sm-6 col-lg-3">
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=100&h=100&fit=crop&crop=face" alt="House Cleaning">
+                <div class="service-title">House Cleaning</div>
+            </div>
         </div>
-        
-        <div class="row g-4 justify-content-center">
-            <div class="col-md-4">
-                <div class="card border-0 shadow-lg h-100" style="border-radius: 20px;">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-star fa-2x text-warning"></i>
-                        </div>
-                        <h4 class="fw-bold">Basic Plan</h4>
-                        <div class="display-6 fw-bold text-primary mb-3">₹99<small class="fs-6 text-muted">/month</small></div>
-                        <ul class="list-unstyled text-start">
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Contact 5 professionals</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Basic profile access</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Email support</li>
-                        </ul>
-                        <button class="btn btn-outline-primary w-100 mt-3" onclick="window.location.href='/plans'">
-                            Choose Plan
-                        </button>
-                    </div>
-                </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&h=100&fit=crop&crop=face" alt="Elderly Care">
+                <div class="service-title">Elderly Care</div>
             </div>
-            
-            <div class="col-md-4">
-                <div class="card border-0 shadow-lg h-100 position-relative" style="border-radius: 20px; border: 2px solid var(--primary-green);">
-                    <div class="position-absolute top-0 start-50 translate-middle">
-                        <span class="badge bg-success px-3 py-2">Most Popular</span>
-                    </div>
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-crown fa-2x text-warning"></i>
-                        </div>
-                        <h4 class="fw-bold">Premium Plan</h4>
-                        <div class="display-6 fw-bold text-success mb-3">₹199<small class="fs-6 text-muted">/month</small></div>
-                        <ul class="list-unstyled text-start">
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Contact unlimited professionals</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Full profile access</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Priority support</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Advanced filters</li>
-                        </ul>
-                        <button class="btn btn-success w-100 mt-3" onclick="window.location.href='/plans'">
-                            Choose Plan
-                        </button>
-                    </div>
-                </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=100&h=100&fit=crop&crop=face" alt="Child Care">
+                <div class="service-title">Child Care & Baby Sitting</div>
             </div>
-            
-            <div class="col-md-4">
-                <div class="card border-0 shadow-lg h-100" style="border-radius: 20px;">
-                    <div class="card-body text-center p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-diamond fa-2x text-info"></i>
-                        </div>
-                        <h4 class="fw-bold">Enterprise</h4>
-                        <div class="display-6 fw-bold text-info mb-3">₹499<small class="fs-6 text-muted">/month</small></div>
-                        <ul class="list-unstyled text-start">
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Everything in Premium</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Bulk hiring tools</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Dedicated account manager</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Custom integrations</li>
-                        </ul>
-                        <button class="btn btn-outline-info w-100 mt-3" onclick="window.location.href='/plans'">
-                            Choose Plan
-                        </button>
-                    </div>
-                </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=100&h=100&fit=crop&crop=face" alt="Pet Care">
+                <div class="service-title">Pet Care</div>
             </div>
         </div>
     </div>
+</div>
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <div class="section-title">Our Verified Professionals</div>
+        <h2 class="section-heading mt-2">Trusted & Experienced<br class="d-none d-md-block"> Service Providers</h2>
+    </div>
+
+    <div class="row g-4">
+        <% telecallers.forEach((prof, index) => { %>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="professional-card">
+                <div class="premium-badge">
+                    <i class="fas fa-crown me-1"></i>Premium
+                </div>
+                <div class="card-header">
+                    <img 
+                        src="/uploads/profilePhotos/<%= prof.profilePhoto %>" 
+                        alt="<%= prof.userId.name.toUpperCase() %>" 
+                        class="professional-avatar"
+                    >
+                </div>
+                <div class="professional-info">
+                    <div class="professional-name"><%= prof.userId.name.toUpperCase() %></div>
+                    <div class="professional-category"><%= prof.jobCategory %> Specialist</div>
+
+                    <div class="info-row">
+                        <span class="info-label">Experience</span>
+                        <span class="info-value"><%= prof.experience %> Years</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Age</span>
+                        <span class="info-value"><%= prof.age %> Years</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Languages</span>
+                        <span class="info-value"><%= prof.languages %></span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Location</span>
+                        <span class="info-value"><%= prof.userId.address.split('\n').pop() %></span>
+                    </div>
+                    <div id="contact-row">
+                      <div class="info-row" >
+                          <span class="info-label">Phone</span>
+                          <span class="info-hidden" id="phone-<%= index %>">
+                              <i class="fas fa-lock me-1"></i>Hidden
+                          </span>
+                      </div>
+                      <div class="info-row">
+                          <span class="info-label">Email</span>
+                          <span class="info-hidden" id="email-<%= index %>">
+                              <i class="fas fa-lock me-1"></i>Hidden
+                          </span>
+                      </div>
+                    </div>
+
+                    <!-- Contact Info Container (Initially Hidden) -->
+                    <div class="contact-info d-none" id="contact-info-<%= index %>">
+                        <div class="contact-item">
+                            <span class="contact-label">Phone:</span>
+                            <span class="contact-value" id="phone-value-<%= index %>">Loading...</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Email:</span>
+                            <span class="contact-value" id="email-value-<%= index %>">Loading...</span>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <button class="unlock-btn" id="action-btn-<%= index %>" data-prof-id="<%= prof._id %>" data-index="<%= index %>">
+                            <i class="fas fa-unlock me-2"></i>Unlock Contact Info
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+    </div>
+</div>
+
+<div class="container">
+    <div class="hero-section">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="fw-bold mb-4">Become a Trusted Professional<br>with Tele Tree</h1>
+                <p class="mb-3 fs-5">Join our team of skilled professionals and help households with their daily needs.</p>
+                <ul class="list-unstyled mb-4">
+                    <li class="mb-2">
+                        <i class="fas fa-check-circle me-2"></i>Pre-verified and secure platform
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check-circle me-2"></i>Flexible hours and competitive pay
+                    </li>
+                    <li class="mb-4">
+                        <i class="fas fa-check-circle me-2"></i>Empowering professionals like you to thrive
+                    </li>
+                </ul>
+                <button class="signup-btn">
+                    <i class="fas fa-user-plus me-2"></i>Sign Up Today
+                </button>
+            </div>
+            <div class="col-lg-4 text-center">
+                <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=300&h=300&fit=crop&crop=face" alt="Professional Team" class="img-fluid rounded-circle" style="max-width: 250px; border: 4px solid rgba(255,255,255,0.3);">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let hasValidSubscription = false;
+    
+    // Check subscription status on page load
+    checkSubscriptionStatus();
+    
+    async function checkSubscriptionStatus() {
+        try {
+            const response = await fetch('/subscription/has', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            
+            const data = await response.json();
+            console.log("data: ", data);
+            hasValidSubscription = data.data || false;
+            
+            // Update all buttons based on subscription status
+            updateAllButtons();
+            
+        } catch (error) {
+            console.error('Error checking subscription status:', error);
+            hasValidSubscription = false;
+            updateAllButtons();
+        }
+    }
+    
+    function updateAllButtons() {
+        const buttons = document.querySelectorAll('[id^="action-btn-"]');
+        
+        buttons.forEach(button => {
+            const index = button.dataset.index;
+            
+            if (hasValidSubscription) {
+                button.innerHTML = '<i class="fas fa-eye me-2"></i>Show Contact Info';
+                button.className = 'show-contact-btn';
+                button.onclick = () => showContactInfo(button.dataset.profId, index);
+            } else {
+                button.innerHTML = '<i class="fas fa-unlock me-2"></i>Unlock Contact Info';
+                button.className = 'unlock-btn';
+                button.onclick = () => window.location.href = '/plan';
+            }
+        });
+    }
+    
+    async function showContactInfo(profId, index) {
+        const button = document.getElementById(`action-btn-${index}`);
+        const phoneElement = document.getElementById(`phone-${index}`);
+        const emailElement = document.getElementById(`email-${index}`);
+        const contactInfoDiv = document.getElementById(`contact-info-${index}`);
+        const phoneValueElement = document.getElementById(`phone-value-${index}`);
+        const emailValueElement = document.getElementById(`email-value-${index}`);
+        const contactRowDiv = document.getElementById("contact-row");
+        // Show loading state
+        button.classList.add('loading');
+        button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Loading...';
+        
+        try {
+          console.log("profId", profId);
+            const response = await fetch('/subscription/getContacts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    professionalId: profId
+                })
+            });
+            
+            const data = await response.json();
+            console.data
+            
+            if (data.success && data.contacts) {
+                // Hide the locked info
+                phoneElement.style.display = 'none';
+                emailElement.style.display = 'none';
+                
+                // Show the contact information
+                contactRowDiv.remove();
+                phoneValueElement.textContent = data.contacts.phone || 'Not available';
+                emailValueElement.textContent = data.contacts.email || 'Not available';
+                contactInfoDiv.classList.remove('d-none');
+                
+                // Update button
+                button.innerHTML = '<i class="fas fa-check me-2"></i>Contact Revealed';
+                button.classList.remove('loading');
+                button.disabled = true;
+                button.style.background = '#6c757d';
+                
+            } else {
+                throw new Error(data.message || 'Failed to get contact information');
+            }
+            
+        } catch (error) {
+            console.error('Error getting contact info:', error);
+            alert('Error getting contact information: ' + error.message);
+            
+            // Reset button state
+            button.classList.remove('loading');
+            button.innerHTML = '<i class="fas fa-eye me-2"></i>Show Contact Info';
+        }
+    }
+    
+    // Make functions globally available
+    window.showContactInfo = showContactInfo;
+});
+</script>
+
 <%- include('../partials/footer') %>

@@ -9,6 +9,9 @@ router.post('/verify-payment', subscriptionController.verifyRazorPayPayment);
 // Get all subscriptions
 router.get('/', subscriptionController.getAllSubscriptions);
 
+router.get('/has', subscriptionController.getHasSubscription);
+router.post('/getContacts', subscriptionController.viewFullProfileInfo);
+
 // Get subscription by ID
 router.get('/:id', subscriptionController.getSubscriptionById);
 
