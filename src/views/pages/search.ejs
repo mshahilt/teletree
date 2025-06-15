@@ -1,0 +1,699 @@
+<%- include('../partials/header') %>
+
+<style>
+    .filter-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 15px;
+        padding: 2rem;
+        margin: 2rem 0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .filter-section .form-label {
+        color: white;
+        font-weight: 600;
+    }
+
+    .search-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    }
+
+    .search-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+    }
+
+    .section-title {
+        color: #6c63ff;
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .section-heading {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #2c3e50;
+        line-height: 1.2;
+    }
+
+    .professional-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        position: relative;
+        border: 1px solid #f0f0f0;
+    }
+
+    .professional-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+
+    .premium-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: linear-gradient(135deg, #ffd700, #ffed4e);
+        color: #333;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        z-index: 2;
+        box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .professional-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid white;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .professional-info {
+        padding: 1.5rem;
+    }
+
+    .professional-name {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+
+    .professional-category {
+        color: #6c63ff;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #f8f9fa;
+    }
+
+    .info-row:last-of-type {
+        border-bottom: none;
+    }
+
+    .info-label {
+        font-weight: 600;
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+
+    .info-value {
+        font-weight: 500;
+        color: #2c3e50;
+        font-size: 0.9rem;
+    }
+
+    .info-hidden {
+        color: #dc3545;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .unlock-btn {
+        background: linear-gradient(135deg, #6c63ff, #5a52d5);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+    }
+
+    .unlock-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
+    }
+
+    .show-contact-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    }
+
+    .show-contact-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+    }
+
+    .loading {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    .contact-info {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 10px;
+        margin-top: 1rem;
+        border-left: 4px solid #28a745;
+    }
+
+    .contact-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.3rem 0;
+    }
+
+    .contact-label {
+        font-weight: 600;
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+
+    .contact-value {
+        font-weight: 500;
+        color: #2c3e50;
+        font-size: 0.9rem;
+    }
+
+    .results-summary {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+        border-left: 4px solid #6c63ff;
+    }
+
+    .no-results {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: #f8f9fa;
+        border-radius: 15px;
+        margin: 2rem 0;
+    }
+
+    .clear-filters-btn {
+        background: linear-gradient(135deg, #dc3545, #c82333);
+        color: white;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+    }
+
+    .clear-filters-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+    }
+
+    .search-loading {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: #f8f9fa;
+        border-radius: 15px;
+        margin: 2rem 0;
+    }
+
+    .initial-message {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 15px;
+        margin: 2rem 0;
+    }
+</style>
+
+<!-- Search Filter Section -->
+<div class="container">
+    <div class="filter-section">
+        <form id="searchForm">
+            <div class="row g-3">
+                <div class="col-md-3 col-6">
+                    <label for="district" class="form-label fw-semibold">District</label>
+                    <select class="form-select" id="district" name="district">
+                        <option value="">All Districts</option>
+                        <option>Alappuzha</option>
+                        <option>Ernakulam</option>
+                        <option>Idukki</option>
+                        <option>Kannur</option>
+                        <option>Kasaragod</option>
+                        <option>Kollam</option>
+                        <option>Kottayam</option>
+                        <option>Kozhikode</option>
+                        <option>Malappuram</option>
+                        <option>Palakkad</option>
+                        <option>Pathanamthitta</option>
+                        <option>Thiruvananthapuram</option>
+                        <option>Thrissur</option>
+                        <option>Wayanad</option>
+                    </select>
+                </div>
+                <div class="col-md-3 col-6">
+                    <label for="age" class="form-label fw-semibold">Age Range</label>
+                    <select class="form-select" id="age" name="age">
+                        <option value="">Any Age</option>
+                        <option value="18">18-25</option>
+                        <option value="26">26-40</option>
+                        <option value="41">41+</option>
+                    </select>
+                </div>
+                <div class="col-md-3 col-6">
+                    <label for="gender" class="form-label fw-semibold">Gender</label>
+                    <select class="form-select" id="gender" name="gender">
+                        <option value="">Any Gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="col-md-3 col-6">
+                    <label for="category" class="form-label fw-semibold">Category</label>
+                    <select class="form-select" id="category" name="jobCategory">
+                        <option value="">All Categories</option>
+                        <option>Housekeeping</option>
+                        <option>Elderly Care</option>
+                        <option>Child Care</option>
+                        <option>Pet Care</option>
+                    </select>
+                </div>
+                <div class="col-12 text-center">
+                    <button type="submit" class="search-btn me-2" id="searchButton">
+                        <i class="fas fa-search me-2"></i>Search Professionals
+                    </button>
+                    <button type="button" class="clear-filters-btn" onclick="clearFilters()">
+                        <i class="fas fa-times me-2"></i>Clear Filters
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Search Results Section -->
+<div class="container py-5">
+    <!-- Initial Message -->
+    <div class="initial-message" id="initialMessage">
+        <div class="text-center">
+            <i class="fas fa-search fa-4x mb-3"></i>
+            <h3 class="mb-3">Find Your Perfect Professional</h3>
+            <p class="mb-0">Use the filters above to search for professionals in your area. Start by selecting your district and preferred service category.</p>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="search-loading d-none" id="loadingMessage">
+        <div class="text-center">
+            <i class="fas fa-spinner fa-spin fa-4x text-muted mb-3"></i>
+            <h3 class="text-muted mb-3">Searching...</h3>
+            <p class="text-muted mb-0">Finding the best professionals for you</p>
+        </div>
+    </div>
+
+    <!-- Results Summary -->
+    <div class="results-summary d-none" id="resultsSummary">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h5 class="mb-1"><i class="fas fa-search me-2"></i>Search Results</h5>
+                <p class="mb-0 text-muted" id="resultsCount">Found 0 professionals matching your criteria</p>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <small class="text-muted" id="activeFilters">
+                    <!-- Filter badges will be added here -->
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <!-- No Results -->
+    <div class="no-results d-none" id="noResults">
+        <div class="text-center">
+            <i class="fas fa-search fa-4x text-muted mb-3"></i>
+            <h3 class="text-muted mb-3">No Professionals Found</h3>
+            <p class="text-muted mb-4">We couldn't find any professionals matching your search criteria. Try adjusting your filters or search in a different area.</p>
+            <button type="button" class="search-btn" onclick="clearFilters()">
+                <i class="fas fa-redo me-2"></i>Clear Filters & Search Again
+            </button>
+        </div>
+    </div>
+
+    <!-- Professionals Grid -->
+    <div class="row g-4" id="professionalsGrid">
+        <!-- Professional cards will be dynamically added here -->
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let hasValidSubscription = false;
+    let currentProfessionals = [];
+    
+    // Check subscription status on page load
+    checkSubscriptionStatus();
+    
+    async function checkSubscriptionStatus() {
+        try {
+            const response = await fetch('/subscription/has', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            
+            const data = await response.json();
+            console.log("Subscription data: ", data);
+            hasValidSubscription = data.data || false;
+            
+        } catch (error) {
+            console.error('Error checking subscription status:', error);
+            hasValidSubscription = false;
+        }
+    }
+    
+    // Search form submission
+    document.getElementById('searchForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const params = new URLSearchParams();
+        
+        // Build query parameters
+        for (let [key, value] of formData.entries()) {
+            if (value && value.trim() !== '') {
+                params.append(key, value);
+            }
+        }
+        
+        // Show loading state
+        showLoading();
+        
+        try {
+            // Make request to /tele-caller-search
+            const response = await fetch(`/tele-caller-search?${params.toString()}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                currentProfessionals = data.telecallers || [];
+                console.log("currentProfessionals", data);
+                displayResults(currentProfessionals, Object.fromEntries(params));
+            } else {
+                throw new Error(data.message || 'Search failed');
+            }
+            
+        } catch (error) {
+            console.error('Search error:', error);
+            hideLoading();
+            alert('Error searching professionals: ' + error.message);
+        }
+    });
+    
+    function showLoading() {
+        document.getElementById('initialMessage').classList.add('d-none');
+        document.getElementById('loadingMessage').classList.remove('d-none');
+        document.getElementById('resultsSummary').classList.add('d-none');
+        document.getElementById('noResults').classList.add('d-none');
+        document.getElementById('professionalsGrid').innerHTML = '';
+        
+        // Update search button
+        const searchButton = document.getElementById('searchButton');
+        searchButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Searching...';
+        searchButton.disabled = true;
+    }
+    
+    function hideLoading() {
+        document.getElementById('loadingMessage').classList.add('d-none');
+        
+        // Reset search button
+        const searchButton = document.getElementById('searchButton');
+        searchButton.innerHTML = '<i class="fas fa-search me-2"></i>Search Professionals';
+        searchButton.disabled = false;
+    }
+    
+    function displayResults(professionals, searchParams) {
+        hideLoading();
+        
+        if (professionals.length === 0) {
+            // Show no results
+            document.getElementById('noResults').classList.remove('d-none');
+            return;
+        }
+        
+        // Show results summary
+        document.getElementById('resultsSummary').classList.remove('d-none');
+        document.getElementById('resultsCount').textContent = 
+            `Found ${professionals.length} professional${professionals.length !== 1 ? 's' : ''} matching your criteria`;
+        
+        // Update active filters
+        updateActiveFilters(searchParams);
+        
+        // Display professionals
+        displayProfessionals(professionals);
+    }
+    
+    function updateActiveFilters(searchParams) {
+        const activeFiltersDiv = document.getElementById('activeFilters');
+        let filtersHtml = '';
+        
+        if (searchParams.district) {
+            filtersHtml += `<span class="badge bg-primary me-1">${searchParams.district}</span>`;
+        }
+        if (searchParams.jobCategory) {
+            filtersHtml += `<span class="badge bg-success me-1">${searchParams.jobCategory}</span>`;
+        }
+        if (searchParams.gender) {
+            filtersHtml += `<span class="badge bg-info me-1">${searchParams.gender}</span>`;
+        }
+        if (searchParams.age) {
+            filtersHtml += `<span class="badge bg-warning me-1">Age ${searchParams.age}+</span>`;
+        }
+        
+        activeFiltersDiv.innerHTML = filtersHtml;
+    }
+    
+    function displayProfessionals(professionals) {
+        const grid = document.getElementById('professionalsGrid');
+        grid.innerHTML = '';
+        
+        professionals.forEach((prof, index) => {
+            const profCard = createProfessionalCard(prof, index);
+            grid.appendChild(profCard);
+        });
+        
+        // Update all buttons based on subscription status
+        updateAllButtons();
+    }
+    
+    function createProfessionalCard(prof, index) {
+        const col = document.createElement('div');
+        col.className = 'col-12 col-md-6 col-lg-4';
+        
+        col.innerHTML = `
+            <div class="professional-card">
+                <div class="premium-badge">
+                    <i class="fas fa-crown me-1"></i>Premium
+                </div>
+                <div class="card-header">
+                    <img 
+                        src="/uploads/profilePhotos/${prof.profilePhoto}" 
+                        alt="${prof.user.name.toUpperCase()}" 
+                        class="professional-avatar"
+                    >
+                </div>
+                <div class="professional-info">
+                    <div class="professional-name">${prof.user.name.toUpperCase()}</div>
+                    <div class="professional-category">${prof.jobCategory} Specialist</div>
+
+                    <div class="info-row">
+                        <span class="info-label">Experience</span>
+                        <span class="info-value">${prof.experience} Years</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Age</span>
+                        <span class="info-value">${prof.age} Years</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Languages</span>
+                        <span class="info-value">${prof.languages}</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Location</span>
+                        <span class="info-value">${prof.user.address.split('\n').pop()}</span>
+                    </div>
+                    
+                    <div id="contact-row-${index}">
+                        <div class="info-row">
+                            <span class="info-label">Phone</span>
+                            <span class="info-hidden" id="phone-${index}">
+                                <i class="fas fa-lock me-1"></i>Hidden
+                            </span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Email</span>
+                            <span class="info-hidden" id="email-${index}">
+                                <i class="fas fa-lock me-1"></i>Hidden
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="contact-info d-none" id="contact-info-${index}">
+                        <div class="contact-item">
+                            <span class="contact-label">Phone:</span>
+                            <span class="contact-value" id="phone-value-${index}">Loading...</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Email:</span>
+                            <span class="contact-value" id="email-value-${index}">Loading...</span>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <button class="unlock-btn" id="action-btn-${index}" data-prof-id="${prof._id}" data-index="${index}">
+                            <i class="fas fa-unlock me-2"></i>Unlock Contact Info
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        return col;
+    }
+    
+    function updateAllButtons() {
+        const buttons = document.querySelectorAll('[id^="action-btn-"]');
+        
+        buttons.forEach(button => {
+            const index = button.dataset.index;
+            
+            if (hasValidSubscription) {
+                button.innerHTML = '<i class="fas fa-eye me-2"></i>Show Contact Info';
+                button.className = 'show-contact-btn';
+                button.onclick = () => showContactInfo(button.dataset.profId, index);
+            } else {
+                button.innerHTML = '<i class="fas fa-unlock me-2"></i>Unlock Contact Info';
+                button.className = 'unlock-btn';
+                button.onclick = () => window.location.href = '/plan';
+            }
+        });
+    }
+    
+    async function showContactInfo(profId, index) {
+        const button = document.getElementById(`action-btn-${index}`);
+        const phoneElement = document.getElementById(`phone-${index}`);
+        const emailElement = document.getElementById(`email-${index}`);
+        const contactInfoDiv = document.getElementById(`contact-info-${index}`);
+        const phoneValueElement = document.getElementById(`phone-value-${index}`);
+        const emailValueElement = document.getElementById(`email-value-${index}`);
+        const contactRowDiv = document.getElementById(`contact-row-${index}`);
+        
+        // Show loading state
+        button.classList.add('loading');
+        button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Loading...';
+        
+        try {
+            console.log("profId", profId);
+            const response = await fetch('/subscription/getContacts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    professionalId: profId
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success && data.contacts) {
+                // Hide the locked info
+                phoneElement.style.display = 'none';
+                emailElement.style.display = 'none';
+                
+                // Show the contact information
+                contactRowDiv.remove();
+                phoneValueElement.textContent = data.contacts.phone || 'Not available';
+                emailValueElement.textContent = data.contacts.email || 'Not available';
+                contactInfoDiv.classList.remove('d-none');
+                
+                // Update button
+                button.innerHTML = '<i class="fas fa-check me-2"></i>Contact Revealed';
+                button.classList.remove('loading');
+                button.disabled = true;
+                button.style.background = '#6c757d';
+                
+            } else {
+                throw new Error(data.message || 'Failed to get contact information');
+            }
+            
+        } catch (error) {
+            console.error('Error getting contact info:', error);
+            alert('Error getting contact information: ' + error.message);
+            
+            // Reset button state
+            button.classList.remove('loading');
+            button.innerHTML = '<i class="fas fa-eye me-2"></i>Show Contact Info';
+        }
+    }
+    
+    // Make functions globally available
+    window.showContactInfo = showContactInfo;
+});
+
+function clearFilters() {
+    // Reset all form fields
+    document.getElementById('district').value = '';
+    document.getElementById('age').value = '';
+    document.getElementById('gender').value = '';
+    document.getElementById('category').value = '';
+    
+    // Reset display to initial state
+    document.getElementById('initialMessage').classList.remove('d-none');
+    document.getElementById('loadingMessage').classList.add('d-none');
+    document.getElementById('resultsSummary').classList.add('d-none');
+    document.getElementById('noResults').classList.add('d-none');
+    document.getElementById('professionalsGrid').innerHTML = '';
+}
+</script>
+
+<%- include('../partials/footer') %>

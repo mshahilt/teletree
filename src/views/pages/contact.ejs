@@ -1,0 +1,153 @@
+<%- include('../partials/header') %><style>
+      .footer {
+      background-color: #1e1e1e;
+      color: #fff;
+      padding: 40px 20px;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .footer h5 {
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .footer ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .footer ul li a:hover {
+      text-decoration: underline;
+    }
+
+    .social-icons a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 1px solid #fff;
+      border-radius: 50%;
+      color: #fff;
+      text-align: center;
+      line-height: 40px;
+      margin-right: 10px;
+      font-size: 18px;
+    }
+
+    .whatsapp-float {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      color: white;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+     .about-banner {
+      background-image: url('images/dummy-image.webp'); /* Update if hosted */
+      background-size: cover;
+      background-position: center;
+      border-radius: 20px;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .about-banner h2 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .about-banner h2 {
+        font-size: 1.8rem;
+      }
+    }
+    .contact-section {
+      padding: 50px 20px;
+      background-color: #fff;
+    }
+
+    .contact-image {
+      border-radius: 20px;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      border-radius: 10px;
+    }
+
+    .submit-btn {
+      background-color:  #1abe59;
+      color: white;
+      padding: 10px 30px;
+      border-radius: 10px;
+      border: none;
+    }
+
+    @media (max-width: 768px) {
+      .contact-image {
+        margin-top: 30px;
+      }
+    }
+  </style>
+
+  
+<div class="container my-5">
+  <div class="about-banner">
+    <h2>Contact us</h2>
+  </div>
+</div>
+
+<div class="container contact-section">
+  <div class="row align-items-center">
+    <!-- Form Section -->
+    <div class="col-md-6">
+      <!-- <h2 class="fw-bold mb-4">Contact Us</h2> -->
+      <form class="contact-form">
+        <div class="mb-3">
+          <label for="name" class="form-label fw-semibold">Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Enter your name">
+        </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label fw-semibold">Phone Number</label>
+          <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label fw-semibold">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="Enter your email">
+        </div>
+        <div class="mb-3">
+          <label for="message" class="form-label fw-semibold">Message</label>
+          <textarea class="form-control" id="message" rows="4" placeholder="Write your message"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Submit</button>
+      </form>
+    </div>
+
+    <!-- Image Section -->
+    <div class="col-md-6 text-center">
+      <img src="images/contact_lady.png" alt="Contact Us" class="contact-image">
+    </div>
+  </div>
+</div>
+<%- include('../partials/footer') %>

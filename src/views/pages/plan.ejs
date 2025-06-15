@@ -1,0 +1,427 @@
+<%- include('../partials/header') %>
+ <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        :root {
+            --primary-green: #28a745;
+            --light-green: #d4edda;
+            --medium-green: #95d5b2;
+            --dark-green: #155724;
+            --accent-green: #52b788;
+            --bg-green: #f8fffe;
+            --border-green: #c3e6cb;
+        }
+        
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: var(--primary-green);
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 8px rgba(40, 167, 69, 0.3);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: var(--dark-green);
+            color: #FFF;
+            box-shadow: 2px 2px 12px rgba(40, 167, 69, 0.5);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--accent-green) 0%, var(--primary-green) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-green);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(40, 167, 69, 0.15);
+            border-color: var(--medium-green);
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+        }
+        
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--light-green), var(--medium-green));
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.1);
+        }
+        
+        .btn-gradient {
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+        
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, var(--dark-green), var(--primary-green));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+        }
+        
+        .plan-card {
+            position: relative;
+            height: 100%;
+            background: var(--bg-green);
+            border: 2px solid var(--border-green);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .plan-card.popular {
+            border: 2px solid var(--primary-green);
+            transform: scale(1.05);
+            background: linear-gradient(180deg, #ffffff 0%, var(--light-green) 100%);
+        }
+        
+        .plan-card.popular::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-green));
+        }
+        
+        .text-green {
+            color: var(--primary-green) !important;
+        }
+        
+        .bg-green-light {
+            background-color: var(--light-green);
+        }
+        
+        .bg-green-subtle {
+            background-color: var(--bg-green);
+        }
+        
+        .features-section {
+            background: linear-gradient(180deg, #ffffff 0%, var(--bg-green) 100%);
+        }
+        
+        .pricing-section {
+            background: linear-gradient(180deg, var(--bg-green) 0%, var(--light-green) 100%);
+        }
+        
+        .btn-light-green {
+            background-color: white;
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-light-green:hover {
+            background-color: var(--primary-green);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+        }
+        
+        .check-icon {
+            color: var(--primary-green);
+            font-size: 1.1rem;
+        }
+        
+        h1, h2, h3 {
+            color: var(--dark-green);
+        }
+        
+        .hero-gradient h1 {
+            color: white;
+        }
+        
+        .display-price {
+            color: var(--primary-green);
+            font-weight: 700;
+        }
+    </style>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/9400438406" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient py-5">
+        <div class="container py-5">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-10">
+                    <h1 class="display-3 fw-bold mb-4">
+                        Your Trusted <span class="text-warning">Tele Callers</span>
+                    </h1>
+                    <p class="lead fs-4 mb-5 text-light opacity-90">
+                        Connect with verified, reliable Tele Callers for all your company needs
+                    </p>
+                    <button class="btn btn-light-green btn-lg px-5 py-3 pulse-animation">
+                        <i class="fas fa-search me-2"></i>Find Your TeleCaller Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section py-5">
+        <div class="container py-4">
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-lg-8">
+                    <h2 class="display-5 fw-bold mb-3">Why Choose Tele Tree?</h2>
+                    <p class="lead text-muted">Trusted, verified, and always available</p>
+                </div>
+            </div>
+            
+            <div class="row g-5">
+                <div class="col-md-4">
+                    <div class="text-center p-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt text-green fs-1"></i>
+                        </div>
+                        <h3 class="h4 fw-semibold mb-3">Verified Professionals</h3>
+                        <p class="text-muted">All our helpers are background-checked and verified for your peace of mind</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="text-center p-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock text-green fs-1"></i>
+                        </div>
+                        <h3 class="h4 fw-semibold mb-3">Flexible Timing</h3>
+                        <p class="text-muted">Book services at your convenient time with 24/7 availability</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="text-center p-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-star text-warning fs-1"></i>
+                        </div>
+                        <h3 class="h4 fw-semibold mb-3">Quality Assured</h3>
+                        <p class="text-muted">Rated and reviewed by thousands of satisfied customers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Plans -->
+    <section class="pricing-section py-5">
+        <div class="container py-4">
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-lg-8">
+                    <h2 class="display-5 fw-bold mb-3">Choose Your Plan</h2>
+                    <p class="lead text-muted">Flexible plans designed for your needs</p>
+                </div>
+            </div>
+            
+           <div class="row g-4" id="pricing-plans">
+                <% plans.forEach((plan, index) => { %>
+                  <div class="col-lg-4 col-md-6">
+                    <div class="card plan-card card-hover border-0 shadow-sm h-100 <%= index === 1 ? 'popular' : '' %>">
+                      <% if (index === 1) { %>
+                        <div class="popular-badge">Most Popular</div>
+                      <% } %>
+                      <div class="card-body p-4 text-center">
+                        <h3 class="card-title h4 fw-bold mb-3"><%= plan.plan %> Plan</h3>
+                        <div class="mb-3">
+                          <span class="display-4 fw-bold text-primary">₹<%= plan.amount %></span>
+                          <span class="text-muted">/ <%= plan.numberOfAllowedUsages %> uses</span>
+                        </div>
+                        <p class="text-muted mb-4">Subscribe to view <%= plan.numberOfAllowedUsages %> worker contact details.</p>
+
+                        <ul class="list-unstyled mb-4">
+                          <% plan.benefits.forEach(benefit => { %>
+                            <li class="mb-2">
+                              <i class="fas fa-check-circle text-success me-2"></i>
+                              <%= benefit %>
+                            </li>
+                          <% }); %>
+                        </ul>
+
+                        <button 
+                          onclick="initiatePayment('<%= plan._id %>, <%= plan.plan %>, <%= plan.amount %>')" 
+                          class="btn btn-gradient btn-lg w-100 text-white fw-semibold"
+                        >
+                          <i class="fas fa-crown me-2"></i>Subscribe Now
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                <% }); %>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   
+    <script>
+        function initiatePayment(planDetails) {
+            const button = event.target;
+            button.classList.add('loading');
+            button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+            
+            console.log(planDetails);
+            const [planId, planName, amount] = planDetails.split(',');
+            console.log("planId :", planId.trim());
+            console.log("name :", planName.trim());
+            console.log("amount :", amount.trim());
+            
+            fetch('/subscription/create-order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    planId: planId.trim(),
+                    amount: Number(amount.trim()) * 100
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const options = {
+                        key: data.razorpayKeyId,
+                        amount: data.order.amount,
+                        currency: data.order.currency,
+                        name: 'Tele Tree',
+                        description: `${planName.trim()} Plan Subscription`,
+                        image: '/logo.png',
+                        order_id: data.order.id,
+                        handler: function (response) {
+                            verifyPayment(response, planId.trim());
+                        },
+                        prefill: {
+                            name: 'Customer Name',
+                            email: 'customer@example.com',
+                            contact: '9400438406'
+                        },
+                        notes: {
+                            planId: planId.trim(),
+                            planName: planName.trim()
+                        },
+                        theme: {
+                            color: '#007bff'
+                        },
+                        modal: {
+                            ondismiss: function() {
+                                // Reset button state
+                                button.classList.remove('loading');
+                                button.innerHTML = '<i class="fas fa-crown me-2"></i>Subscribe Now';
+                            }
+                        }
+                    };
+                    
+                    const rzp = new Razorpay(options);
+                    rzp.open();
+                } else {
+                    alert('Error creating order: ' + data.message);
+                    // Reset button state
+                    button.classList.remove('loading');
+                    button.innerHTML = '<i class="fas fa-crown me-2"></i>Subscribe Now';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Something went wrong. Please try again.');
+                // Reset button state
+                button.classList.remove('loading');
+                button.innerHTML = '<i class="fas fa-crown me-2"></i>Subscribe Now';
+            });
+        }
+
+        // Verify payment
+        function verifyPayment(paymentResponse, planId) {
+            fetch('/subscription/verify-payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    razorpay_order_id: paymentResponse.razorpay_order_id,
+                    razorpay_payment_id: paymentResponse.razorpay_payment_id,
+                    razorpay_signature: paymentResponse.razorpay_signature,
+                    planId: planId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Payment successful! Your subscription is now active.');
+                    // Redirect to dashboard or success page
+                    // window.location.href = '/dashboard';
+                } else {
+                    alert('Payment verification failed: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Payment verification failed. Please contact support.');
+            });
+        }
+    </script>
+<%- include('../partials/footer') %>
