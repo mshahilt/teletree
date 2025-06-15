@@ -61,6 +61,59 @@ const registerAsTelecaller = async (req, res) => {
   }
 };
 
+const renderTeleCallerSearch = async (req, res) => {
+  try {
+    const filters = req.query; 
+    console.log(filters);
+    const telecallers = await TelecallerRepository.searchTelecallers(filters);
+    res.status(200).json({ success: true,  telecallers});
+  } catch (error) {
+    res.status(500).send('Error loading telecaller search page');
+  }
+};
+
+const renderSearchPage = async (req, res)  => {
+     try {
+        const searchParams = {
+            district: req.query.district || '',
+            age: req.query.age || '',
+            gender: req.query.gender || '',
+            jobCategory: req.query.jobCategory || ''
+        };
+        let user = req.session.user;
+
+        let professionals = [];
+        
+        if (Object.values(searchParams).some(param => param !== '')) {
+            let minAge = null;
+            if (searchParams.age) {
+                minAge = parseInt(searchParams.age);
+            }
+
+            const filters = {
+                district: searchParams.district,
+                gender: searchParams.gender,
+                jobCategory: searchParams.jobCategory,
+                age: minAge
+            };
+
+            professionals = await TelecallerRepository.searchTelecallers(filters);
+        }
+
+        res.render('pages/search', {
+            professionals: professionals,
+            searchParams: searchParams,
+            user
+        });
+    } catch (error) {
+        console.error('Error in search route:', error);
+        res.status(500).render('error', { 
+            message: 'Error loading search results',
+            error: error 
+        });
+    }
+}
+
 const login = async (req, res, next) => {
   try {
     const user = await userService.loginUser(req.body);
@@ -84,5 +137,7 @@ module.exports = {
   getAboutPage,
   getContactPage,
   registerAsTelecaller,
-  getMe
+  getMe,
+  renderTeleCallerSearch,
+  renderSearchPage
 };

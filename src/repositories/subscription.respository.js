@@ -33,11 +33,13 @@ class SubscriptionRepository {
   async getSubscriptionsByUserId(userId) {
     try {
       return await Subscription.findOne({ userId })
+        .sort({ createdAt: -1 })
         .populate('planId');
     } catch (error) {
-      throw new Error(`Error fetching subscriptions for user: ${error.message}`);
+      throw new Error(`Error fetching latest subscription for user: ${error.message}`);
     }
   }
+
   async updateSubscriptionByOrderId(orderId, updateData) {
       return await Subscription.findOneAndUpdate(
         { razorpayOrderId: orderId },

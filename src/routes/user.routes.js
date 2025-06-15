@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getHomePage, signup, login, getSignupPage, getLoginPage ,getRegister ,registerAsTelecaller, getAboutPage, getContactPage, getMe } = require('../controllers/user.controller');
+const { getHomePage, signup, login, getSignupPage, getLoginPage,renderSearchPage ,getRegister ,registerAsTelecaller, getAboutPage, getContactPage, getMe, renderTeleCallerSearch } = require('../controllers/user.controller');
 const upload = require('../middlewares/upload');  
 router.get('/', getHomePage);
 router.get('/getMe', getMe);
@@ -19,6 +19,8 @@ router.get('/signup', getSignupPage);
 router.post('/register', signup);
 
 router.get('/login', getLoginPage);
+router.get('/tele-caller-search', renderTeleCallerSearch);
+router.get('/search', renderSearchPage);
 router.post('/login', login);
 
 router.get('/registerAsTelecaller', getRegister);

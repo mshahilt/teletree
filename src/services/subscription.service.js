@@ -52,14 +52,24 @@ async verifyPayment({ orderId, paymentId, signature }) {
 
   return updatedSubscription;
 }
-  async viewWorkerContactInfo(userId, workerId){
-    const subscription = this.getSubscriptionsByUserId(userId);
-    if(subscription.numberOfUsagesLeft < 0) {
+async viewWorkerContactInfo(userId, workerId) {
+  try {
+    const subscription = await this.getSubscriptionsByUserId(userId);
+
+    if (subscription.numberOfUsagesLeft <= 0) {
       throw new Error("Maximum usage exceeded");
     }
-    this.decrementUsage(userId);
-    return await telecallerRepository.getWorkerContactDetails(workerId);
+
+    await this.decrementUsage(userId);
+
+    const contactInfo = await telecallerRepository.getWorkerContactDetails(workerId);
+    return contactInfo;
+
+  } catch (error) {
+    console.error("Error in viewWorkerContactInfo:", error.message);
+    throw new Error(`Failed to fetch contact info: ${error.message}`);
   }
+}
 
   async getAllSubscriptions(filter = {}, projection = null, options = {}) {
     return await SubscriptionRepository.getAllSubscriptions(filter, projection, options);
