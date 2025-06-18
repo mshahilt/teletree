@@ -45,19 +45,74 @@
         line-height: 1.2;
     }
 
+ 
+</style>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #f0f9f0 0%, #e8f5e8 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .filter-section {
+        background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%);
+        border-radius: 15px;
+        padding: 2rem;
+        margin: 2rem 0;
+        box-shadow: 0 10px 30px rgba(76, 175, 80, 0.2);
+    }
+
+    .filter-section .form-label {
+        color: white;
+        font-weight: 600;
+    }
+
+    .search-btn {
+        background: linear-gradient(135deg, #4caf50, #66bb6a);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    }
+
+    .search-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        background: linear-gradient(135deg, #45a049, #5cb85c);
+    }
+
+    .section-title {
+        color: #4caf50;
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .section-heading {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #2e7d32;
+        line-height: 1.2;
+    }
+
     .service-card {
         background: white;
         border-radius: 15px;
         padding: 2rem;
         text-align: center;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        box-shadow: 0 5px 20px rgba(76, 175, 80, 0.1);
         transition: all 0.3s ease;
-        border: 1px solid #f0f0f0;
+        border: 1px solid #e8f5e8;
     }
 
     .service-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        box-shadow: 0 15px 40px rgba(76, 175, 80, 0.2);
+        border-color: #a5d6a7;
     }
 
     .service-card img {
@@ -66,46 +121,46 @@
         border-radius: 50%;
         object-fit: cover;
         margin-bottom: 1rem;
-        border: 3px solid #f8f9fa;
+        border: 3px solid #e8f5e8;
     }
 
     .service-title {
         font-weight: 600;
         font-size: 1.1rem;
-        color: #2c3e50;
+        color: #2e7d32;
     }
 
     .professional-card {
         background: white;
         border-radius: 20px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        box-shadow: 0 8px 25px rgba(76, 175, 80, 0.15);
         overflow: hidden;
         transition: all 0.3s ease;
         position: relative;
-        border: 1px solid #f0f0f0;
+        border: 1px solid #e8f5e8;
     }
 
     .professional-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        box-shadow: 0 15px 40px rgba(76, 175, 80, 0.2);
     }
 
     .premium-badge {
         position: absolute;
         top: 15px;
         right: 15px;
-        background: linear-gradient(135deg, #ffd700, #ffed4e);
-        color: #333;
+        background: linear-gradient(135deg, #81c784, #66bb6a);
+        color: white;
         padding: 5px 12px;
         border-radius: 20px;
         font-size: 0.8rem;
         font-weight: 600;
         z-index: 2;
-        box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+        box-shadow: 0 2px 8px rgba(129, 199, 132, 0.3);
     }
 
     .card-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%);
         padding: 2rem;
         text-align: center;
         position: relative;
@@ -127,13 +182,13 @@
     .professional-name {
         font-size: 1.3rem;
         font-weight: 700;
-        color: #2c3e50;
+        color: #2e7d32;
         margin-bottom: 0.5rem;
         text-align: center;
     }
 
     .professional-category {
-        color: #6c63ff;
+        color: #4caf50;
         font-weight: 600;
         text-align: center;
         margin-bottom: 1rem;
@@ -145,7 +200,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 0.5rem 0;
-        border-bottom: 1px solid #f8f9fa;
+        border-bottom: 1px solid #f1f8e9;
     }
 
     .info-row:last-of-type {
@@ -154,24 +209,24 @@
 
     .info-label {
         font-weight: 600;
-        color: #6c757d;
+        color: #558b2f;
         font-size: 0.9rem;
     }
 
     .info-value {
         font-weight: 500;
-        color: #2c3e50;
+        color: #2e7d32;
         font-size: 0.9rem;
     }
 
     .info-hidden {
-        color: #dc3545;
+        color: #e57373;
         font-size: 0.9rem;
         font-weight: 500;
     }
 
     .unlock-btn {
-        background: linear-gradient(135deg, #6c63ff, #5a52d5);
+        background: linear-gradient(135deg, #4caf50, #66bb6a);
         color: white;
         border: none;
         padding: 10px 20px;
@@ -179,16 +234,16 @@
         font-weight: 600;
         transition: all 0.3s ease;
         font-size: 0.9rem;
-        box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
     }
 
     .unlock-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
+        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
     }
 
     .show-contact-btn {
-        background: linear-gradient(135deg, #28a745, #20c997);
+        background: linear-gradient(135deg, #66bb6a, #81c784);
         color: white;
         border: none;
         padding: 10px 20px;
@@ -196,25 +251,53 @@
         font-weight: 600;
         transition: all 0.3s ease;
         font-size: 0.9rem;
-        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        box-shadow: 0 4px 15px rgba(102, 187, 106, 0.3);
     }
 
     .show-contact-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        box-shadow: 0 6px 20px rgba(102, 187, 106, 0.4);
     }
 
     .hero-section {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%);
         color: white;
         padding: 4rem 2rem;
         border-radius: 20px;
         margin: 3rem 0;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        box-shadow: 0 15px 40px rgba(76, 175, 80, 0.2);
+    }
+
+    .about-section {
+        background: linear-gradient(135deg, #f1f8e9 0%, #ffffff 100%);
+        border-radius: 20px;
+        padding: 4rem 2rem;
+        margin: 3rem 0;
+        box-shadow: 0 10px 30px rgba(76, 175, 80, 0.1);
+        border: 1px solid #e8f5e8;
+    }
+
+    .about-content {
+        color: #2e7d32;
+        line-height: 1.8;
+        font-size: 1.1rem;
+    }
+
+    .about-mission {
+        background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+        border-radius: 15px;
+        padding: 2rem;
+        margin-top: 2rem;
+        border-left: 4px solid #4caf50;
+    }
+
+    .company-highlight {
+        color: #4caf50;
+        font-weight: 600;
     }
 
     .signup-btn {
-        background: linear-gradient(135deg, #28a745, #20c997);
+        background: linear-gradient(135deg, #4caf50, #66bb6a);
         color: white;
         border: none;
         padding: 15px 30px;
@@ -222,12 +305,13 @@
         font-weight: 600;
         font-size: 1.1rem;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
     }
 
     .signup-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        background: linear-gradient(135deg, #45a049, #5cb85c);
     }
 
     .loading {
@@ -236,11 +320,11 @@
     }
 
     .contact-info {
-        background: #f8f9fa;
+        background: #f1f8e9;
         padding: 1rem;
         border-radius: 10px;
         margin-top: 1rem;
-        border-left: 4px solid #28a745;
+        border-left: 4px solid #4caf50;
     }
 
     .contact-item {
@@ -252,17 +336,152 @@
 
     .contact-label {
         font-weight: 600;
-        color: #6c757d;
+        color: #558b2f;
         font-size: 0.9rem;
     }
 
     .contact-value {
         font-weight: 500;
-        color: #2c3e50;
+        color: #2e7d32;
         font-size: 0.9rem;
     }
-</style>
 
+    .become-container {
+        padding: 80px 0;
+        background: linear-gradient(135deg, #f0f8f0 0%, #e8f5e8 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .hero-sectionn {
+        background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(129, 199, 132, 0.1));
+        border-radius: 25px;
+        padding: 60px 40px;
+        box-shadow: 0 20px 60px rgba(76, 175, 80, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(76, 175, 80, 0.2);
+    }
+
+    .hero-sectionn h1 {
+        color: #2e7d32;
+        font-size: 3.5rem;
+        line-height: 1.2;
+        margin-bottom: 2rem;
+        background: linear-gradient(135deg, #4caf50, #66bb6a);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero-sectionn p {
+        color: #558b2f;
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
+        font-weight: 500;
+    }
+
+    .hero-sectionn ul li {
+        color: #558b2f;
+        font-size: 1.1rem;
+        padding: 8px 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .hero-sectionn ul li i {
+        color: #4caf50;
+        font-size: 1.2rem;
+        margin-right: 12px;
+    }
+
+    .hero-image {
+        position: relative;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+
+    .hero-image img {
+        max-width: 280px;
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        border: 6px solid rgba(76, 175, 80, 0.3);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+    }
+
+    .hero-image img:hover {
+        transform: scale(1.05);
+        border-color: rgba(76, 175, 80, 0.5);
+    }
+
+    /* Form Controls */
+    .form-select {
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+    }
+
+    .form-select:focus {
+        border-color: rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .form-select option {
+        background-color: #4caf50;
+        color: white;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 991px) {
+        .hero-sectionn {
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .hero-sectionn h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-sectionn p {
+            font-size: 1.2rem;
+        }
+        
+        .hero-image {
+            margin-top: 40px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .become-container {
+            padding: 40px 0;
+        }
+        
+        .hero-sectionn {
+            padding: 30px 20px;
+        }
+        
+        .hero-sectionn h1 {
+            font-size: 2.2rem;
+        }
+        
+        .hero-sectionn p {
+            font-size: 1.1rem;
+        }
+        
+        .signup-btn {
+            padding: 14px 30px;
+            font-size: 1.1rem;
+        }
+    }
+</style>
 <!-- Filter Section -->
 <div class="container">
     <div class="filter-section">
@@ -324,7 +543,7 @@
                 <input type="text" class="form-control" id="pincode" placeholder="Enter Pincode">
             </div>
             <div class="col-md-3 col-6">
-                <label for="localAddress" class="form-label fw-semibold">Pincode</label>
+                <label for="localAddress" class="form-label fw-semibold">location</label>
                 <input type="text" class="form-control" id="localAddress" placeholder="Enter Location">
             </div>
 
@@ -342,32 +561,60 @@
 <div class="container py-5">
     <div class="text-center mb-5">
         <div class="section-title">Explore Our Services</div>
-        <h2 class="section-heading mt-2">Find the Right Help for Every<br class="d-none d-md-block"> Household Need</h2>
+        <h2 class="section-heading mt-2">Find the Right Voice for Every <br class="d-none d-md-block"> Customer Call</h2>
     </div>
 
     <div class="row g-4">
         <div class="col-12 col-sm-6 col-lg-3">
             <div class="service-card">
-                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=100&h=100&fit=crop&crop=face" alt="House Cleaning">
-                <div class="service-title">House Cleaning</div>
+                <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=100&h=100&fit=crop&crop=center" alt="Lead Generation">
+                <div class="service-title">Lead Generation</div>
             </div>
         </div>
         <div class="col-12 col-sm-6 col-lg-3">
             <div class="service-card">
-                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&h=100&fit=crop&crop=face" alt="Elderly Care">
-                <div class="service-title">Elderly Care</div>
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=100&h=100&fit=crop&crop=center" alt="Customer Support">
+                <div class="service-title">Customer Support</div>
             </div>
         </div>
         <div class="col-12 col-sm-6 col-lg-3">
             <div class="service-card">
-                <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=100&h=100&fit=crop&crop=face" alt="Child Care">
-                <div class="service-title">Child Care & Baby Sitting</div>
+                <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=100&h=100&fit=crop&crop=center" alt="Appointment Scheduling">
+                <div class="service-title">Appointment Scheduling</div>
             </div>
         </div>
         <div class="col-12 col-sm-6 col-lg-3">
             <div class="service-card">
-                <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=100&h=100&fit=crop&crop=face" alt="Pet Care">
-                <div class="service-title">Pet Care</div>
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Sales Calls">
+                <div class="service-title">Sales Calls</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="about-section">
+        <div class="text-center mb-4">
+            <div class="section-title">About Us</div>
+            <h2 class="section-heading mt-2">Welcome to Teletree</h2>
+            <p class="lead text-muted mt-3">Your Premier Platform for Marketing and Sales Jobs</p>
+        </div>
+        
+        <div class="about-content text-center">
+            <p class="mb-4">
+                Teletree is an innovative initiative by <span class="company-highlight">Bellucciya Digital Marketing and Management Pvt Ltd</span>, 
+                a Kochi-based company with a proven track record of excellence since 2019.
+            </p>
+            
+            <div class="about-mission">
+                <h4 class="mb-3" style="color: #4caf50; font-weight: 600;">
+                    <i class="fas fa-bullseye me-2"></i>Our Mission
+                </h4>
+                <p class="mb-0">
+                    At Teletree, we aim to bridge the gap between marketing and sales job seekers and providers. 
+                    Our platform is designed to facilitate seamless connections, fostering growth and success 
+                    for both individuals and companies.
+                </p>
             </div>
         </div>
     </div>
@@ -411,25 +658,49 @@
                         <span class="info-label">Languages</span>
                         <span class="info-value"><%= prof.languages %></span>
                     </div>
+                     <div class="info-row">
+                        <span class="info-label">work type</span>
+                        <span class="info-value"><%= prof.workType || 'N/A' %></span>
+                    </div>
 
                     <div class="info-row">
                         <span class="info-label">Location</span>
-                        <span class="info-value"><%= prof.address.fullAddress %></span>
+                        <span class="info-value"><%= prof.address %></span>
+
                     </div>
-                    <div id="contact-row">
-                      <div class="info-row" >
-                          <span class="info-label">Phone</span>
-                          <span class="info-hidden" id="phone-<%= index %>">
-                              <i class="fas fa-lock me-1"></i>Hidden
-                          </span>
-                      </div>
-                      <div class="info-row">
-                          <span class="info-label">Email</span>
-                          <span class="info-hidden" id="email-<%= index %>">
-                              <i class="fas fa-lock me-1"></i>Hidden
-                          </span>
-                      </div>
-                    </div>
+            <div id="contact-row">
+  <!-- Phone -->
+  <div class="info-row">
+    <span class="info-label">Phone</span>
+    <span class="info-hidden" id="phone-<%= index %>">
+      <i class="fas fa-lock me-1"></i>Hidden
+    </span>
+  </div>
+
+  <!-- Email -->
+  <div class="info-row">
+    <span class="info-label">Email</span>
+    <span class="info-hidden" id="email-<%= index %>">
+      <i class="fas fa-lock me-1"></i>Hidden
+    </span>
+  </div>
+
+  <!-- CV -->
+  <div class="info-row">
+    <span class="info-label">CV</span>
+    <span class="info-hidden" id="cv-<%= index %>">
+      <i class="fas fa-lock me-1"></i>Hidden
+    </span>
+  </div>
+
+  <!-- Experience Certificate -->
+  <div class="info-row">
+    <span class="info-label">Experience Certificate</span>
+    <span class="info-hidden" id="certificate-<%= index %>">
+      <i class="fas fa-lock me-1"></i>Hidden
+    </span>
+  </div>
+</div>
 
                     <!-- Contact Info Container (Initially Hidden) -->
                     <div class="contact-info d-none" id="contact-info-<%= index %>">
@@ -456,11 +727,11 @@
 </div>
 
 <div class="container">
-    <div class="hero-section">
+    <div class="hero-sectionn">
         <div class="row align-items-center">
             <div class="col-lg-8">
                 <h1 class="fw-bold mb-4">Become a Trusted Professional<br>with Tele Tree</h1>
-                <p class="mb-3 fs-5">Join our team of skilled professionals and help households with their daily needs.</p>
+                <p class="mb-3 fs-5">Become a part of our expert telecaller team and make a difference in customer service every day.</p>
                 <ul class="list-unstyled mb-4">
                     <li class="mb-2">
                         <i class="fas fa-check-circle me-2"></i>Pre-verified and secure platform
@@ -472,16 +743,10 @@
                         <i class="fas fa-check-circle me-2"></i>Empowering professionals like you to thrive
                     </li>
                 </ul>
-                <button class="signup-btn">
-                    <i class="fas fa-user-plus me-2"></i>Sign Up Today
-                </button>
-            </div>
-            <div class="col-lg-4 text-center">
-                <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=300&h=300&fit=crop&crop=face" alt="Professional Team" class="img-fluid rounded-circle" style="max-width: 250px; border: 4px solid rgba(255,255,255,0.3);">
-            </div>
-        </div>
-    </div>
-</div>
+                </div>
+                </div>
+                </div>
+                </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -530,64 +795,92 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
     async function showContactInfo(profId, index) {
-        const button = document.getElementById(`action-btn-${index}`);
-        const phoneElement = document.getElementById(`phone-${index}`);
-        const emailElement = document.getElementById(`email-${index}`);
-        const contactInfoDiv = document.getElementById(`contact-info-${index}`);
-        const phoneValueElement = document.getElementById(`phone-value-${index}`);
-        const emailValueElement = document.getElementById(`email-value-${index}`);
-        const contactRowDiv = document.getElementById("contact-row");
-        // Show loading state
-        button.classList.add('loading');
-        button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Loading...';
-        
-        try {
-          console.log("profId", profId);
-            const response = await fetch('/subscription/getContacts', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    professionalId: profId
-                })
-            });
-            
-            const data = await response.json();
-            console.data
-            
-            if (data.success && data.contacts) {
-                // Hide the locked info
-                phoneElement.style.display = 'none';
-                emailElement.style.display = 'none';
-                
-                // Show the contact information
-                contactRowDiv.remove();
-                phoneValueElement.textContent = data.contacts.phone || 'Not available';
-                emailValueElement.textContent = data.contacts.email || 'Not available';
-                contactInfoDiv.classList.remove('d-none');
-                
-                // Update button
-                button.innerHTML = '<i class="fas fa-check me-2"></i>Contact Revealed';
-                button.classList.remove('loading');
-                button.disabled = true;
-                button.style.background = '#6c757d';
-                
-            } else {
-                throw new Error(data.message || 'Failed to get contact information');
-            }
-            
-        } catch (error) {
-            console.error('Error getting contact info:', error);
-            alert('Error getting contact information: ' + error.message);
-            
-            // Reset button state
-            button.classList.remove('loading');
-            button.innerHTML = '<i class="fas fa-eye me-2"></i>Show Contact Info';
-        }
+  const button = document.getElementById(`action-btn-${index}`);
+  const phoneElement = document.getElementById(`phone-${index}`);
+  const emailElement = document.getElementById(`email-${index}`);
+  const cvElement = document.getElementById(`cv-${index}`);
+  const certificateElement = document.getElementById(`certificate-${index}`);
+
+  const contactInfoDiv = document.getElementById(`contact-info-${index}`);
+  const phoneValueElement = document.getElementById(`phone-value-${index}`);
+  const emailValueElement = document.getElementById(`email-value-${index}`);
+  const cvValueElement = document.getElementById(`cv-value-${index}`);
+  const certificateValueElement = document.getElementById(`certificate-value-${index}`);
+  const contactRowDiv = document.getElementById("contact-row");
+
+  // Show loading state
+  button.classList.add('loading');
+  button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Loading...';
+
+  try {
+    console.log("profId", profId);
+    const response = await fetch('/subscription/getContacts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        professionalId: profId
+      })
+    });
+
+    const data = await response.json();
+
+    if (data.success && data.contacts) {
+      // Hide the locked placeholders
+      phoneElement.style.display = 'none';
+      emailElement.style.display = 'none';
+      cvElement.style.display = 'none';
+      certificateElement.style.display = 'none';
+
+      // Remove locked contact block
+      contactRowDiv.remove();
+
+      // Show real contact info
+      phoneValueElement.textContent = data.contacts.phone || 'Not available';
+      emailValueElement.textContent = data.contacts.email || 'Not available';
+
+      if (data.contacts.cvFileName) {
+        cvValueElement.innerHTML = `
+          <a href="/uploads/cv/${data.contacts.cvFileName}" download>
+            <i class="fas fa-download me-1"></i>Download CV
+          </a>`;
+      } else {
+        cvValueElement.textContent = "Not available";
+      }
+
+      if (data.contacts.certificateFileName) {
+        certificateValueElement.innerHTML = `
+          <a href="/uploads/certificates/${data.contacts.certificateFileName}" download>
+            <i class="fas fa-download me-1"></i>Download Certificate
+          </a>`;
+      } else {
+        certificateValueElement.textContent = "Not available";
+      }
+
+      contactInfoDiv.classList.remove('d-none');
+
+      // Update button state
+      button.innerHTML = '<i class="fas fa-check me-2"></i>Contact Revealed';
+      button.classList.remove('loading');
+      button.disabled = true;
+      button.style.background = '#6c757d';
+
+    } else {
+      throw new Error(data.message || 'Failed to get contact information');
     }
+
+  } catch (error) {
+    console.error('Error getting contact info:', error);
+    alert('Error getting contact information: ' + error.message);
+
+    // Reset button
+    button.classList.remove('loading');
+    button.innerHTML = '<i class="fas fa-eye me-2"></i>Show Contact Info';
+  }
+}
+
     
     // Make functions globally available
     window.showContactInfo = showContactInfo;

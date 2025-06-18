@@ -24,5 +24,6 @@ router.get('/search', renderSearchPage);
 router.post('/login', login);
 
 router.get('/registerAsTelecaller', getRegister);
-router.post('/registerAsTelecaller', upload.single('profilePhoto'), registerAsTelecaller);
+router.post('/registerAsTelecaller',upload.fields([{ name: 'profilePhoto' }, { name: 'cv' }, { name: 'experienceCertificate' }])
+, registerAsTelecaller);
 module.exports = router;

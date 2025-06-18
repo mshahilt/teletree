@@ -1,292 +1,666 @@
 <%- include('../partials/header') %>
- <style>
-     .about-img {
-      border-radius: 20px;
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .icon-text {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8f0;
+            overflow-x: hidden;
+        }
 
-    .icon-text img {
-      width: 24px;
-      height: 24px;
-      margin-right: 10px;
-    }
+        .about-banner {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.9), rgba(139, 195, 74, 0.9)), url('/images/about_lady.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
 
-    @media (max-width: 768px) {
-      .about-title {
-        text-align: center;
-        font-size: x-large;
-      }
+        .about-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+            border-radius: 20px;
+        }
 
-      .about-text {
-        text-align: center;
-      }
+        .about-banner h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out;
+        }
 
-      .icon-text {
-        justify-content: center;
-      }
-    }
-     .about-banner {
-      background-image: url('/images/about_lady.png');
- /* Update if hosted */
-      background-size: cover;
-      background-position: center;
-      border-radius: 20px;
-      height: 300px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-    }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    .about-banner h2 {
-      font-size: 2.5rem;
-      font-weight: bold;
-      margin: 0;
-    }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
 
-    @media (max-width: 768px) {
-      .about-banner h2 {
-        font-size: 1.8rem;
-      }
-    }
-  </style>
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
 
-  
-<div class="container my-5">
-  <div class="about-banner">
-    <h2>About us</h2>
-  </div>
-</div>
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
 
-<div class="container py-5">
-  <div class="row align-items-center">
-    <!-- Left Text Content -->
-    <div class="col-lg-6 ps-5">
-      
-      <p class="text-muted about-text">
-        At Maid Hands 4 U, we specialize in simplifying your life by connecting you with reliable,
-        pre-verified maids. Our platform is built on trust, professionalism, and convenience, ensuring
-        you find the perfect help for your household needs.
-        Whether it’s cleaning, cooking, or childcare, we’re here to make managing your home easier and stress-free.
-      </p>
+        .about-content {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%);
+            border-radius: 25px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            animation: slideInLeft 0.8s ease-out 0.2s both;
+        }
 
-      <!-- Icon + Text List -->
-      <div class="icon-text">
-        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828640.png" alt="Verified">
-        <strong class="text-primary">Verified Profiles</strong>
-      </div>
+        .about-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.05) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: 0;
+        }
 
-      <div class="icon-text">
-        <img src="https://cdn-icons-png.flaticon.com/512/3524/3524659.png" alt="Connect">
-        <strong class="text-primary">Easy to Connect</strong>
-      </div>
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
 
-      <div class="icon-text">
-        <img src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png" alt="Workers">
-        <strong class="text-primary">Skilled Workers</strong>
-      </div>
+        .about-content > * {
+            position: relative;
+            z-index: 1;
+        }
 
-      <div class="icon-text">
-        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Satisfied">
-        <strong class="text-primary">Satisfied Customers</strong>
-      </div>
+        .about-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #2d3748;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .about-title span {
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .about-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 100px;
+            height: 6px;
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+            border-radius: 3px;
+            animation: expandLine 1s ease-out 1s both;
+        }
+
+        @keyframes expandLine {
+            from { width: 0; }
+            to { width: 100px; }
+        }
+
+        .subtitle {
+            font-size: 1.6rem;
+            color: #4a5568;
+            margin-bottom: 35px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .about-text {
+            color: #718096;
+            line-height: 1.9;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+
+        .mission-section {
+            background: linear-gradient(135deg, #f1f8e9, #e8f5e8);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            border-left: 6px solid #4caf50;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .mission-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .mission-title::before {
+            content: '🌱';
+            margin-right: 15px;
+            font-size: 1.8rem;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .company-info {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(139, 195, 74, 0.1));
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px solid rgba(76, 175, 80, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-item {
+            display: inline-block;
+            margin: 12px 20px 12px 0;
+            padding: 15px 25px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+            color: white;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+            color: white;
+            padding: 18px 45px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 15px 40px rgba(76, 175, 80, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(76, 175, 80, 0.6);
+            text-decoration: none;
+            color: white;
+        }
+
+        .features-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%);
+            border-radius: 25px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            animation: slideInRight 0.8s ease-out 0.4s both;
+        }
+
+        .features-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .features-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+            border-radius: 2px;
+        }
+
+        .offer-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            animation: scaleIn 0.6s ease-out 0.6s both;
+        }
+
+        .offer-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .offer-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .offer-column {
+            background: linear-gradient(135deg, #f8fff8 0%, #ffffff 100%);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid rgba(76, 175, 80, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .offer-column:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border-color: rgba(76, 175, 80, 0.3);
+        }
+
+        .offer-column h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4caf50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .offer-column h4::before {
+            content: '👥';
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+
+        .offer-column:last-child h4::before {
+            content: '🏢';
+        }
+
+        .offer-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .offer-list li {
+            padding: 10px 0;
+            color: #4a5568;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .offer-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4caf50;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .reach-section {
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+            color: white;
+            padding: 50px;
+            border-radius: 25px;
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+            animation: scaleIn 0.6s ease-out 0.8s both;
+        }
+
+        .reach-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 15s linear infinite;
+            z-index: 0;
+        }
+
+        .reach-section > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .reach-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .reach-text {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .how-it-works {
+            padding: 80px 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%);
+            border-radius: 25px;
+            margin-top: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.8s ease-out 1s both;
+        }
+
+        .how-subtitle {
+            color: #4caf50;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 60px;
+            line-height: 1.2;
+            color: #2d3748;
+        }
+
+        .steps-container {
+            display: flex;
+            gap: 50px;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .step {
+            flex: 1 1 300px;
+            max-width: 350px;
+            text-align: center;
+            position: relative;
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .step-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+            color: white;
+            font-weight: bold;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            position: relative;
+            z-index: 2;
+            font-size: 1.8rem;
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);
+        }
+
+        .step h4 {
+            font-size: 1.5rem;
+            margin: 0 0 20px;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .step p {
+            color: #718096;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .final-cta {
+            background: linear-gradient(135deg, #2e7d32, #388e3c);
+            color: white;
+            padding: 80px 50px;
+            border-radius: 25px;
+            text-align: center;
+            margin: 50px 0;
+            position: relative;
+            overflow: hidden;
+            animation: scaleIn 0.8s ease-out 1.2s both;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .final-cta > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .final-cta h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+        }
+
+        .final-cta p {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .final-cta .cta-button {
+            font-size: 1.3rem;
+            padding: 20px 50px;
+        }
+
+        @media (max-width: 768px) {
+            .about-banner h2 { font-size: 2rem; }
+            .about-content, .features-section { padding: 30px 20px; }
+            .about-title { font-size: 2.2rem; text-align: center; }
+            .subtitle { font-size: 1.3rem; text-align: center; }
+            .about-text { text-align: center; font-size: 1.1rem; }
+            .offer-columns { grid-template-columns: 1fr; gap: 20px; }
+            .steps-container { flex-direction: column; gap: 30px; }
+            .main-title { font-size: 2.2rem; }
+            .final-cta { padding: 50px 30px; }
+            .final-cta h2 { font-size: 2.2rem; }
+            .company-info { text-align: center; }
+            .stat-item { margin: 10px 5px; }
+        }
+    </style>
+
+    <div class="container my-5">
+        <div class="about-banner">
+            <h2>About Teletree</h2>
+        </div>
     </div>
 
-    <!-- Right Image -->
-    <div class="col-lg-6 mt-4 mt-lg-0 text-center">
-       <div class="about-img-container d-flex justify-content-center">
-  <img src="/images/about_lady.png" style="width: 250px;" alt="About Image" class="about-img" />
-</div>
-     
+    <div class="container py-5">
+        <div class="row align-items-start">
+            <!-- Left Content -->
+            <div class="col-lg-12">
+                <div class="about-content">
+                    <h1 class="about-title">
+                        <span>Welcome to Teletree</span>
+                    </h1>
+                    
+                    <h2 class="subtitle">Your Premier Platform for Marketing and Sales Jobs</h2>
+                    
+                    <p class="about-text">
+                        <span class="highlight">Teletree</span> is an innovative initiative by Bellucciya Digital Marketing and Management Pvt Ltd, a Kochi-based company with a proven track record of excellence since 2019.
+                    </p>
+                    
+                    <div class="company-info">
+                        <div class="stat-item">📍 Based in Kochi</div>
+                        <div class="stat-item">🏆 Since 2019</div>
+                        <div class="stat-item">💼 Marketing & Sales Focus</div>
+                        <div class="stat-item">🚀 Proven Excellence</div>
+                    </div>
+                    
+                    <div class="mission-section">
+                        <h3 class="mission-title">Our Mission</h3>
+                        <p class="about-text">
+                            At <span class="highlight">Teletree</span>, we aim to bridge the gap between marketing and sales job seekers and providers. Our platform is designed to facilitate seamless connections, fostering growth and success for both individuals and companies.
+                        </p>
+                    </div>
+                    
+                    <div class="cta-section">
+                        <a href="#" class="cta-button">Start Your Journey Today</a>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Right Content -->
+            <div class="col-lg-12 mt-4 mt-lg-0">
+                <div class="features-section">
+                    <h3 class="features-title">What We Offer</h3>
+                    
+                    <div class="offer-section">
+                        <div class="offer-columns">
+                            <div class="offer-column">
+                                <h4>For Job Seekers</h4>
+                                <ul class="offer-list">
+                                    <li>Access to a vast array of marketing and sales job opportunities</li>
+                                    <li>User-friendly platform to explore and apply for jobs that match your skills</li>
+                                    <li>Connect with top companies and recruiters in Kerala and beyond</li>
+                                    <li>Career advancement opportunities</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="offer-column">
+                                <h4>For Companies</h4>
+                                <ul class="offer-list">
+                                    <li>Trusted platform to find and recruit top talent</li>
+                                    <li>Access to skilled and motivated professionals</li>
+                                    <li>Efficient recruitment solutions for your business needs</li>
+                                    <li>Quality candidates for marketing and sales teams</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-<section class="how-it-works">
-  <p class="subtitle">HOW IT WORKS</p>
-  <h2 class="main-title">Find Reliable Maids in Just a Few Steps</h2>
-  <div class="steps-container">
-    <div class="step">
-      <div class="step-icon">1</div>
-      <div class="step-line"></div>
-      <h4>Search and Filter</h4>
-      <p>
-        Easily find the ideal maid by using filters like location (district, constituency), age, gender, religion, and areas of expertise such as cleaning, cooking, babysitting, or caregiving.
-      </p>
+
+    <div class="container">
+        <div class="reach-section">
+            <h2 class="reach-title">Our Reach</h2>
+            <p class="reach-text">
+                Teletree operates both within Kerala and outside, ensuring that our job seekers and providers can connect with opportunities across the region. We're expanding possibilities beyond boundaries.
+            </p>
+        </div>
     </div>
-    <div class="step">
-      <div class="step-icon">2</div>
-      <div class="step-line"></div>
-      <h4>Choose the Best Fit</h4>
-      <p>
-        Browse detailed maid profiles that highlight skills, experience, and availability. Compare candidates to find the one who best meets your household needs.
-      </p>
+
+    <div class="container">
+        <section class="how-it-works">
+            <p class="how-subtitle">HOW IT WORKS</p>
+            <h2 class="main-title">Find Your Perfect Marketing & Sales Opportunity</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-icon">1</div>
+                    <h4>Search and Filter</h4>
+                    <p>
+                        Easily find the ideal job by using filters like location, experience level, company size, and specialization areas such as digital marketing, sales management, or business development.
+                    </p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">2</div>
+                    <h4>Choose the Best Fit</h4>
+                    <p>
+                        Browse detailed job listings and company profiles that highlight requirements, benefits, and growth opportunities. Compare positions to find the one that best matches your career goals.
+                    </p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">3</div>
+                    <h4>Apply and Succeed</h4>
+                    <p>
+                        Once you've found your ideal position, apply with just a few clicks. Connect with top employers and take the next step in your marketing and sales career with confidence.
+                    </p>
+                </div>
+            </div>
+        </section>
     </div>
-    <div class="step">
-      <div class="step-icon">3</div>
-      <h4>Book and Relax</h4>
-      <p>
-        Once you've selected a maid, book their services with a few clicks. Sit back and enjoy a clean, organized, and well-maintained home with professional help you can trust.
-      </p>
+
+    <div class="container">
+        <div class="final-cta">
+            <h2>Join the Teletree Community Today!</h2>
+            <p>
+                Whether you're a job seeker looking to launch or advance your marketing and sales career or a company seeking to recruit top talent, Teletree is here to help. Explore our platform, and discover the opportunities waiting for you!
+            </p>
+            <a href="#contact" class="cta-button">Contact Us Today</a>
+        </div>
     </div>
-  </div>
-</section>
-
-<!-- CSS -->
-<style>
-     .footer {
-      background-color: #1e1e1e;
-      color: #fff;
-      padding: 40px 20px;
-      border-radius: 20px 20px 0 0;
-    }
-
-    .footer h5 {
-      font-weight: 600;
-      margin-bottom: 20px;
-    }
-
-    .footer ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .footer ul li {
-      margin-bottom: 10px;
-    }
-
-    .footer ul li a {
-      color: #fff;
-      text-decoration: none;
-    }
-
-    .footer ul li a:hover {
-      text-decoration: underline;
-    }
-
-    .social-icons a {
-      display: inline-block;
-      width: 40px;
-      height: 40px;
-      border: 1px solid #fff;
-      border-radius: 50%;
-      color: #fff;
-      text-align: center;
-      line-height: 40px;
-      margin-right: 10px;
-      font-size: 18px;
-    }
-
-    .whatsapp-float {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      background-color: #25d366;
-      color: white;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-    }
-.how-it-works {
-  padding: 40px 20px;
-  text-align: center;
-  max-width: 1200px;
-  margin: auto;
-}
-
-.subtitle {
-  color: #f1881d;
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-
-.main-title {
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 40px;
-  line-height: 1.3;
-}
-
-.steps-container {
-  display: flex;
-  gap: 30px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.step {
-  flex: 1 1 300px;
-  max-width: 350px;
-  text-align: left;
-  position: relative;
-}
-
-.step-icon {
-  width: 40px;
-  height: 40px;
-  background-color: #f1881d;
-  color: white;
-  font-weight: bold;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-  position: relative;
-  z-index: 2;
-}
-
-.step-line {
-  height: 2px;
-  width: 100%;
-  background: #f1881d;
-  position: absolute;
-  top: 20px;
-  left: 50px;
-  right: 0;
-  z-index: 1;
-}
-
-.step h4 {
-  font-size: 20px;
-  margin: 20px 0 10px;
-  font-weight: 600;
-}
-
-.step p {
-  color: #555;
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-@media (max-width: 768px) {
-  .step {
-    text-align: center;
-    max-width: 100%;
-  }
-
-  .step-line {
-    display: none;
-  }
-
-  .main-title {
-    font-size: 26px;
-  }
-}
-</style>
-
 <%- include('../partials/footer') %>

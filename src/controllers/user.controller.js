@@ -48,15 +48,27 @@ const signup = async (req, res, next) => {
 const registerAsTelecaller = async (req, res) => {
   try {
     const userData = req.body;
-    console.log("req.files: ", req.files);
-    if (req.file) {
-      userData.profilePhoto = req.file.filename; 
-    }
     const thisUser = req.session.user;
+
+    // Add filenames to userData
+    if (req.files['profilePhoto']) {
+      userData.profilePhoto = req.files['profilePhoto'][0].filename;
+    }
+    if (req.files['cv']) {
+      userData.cv = req.files['cv'][0].filename;
+    }
+    if (req.files['experienceCertificate']) {
+      userData.experienceCertificate = req.files['experienceCertificate'][0].filename;
+    }
+
+    console.log('req.files: ', req.files);
+    console.log('userData: ', userData);
+
     const result = await userService.registerUser(userData, thisUser);
+
     res.status(200).json({ success: true, user: result });
   } catch (error) {
-    console.log(error)
+    console.error('Registration Error:', error);
     res.status(500).json({ success: false, message: error.message });
   }
 };

@@ -19,59 +19,39 @@ const signupUser = async (userData) => {
   return createdUser;
 };
 const registerUser = async (userData, thisUser) => {
+  console.log("user data: ", userData);
+  console.log("thisUser :", thisUser);
+
   const userId = thisUser._id;
+const {
+  gender,
+  experience,
+  age,
+  languages,
+  jobCategory,
+  district,
+  profilePhoto,
+  cv,
+  experienceCertificate,
+  workType // ⬅️ add this line
+} = userData;
 
-  const {
-    gender,
-    experience,
-    age,
-    languages,
-    jobCategory,
-    district,
-    profilePhoto,
-    address
-  } = userData;
-
-  const processedAddress = JSON.parse(address); // ✅ this is valid
-  const processedCoordinates = processedAddress.coordinates; // ✅ already an object
-
-  const {
-    house,
-    street,
-    landmark,
-    city,
-    state,
-    pincode,
-    fullAddress
-  } = processedAddress;
-
-  const createdAddress = {
-    coordinates: processedCoordinates,
-    house,
-    street,
-    landmark,
-    city,
-    state,
-    pincode,
-    fullAddress
-  };
-  console.log("createdAddress: ", createdAddress);
-
-  const createdUser = await telecallerRepository.createUser({
-    userId,
-    gender,
-    experience,
-    age,
-    languages,
-    jobCategory,
-    address: createdAddress,
-    district,
-    profilePhoto
-  });
+const createdUser = await telecallerRepository.createUser({
+  userId,
+  gender,
+  experience,
+  age,
+  languages,
+  jobCategory,
+  district,
+  profilePhoto,
+  cv,
+  experienceCertificate,
+  workType // ⬅️ add this line
+});
 
   return createdUser;
 };
-
 
 
 const loginUser = async ({ phone, password }) => {
