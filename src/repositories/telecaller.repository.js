@@ -7,69 +7,48 @@ const getAll = async() => {
   });
 }
 const searchTelecallers = async (filters) => {
-  const matchStage = {};
+  const query = {};
+  console.log("filters", filters);
+  console.log(filters.age);
 
-  if (filters.gender) {
-    matchStage.gender = filters.gender;
+  if (filters.district) {
+    query['address.city'] = filters.district;
   }
 
-  if (filters.jobCategory) {
-    matchStage.jobCategory = { $regex: filters.jobCategory, $options: 'i' };
+  if (filters.location) {
+    const words = filters.location.trim().split(/\s+/);
+    const regexPattern = words.join('|');
+    query['address.fullAddress'] = { $regex: regexPattern, $options: 'i' };
   }
 
-  if (filters.languages) {
-    matchStage.languages = { $regex: filters.languages, $options: 'i' };
+  if (filters.pincode) {
+    query['address.pincode'] = filters.pincode;
   }
 
   if (filters.age) {
-    matchStage.age = { $gte: parseInt(filters.age) };
+    const [minAge, maxAge] = filters.age.split('-').map(Number);
+    query.age = { $gte: minAge, $lte: maxAge };
   }
 
-  if (filters.experience) {
-    matchStage.experience = { $gte: parseInt(filters.experience) };
+  if (filters.gender) {
+    query.gender = filters.gender;
   }
 
-  const pipeline = [
-    { $match: matchStage },
-    {
-      $lookup: {
-        from: 'users',
-        localField: 'userId',
-        foreignField: '_id',
-        as: 'user',
-      },
-    },
-    { $unwind: '$user' },
-  ];
-
-  if (filters.district) {
-    pipeline.push({
-      $match: {
-        'user.district': { $regex: filters.district, $options: 'i' },
-      },
-    });
+  if (filters.jobCategory) {
+    query.jobCategory = filters.jobCategory;
   }
 
-  pipeline.push({
-    $project: {
-      experience: 1,
-      profilePhoto: 1,
-      age: 1,
-      gender: 1,
-      languages: 1,
-      jobCategory: 1,
-      user: {
-        name: 1,
-        district: 1,
-        phone: 1,
-        email: 1,
-        address: 1,
-      },
-    },
-  });
+  const telecallers = await Telecaller.find(query)
+    .populate({
+      path: 'userId',
+      select: 'name'
+    })
+    .lean();
 
-  return await Telecaller.aggregate(pipeline);
+  return telecallers;
 };
+
+
 
 
 const getWorkerContactDetails = async (id) => {

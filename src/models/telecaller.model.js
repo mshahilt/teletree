@@ -10,25 +10,35 @@ const telecallerSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-   profilePhoto: {
+  profilePhoto: {
     type: String
   },
   age: {
     type: Number,
     required: true
   },
-  
+  address: {
+    coordinates: {
+      latitude: { type: Number, required: true },
+      longitude: { type: Number, required: true }
+    },
+    house: { type: String, required: true },
+    street: { type: String, required: true },
+    landmark: { type: String },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    pincode: { type: String, required: true },
+    fullAddress: { type: String, required: true }
+  },
   gender: {
     type: String,
     enum: ['Male', 'Female', 'Other'],
     required: true
   },
- 
   languages: {
     type: String,
     required: true
   },
- 
   jobCategory: {
     type: String,
     required: true

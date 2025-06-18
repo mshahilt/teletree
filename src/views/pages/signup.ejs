@@ -52,7 +52,7 @@
     }
 
     .whatsapp-float {
-      position: absolute;
+      position: fixed;
       bottom: 20px;
       right: 20px;
       background-color: #25d366;
@@ -64,6 +64,7 @@
       align-items: center;
       justify-content: center;
       font-size: 24px;
+      z-index: 1000;
     }
 
     .about-banner {
@@ -71,7 +72,7 @@
       background-size: cover;
       background-position: center;
       border-radius: 20px;
-      height: 300px;
+      height: 250px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -79,66 +80,74 @@
     }
 
     .about-banner h2 {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       font-weight: bold;
       margin: 0;
     }
 
     @media (max-width: 768px) {
       .about-banner h2 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
       }
     }
 
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #fff;
+      background-color: #f8fafc;
     }
 
     .form-control, .form-select {
-      border-radius: 10px;
+      border-radius: 8px;
+      padding: 10px;
     }
 
     .form-label {
-      font-weight: 600;
+      font-weight: 500;
+      color: #1e293b;
     }
 
     .reg-btn {
-      background-color: #1abe59;
+      background-color: #22c55e;
       color: white;
+      padding: 12px 24px;
+      font-weight: 500;
+      border-radius: 8px;
     }
 
     .reg-btn:disabled {
-      background-color: #adb5bd;
+      background-color: #d1d5db;
       cursor: not-allowed;
     }
 
     .verify-btn {
-      background-color: #007bff;
+      background-color: #3b82f6;
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       padding: 8px 16px;
-      transition: all 0.3s ease;
+      transition: background-color 0.3s ease;
     }
 
     .verify-btn:hover:not(:disabled) {
-      background-color: #0056b3;
+      background-color: #2563eb;
     }
 
     .verify-btn:disabled {
-      background-color: #adb5bd;
+      background-color: #d1d5db;
       cursor: not-allowed;
     }
 
     .verify-btn.verified {
-      background-color: #28a745;
+      background-color: #22c55e;
     }
 
     .signup-form {
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 30px;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .loading-spinner {
@@ -156,65 +165,58 @@
     }
 
     .alert {
-      border-radius: 10px;
+      border-radius: 8px;
       margin-bottom: 1rem;
     }
 
     .otp-input {
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
       text-align: center;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border: 2px solid #dee2e6;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: 2px solid #e5e7eb;
       border-radius: 8px;
-      margin: 0 5px;
+      margin: 0 4px;
     }
 
     .otp-input:focus {
-      border-color: #007bff;
-      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
     }
 
     .countdown {
-      font-size: 0.9rem;
-      color: #6c757d;
+      font-size: 0.85rem;
+      color: #6b7280;
     }
   </style>
 </head>
 <body>
-  <nav class="flex items-center justify-between p-4 shadow-md">
-    <!-- Logo and Tagline -->
+  <nav class="flex items-center justify-between p-4 bg-white shadow-md">
     <div class="flex items-center space-x-2">
-      <img src="your-logo.png" alt="Logo" class="h-12 w-12" />
+      <img src="your-logo.png" alt="Logo" class="h-10 w-10" />
       <div>
         <h1 class="text-lg font-bold text-blue-900 flex items-center">
           Maids Hands 4U
           <span class="ml-1 text-blue-500">✨</span>
         </h1>
-        <p class="text-sm text-gray-400">For a helping hand</p>
+        <p class="text-sm text-gray-500">For a helping hand</p>
       </div>
     </div>
-
-    <!-- Navigation Links -->
-    <div class="hidden md:flex space-x-8 text-gray-700 font-medium">
-      <a href="#">Home</a>
+    <div class="hidden md:flex space-x-6 text-gray-600 font-medium">
+      <a href="#" class="hover:text-blue-900">Home</a>
       <a href="#" class="text-blue-900">About</a>
-      <a href="#">Contact</a>
-      <a href="#">Categories</a>
-      <a href="#">Pricing</a>
+      <a href="#" class="hover:text-blue-900">Contact</a>
+      <a href="#" class="hover:text-blue-900">Categories</a>
+      <a href="#" class="hover:text-blue-900">Pricing</a>
     </div>
-
-    <!-- Buttons -->
     <div class="flex items-center space-x-3">
-      <button class="bg-blue-50 text-blue-900 font-semibold px-4 py-2 rounded-md">
+      <button class="bg-blue-100 text-blue-900 font-medium px-4 py-2 rounded-md hover:bg-blue-200">
         Register as Maid
       </button>
-      <button class="bg-blue-900 text-white font-semibold px-4 py-2 rounded-md flex items-center space-x-1">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15 12H3m0 0l4-4m-4 4l4 4m13-4a9 9 0 11-18 0 9 9 0 0118 0z" />
+      <button class="bg-blue-900 text-white font-medium px-4 py-2 rounded-md flex items-center space-x-1 hover:bg-blue-800">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H3m0 0l4-4m-4 4l4 4m13-4a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
         <span>User Login</span>
       </button>
@@ -228,33 +230,26 @@
   </div>
 
   <div class="container signup-form">
-    <h2 class="mb-4 text-center fw-bold">Signup Form</h2>
-    
-    <!-- Alert Messages -->
+    <h2 class="mb-4 text-center font-bold text-2xl">Create Your Account</h2>
     <div id="alertContainer"></div>
     
     <form id="signupForm">
       <div class="row g-3">
-        <!-- Name -->
         <div class="col-md-6">
-          <label class="form-label">Name <span class="text-danger">*</span></label>
-          <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
+          <label class="form-label">Full Name <span class="text-red-500">*</span></label>
+          <input type="text" name="name" class="form-control" placeholder="Enter your full name" required autofocus>
         </div>
-
-        <!-- District -->
         <div class="col-md-6">
-          <label class="form-label">District <span class="text-danger">*</span></label>
+          <label class="form-label">District <span class="text-red-500">*</span></label>
           <select name="district" class="form-select" required>
-            <option value="">Select District</option>
+            <option value="">Select your district</option>
             <option>District 1</option>
             <option>District 2</option>
             <option>District 3</option>
           </select>
         </div>
-
-        <!-- Phone -->
         <div class="col-md-6">
-          <label class="form-label">Phone No. <span class="text-danger">*</span></label>
+          <label class="form-label">Phone Number <span class="text-red-500">*</span></label>
           <div class="input-group">
             <span class="input-group-text">+91</span>
             <input type="tel" name="phone" id="phoneInput" class="form-control" placeholder="Enter your phone number" required maxlength="10">
@@ -264,46 +259,27 @@
             </button>
           </div>
         </div>
-
-        <!-- Address -->
         <div class="col-md-6">
-          <label class="form-label">Address <span class="text-danger">*</span></label>
-          <textarea name="address" class="form-control" rows="3" placeholder="Enter your address" required></textarea>
+          <label class="form-label">Email Address <span class="text-red-500">*</span></label>
+          <input type="email" name="email" class="form-control" placeholder="Enter your email address" required>
         </div>
-
-        <!-- Pincode -->
         <div class="col-md-6">
-          <label class="form-label">Pincode <span class="text-danger">*</span></label>
-          <input type="text" name="pincode" class="form-control" placeholder="Enter your pincode" required maxlength="6">
+          <label class="form-label">Password <span class="text-red-500">*</span></label>
+          <input type="password" name="password" class="form-control" placeholder="Create a password (min 6 chars)" required minlength="6">
         </div>
-
-        <!-- Email -->
         <div class="col-md-6">
-          <label class="form-label">Email Address <span class="text-danger">*</span></label>
-          <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
-        </div>
-
-        <!-- Password -->
-        <div class="col-md-6">
-          <label class="form-label">Password <span class="text-danger">*</span></label>
-          <input type="password" name="password" class="form-control" placeholder="Enter your password" required minlength="6">
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="col-md-6">
-          <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
+          <label class="form-label">Confirm Password <span class="text-red-500">*</span></label>
           <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm your password" required>
         </div>
       </div>
-
       <div class="mt-4 text-center">
-        <button type="submit" id="registerBtn" class="reg-btn btn px-4 py-2 rounded-pill" disabled>
-          <span id="registerBtnText">Register</span>
+        <button type="submit" id="registerBtn" class="reg-btn btn" disabled>
+          <span id="registerBtnText">Create Account</span>
           <span id="registerBtnSpinner" class="loading-spinner d-none"></span>
         </button>
-        <p class="mt-2 text-muted small">
+        <p class="mt-2 text-gray-600 text-sm">
           <i class="bi bi-info-circle me-1"></i>
-          Please verify your phone number to enable registration
+          Verify your phone number to enable registration
         </p>
       </div>
     </form>
@@ -312,7 +288,6 @@
   <footer class="footer position-relative mt-5">
     <div class="container">
       <div class="row gy-4">
-        <!-- Logo + Social -->
         <div class="col-12 col-sm-6 col-lg-3">
           <img src="logo.png" alt="Logo" class="mb-2" style="max-width: 150px;">
           <h6 class="mt-3">Follow Us</h6>
@@ -325,8 +300,6 @@
             We connect you with reliable, pre-verified maids to simplify your household needs.
           </p>
         </div>
-
-        <!-- Quick Links -->
         <div class="col-12 col-sm-6 col-lg-3">
           <h5>Quick Links</h5>
           <ul>
@@ -337,8 +310,6 @@
             <li><a href="#">Register as Maid</a></li>
           </ul>
         </div>
-
-        <!-- Legal -->
         <div class="col-12 col-sm-6 col-lg-3">
           <h5>Legal</h5>
           <ul>
@@ -348,8 +319,6 @@
             <li><a href="#">Shipping and Delivery</a></li>
           </ul>
         </div>
-
-        <!-- Contact Info -->
         <div class="col-12 col-sm-6 col-lg-3">
           <h5>Official Info</h5>
           <p class="mb-2">BELLUCCIYA MARKETING AND MANAGEMENT PRIVATE LIMITED<br>
@@ -361,27 +330,23 @@
         </div>
       </div>
     </div>
-
-    <!-- WhatsApp Floating Icon -->
     <a href="https://wa.me/919400438406" class="whatsapp-float">
       <i class="bi bi-whatsapp"></i>
     </a>
   </footer>
 
-  <!-- OTP Verification Modal -->
   <div class="modal fade" id="otpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content rounded-3">
         <div class="modal-header border-0 pb-0">
-          <h5 class="modal-title" id="otpModalLabel">OTP Verification</h5>
+          <h5 class="modal-title" id="otpModalLabel">Verify Phone Number</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body pt-2">
           <p class="text-center mb-3">
-            Please enter the 6-digit OTP sent to<br>
+            Enter the 6-digit OTP sent to<br>
             <strong>+91 <span id="otpPhoneNumber"></span></strong>
           </p>
-          
           <div class="d-flex justify-content-center mb-3">
             <input type="text" class="otp-input" maxlength="1" id="otp1">
             <input type="text" class="otp-input" maxlength="1" id="otp2">
@@ -390,16 +355,13 @@
             <input type="text" class="otp-input" maxlength="1" id="otp5">
             <input type="text" class="otp-input" maxlength="1" id="otp6">
           </div>
-          
           <div class="text-center mb-3">
             <span class="countdown" id="resendTimer">Resend OTP in 60s</span>
           </div>
-          
           <button type="button" class="btn btn-success w-100 mb-2" id="verifyOtpBtn" onclick="verifyOTP()">
             <span id="verifyOtpBtnText">Verify OTP</span>
             <span id="verifyOtpBtnSpinner" class="loading-spinner d-none"></span>
           </button>
-          
           <button type="button" class="btn btn-outline-primary w-100" id="resendOtpBtn" onclick="resendOTP()" disabled>
             Resend OTP
           </button>
@@ -410,20 +372,16 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Global variables
     let isPhoneVerified = false;
     let resendCountdown = 0;
     let countdownInterval;
     const otpModal = new bootstrap.Modal(document.getElementById('otpModal'));
 
-    // Form validation
     document.getElementById('signupForm').addEventListener('input', function(e) {
       if (e.target.name === 'confirmPassword' || e.target.name === 'password') {
         validatePasswordMatch();
       }
-      
       if (e.target.name === 'phone') {
-        // Reset verification status when phone number changes
         if (isPhoneVerified) {
           isPhoneVerified = false;
           updateVerifyButton();
@@ -432,27 +390,19 @@
       }
     });
 
-    // Password validation
     function validatePasswordMatch() {
       const password = document.querySelector('input[name="password"]').value;
       const confirmPassword = document.querySelector('input[name="confirmPassword"]').value;
       const confirmPasswordField = document.querySelector('input[name="confirmPassword"]');
-      
-      if (confirmPassword && password !== confirmPassword) {
-        confirmPasswordField.setCustomValidity('Passwords do not match');
-      } else {
-        confirmPasswordField.setCustomValidity('');
-      }
+      confirmPasswordField.setCustomValidity(confirmPassword && password !== confirmPassword ? 'Passwords do not match' : '');
     }
 
-    // OTP input handling
     document.querySelectorAll('.otp-input').forEach((input, index) => {
       input.addEventListener('input', function(e) {
         if (e.target.value.length === 1 && index < 5) {
           document.getElementById(`otp${index + 2}`).focus();
         }
       });
-      
       input.addEventListener('keydown', function(e) {
         if (e.key === 'Backspace' && !e.target.value && index > 0) {
           document.getElementById(`otp${index}`).focus();
@@ -460,7 +410,6 @@
       });
     });
 
-    // Show alert messages
     function showAlert(message, type = 'info') {
       const alertContainer = document.getElementById('alertContainer');
       const alertDiv = document.createElement('div');
@@ -470,137 +419,98 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
       `;
       alertContainer.appendChild(alertDiv);
-      
-      // Auto-dismiss after 5 seconds
-      setTimeout(() => {
-        if (alertDiv.parentNode) {
-          alertDiv.remove();
-        }
-      }, 5000);
+      setTimeout(() => alertDiv.remove(), 5000);
     }
 
-    // Send OTP
     async function sendOTP() {
       const phoneInput = document.getElementById('phoneInput');
       const phone = phoneInput.value.trim();
-      
-      if (!phone || phone.length !== 10) {
+      if (!phone || phone.length !== 10 || !/^\d{10}$/.test(phone)) {
         showAlert('Please enter a valid 10-digit phone number', 'warning');
         phoneInput.focus();
         return;
       }
-      
       const verifyBtn = document.getElementById('verifyBtn');
       const verifyBtnText = document.getElementById('verifyBtnText');
       const verifyBtnSpinner = document.getElementById('verifyBtnSpinner');
-      
-      // Show loading state
       verifyBtn.disabled = true;
       verifyBtnText.classList.add('d-none');
       verifyBtnSpinner.classList.remove('d-none');
-      
       try {
         const response = await fetch(`/otp/send?phone=${phone}`, {
           method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
+          headers: { 'Content-Type': 'application/json' }
         });
-        
         const data = await response.json();
-        
         if (data.success) {
-          // Show OTP modal
           document.getElementById('otpPhoneNumber').textContent = phone;
           clearOTPInputs();
           otpModal.show();
           startResendCountdown();
-          showAlert('OTP sent successfully to your phone number', 'success');
+          showAlert('OTP sent successfully', 'success');
         } else {
-          showAlert(data.message || 'Failed to send OTP. Please try again.', 'danger');
+          showAlert(data.message || 'Failed to send OTP', 'danger');
         }
       } catch (error) {
         console.error('Error sending OTP:', error);
-        showAlert('Network error. Please check your connection and try again.', 'danger');
+        showAlert('Network error. Please try again.', 'danger');
       } finally {
-        // Reset button state
         verifyBtn.disabled = false;
         verifyBtnText.classList.remove('d-none');
         verifyBtnSpinner.classList.add('d-none');
       }
     }
 
-    // Verify OTP
     async function verifyOTP() {
       const otpInputs = document.querySelectorAll('.otp-input');
       const otp = Array.from(otpInputs).map(input => input.value).join('');
-      
       if (otp.length !== 6) {
-        showAlert('Please enter complete 6-digit OTP', 'warning');
+        showAlert('Please enter a 6-digit OTP', 'warning');
         return;
       }
-      
       const phone = document.getElementById('phoneInput').value.trim();
       const verifyOtpBtn = document.getElementById('verifyOtpBtn');
       const verifyOtpBtnText = document.getElementById('verifyOtpBtnText');
       const verifyOtpBtnSpinner = document.getElementById('verifyOtpBtnSpinner');
-      
-      // Show loading state
       verifyOtpBtn.disabled = true;
       verifyOtpBtnText.classList.add('d-none');
       verifyOtpBtnSpinner.classList.remove('d-none');
-      
       try {
         const response = await fetch('/otp/verify', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            phone: phone,
-            otp: otp
-          })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone, otp })
         });
-        
         const data = await response.json();
-        
         if (data.success) {
           isPhoneVerified = true;
           otpModal.hide();
           updateVerifyButton();
           updateRegisterButton();
-          showAlert('Phone number verified successfully!', 'success');
+          showAlert('Phone verified successfully!', 'success');
           clearInterval(countdownInterval);
         } else {
-          showAlert(data.message || 'Invalid OTP. Please try again.', 'danger');
-          // Clear OTP inputs on failure
+          showAlert(data.message || 'Invalid OTP', 'danger');
           clearOTPInputs();
         }
       } catch (error) {
         console.error('Error verifying OTP:', error);
-        showAlert('Network error. Please check your connection and try again.', 'danger');
+        showAlert('Network error. Please try again.', 'danger');
       } finally {
-        // Reset button state
         verifyOtpBtn.disabled = false;
         verifyOtpBtnText.classList.remove('d-none');
         verifyOtpBtnSpinner.classList.add('d-none');
       }
     }
 
-    // Resend OTP
     async function resendOTP() {
       const phone = document.getElementById('phoneInput').value.trim();
-      
       try {
         const response = await fetch(`/otp/send?phone=${phone}`, {
           method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
+          headers: { 'Content-Type': 'application/json' }
         });
-        
         const data = await response.json();
-        
         if (data.success) {
           clearOTPInputs();
           startResendCountdown();
@@ -614,11 +524,9 @@
       }
     }
 
-    // Update verify button appearance
     function updateVerifyButton() {
       const verifyBtn = document.getElementById('verifyBtn');
       const verifyBtnText = document.getElementById('verifyBtnText');
-      
       if (isPhoneVerified) {
         verifyBtn.classList.add('verified');
         verifyBtn.disabled = true;
@@ -630,32 +538,23 @@
       }
     }
 
-    // Update register button state
     function updateRegisterButton() {
-      const registerBtn = document.getElementById('registerBtn');
-      registerBtn.disabled = !isPhoneVerified;
+      document.getElementById('registerBtn').disabled = !isPhoneVerified;
     }
 
-    // Clear OTP inputs
     function clearOTPInputs() {
-      document.querySelectorAll('.otp-input').forEach(input => {
-        input.value = '';
-      });
+      document.querySelectorAll('.otp-input').forEach(input => input.value = '');
       document.getElementById('otp1').focus();
     }
 
-    // Start resend countdown
     function startResendCountdown() {
       resendCountdown = 60;
       const resendTimer = document.getElementById('resendTimer');
       const resendOtpBtn = document.getElementById('resendOtpBtn');
-      
       resendOtpBtn.disabled = true;
-      
       countdownInterval = setInterval(() => {
         resendCountdown--;
         resendTimer.textContent = `Resend OTP in ${resendCountdown}s`;
-        
         if (resendCountdown <= 0) {
           clearInterval(countdownInterval);
           resendTimer.textContent = 'Did not receive OTP?';
@@ -664,76 +563,60 @@
       }, 1000);
     }
 
-    // Handle form submission
     document.getElementById('signupForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      
       if (!isPhoneVerified) {
-        showAlert('Please verify your phone number first', 'warning');
+        showAlert('Please verify your phone number', 'warning');
         return;
       }
-      
       const formData = new FormData(this);
       const data = Object.fromEntries(formData.entries());
-      
-      // Validate password match
       if (data.password !== data.confirmPassword) {
         showAlert('Passwords do not match', 'warning');
         return;
       }
-      
       const registerBtn = document.getElementById('registerBtn');
       const registerBtnText = document.getElementById('registerBtnText');
       const registerBtnSpinner = document.getElementById('registerBtnSpinner');
-      
-      // Show loading state
       registerBtn.disabled = true;
       registerBtnText.classList.add('d-none');
       registerBtnSpinner.classList.remove('d-none');
-      
       try {
         const response = await fetch('/register', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             name: data.name,
             district: data.district,
             phone: data.phone,
-            address: data.address,
-            pincode: data.pincode,
             email: data.email,
             password: data.password
           })
         });
-        
         const result = await response.json();
-        
         if (result.success) {
           showAlert('Registration successful! Welcome to Maids Hands 4U', 'success');
-          // Reset form
           this.reset();
           isPhoneVerified = false;
           updateVerifyButton();
           updateRegisterButton();
+          location.href('/login')
         } else {
-          showAlert(result.message || 'Registration failed. Please try again.', 'danger');
+          showAlert(result.message || 'Registration failed', 'danger');
         }
       } catch (error) {
         console.error('Error during registration:', error);
-        showAlert('Network error. Please check your connection and try again.', 'danger');
+        showAlert('Network error. Please try again.', 'danger');
       } finally {
-        // Reset button state
         registerBtn.disabled = !isPhoneVerified;
         registerBtnText.classList.remove('d-none');
         registerBtnSpinner.classList.add('d-none');
       }
     });
 
-    // Initialize page
     document.addEventListener('DOMContentLoaded', function() {
       updateRegisterButton();
+      document.querySelector('input[name="name"]').focus();
     });
   </script>
 </body>

@@ -282,16 +282,24 @@
                         <option>Wayanad</option>
                     </select>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-2 col-6">
+                    <label for="pincode" class="form-label fw-semibold">Pincode</label>
+                    <input type="text" class="form-control" id="pincode" name="pincode" placeholder="Enter pincode" maxlength="6" pattern="[0-9]{6}">
+                </div>
+                <div class="col-md-2 col-6">
+                    <label for="location" class="form-label fw-semibold">Location</label>
+                    <input type="text" class="form-control" id="location" name="location" placeholder="Enter pincode">
+                </div>
+                <div class="col-md-2 col-6">
                     <label for="age" class="form-label fw-semibold">Age Range</label>
                     <select class="form-select" id="age" name="age">
                         <option value="">Any Age</option>
-                        <option value="18">18-25</option>
-                        <option value="26">26-40</option>
-                        <option value="41">41+</option>
+                        <option value="18-25">18-25</option>
+                        <option value="26-40">26-40</option>
+                        <option value="41+">41+</option>
                     </select>
                 </div>
-                <div class="col-md-3 col-6">
+                <div class="col-md-2 col-6">
                     <label for="gender" class="form-label fw-semibold">Gender</label>
                     <select class="form-select" id="gender" name="gender">
                         <option value="">Any Gender</option>
@@ -384,6 +392,48 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check subscription status on page load
     checkSubscriptionStatus();
     
+    // Perform search from URL parameters if present
+    performSearchFromURL();
+
+    function performSearchFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchForm = document.getElementById('searchForm');
+
+        let hasAnyParam = false;
+
+        // Map URL parameters to form fields
+        const paramMapping = {
+            'district': 'district',
+            'pincode': 'pincode',
+            "location": "location",
+            'age': 'age',
+            'gender': 'gender',
+            'category': 'jobCategory'
+        };
+
+        // Populate form fields from URL parameters
+        for (const [urlParam, formField] of Object.entries(paramMapping)) {
+            const value = urlParams.get(urlParam);
+            console.log(value);
+            if (value && value.trim() !== '') {
+                const element = document.getElementById(urlParam);
+                if (element) {
+                    element.value = value;
+                    hasAnyParam = true;
+                }
+            }
+        }
+
+        // If we have any parameters, trigger the search
+        if (hasAnyParam) {
+            // Wait a moment for subscription check to complete
+            setTimeout(() => {
+                const event = new Event('submit');
+                searchForm.dispatchEvent(event);
+            }, 100);
+        }
+    }
+
     async function checkSubscriptionStatus() {
         try {
             const response = await fetch('/subscription/has', {
@@ -496,6 +546,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (searchParams.district) {
             filtersHtml += `<span class="badge bg-primary me-1">${searchParams.district}</span>`;
         }
+        if (searchParams.pincode) {
+            filtersHtml += `<span class="badge bg-secondary me-1">PIN: ${searchParams.pincode}</span>`;
+        }
+        if (searchParams.location) {
+            filtersHtml += `<span class="badge bg-secondary me-1">PIN: ${searchParams.location}</span>`;
+        }
         if (searchParams.jobCategory) {
             filtersHtml += `<span class="badge bg-success me-1">${searchParams.jobCategory}</span>`;
         }
@@ -503,7 +559,7 @@ document.addEventListener('DOMContentLoaded', function() {
             filtersHtml += `<span class="badge bg-info me-1">${searchParams.gender}</span>`;
         }
         if (searchParams.age) {
-            filtersHtml += `<span class="badge bg-warning me-1">Age ${searchParams.age}+</span>`;
+            filtersHtml += `<span class="badge bg-warning me-1">Age ${searchParams.age}</span>`;
         }
         
         activeFiltersDiv.innerHTML = filtersHtml;
@@ -534,12 +590,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="card-header">
                     <img 
                         src="/uploads/profilePhotos/${prof.profilePhoto}" 
-                        alt="${prof.user.name.toUpperCase()}" 
+                        alt="${prof.userId.name.toUpperCase()}" 
                         class="professional-avatar"
                     >
                 </div>
                 <div class="professional-info">
-                    <div class="professional-name">${prof.user.name.toUpperCase()}</div>
+                    <div class="professional-name">${prof.userId.name.toUpperCase()}</div>
                     <div class="professional-category">${prof.jobCategory} Specialist</div>
 
                     <div class="info-row">
@@ -559,7 +615,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     <div class="info-row">
                         <span class="info-label">Location</span>
-                        <span class="info-value">${prof.user.address.split('\n').pop()}</span>
+                        <span class="info-value">${prof.address.fullAddress}</span>
                     </div>
                     
                     <div id="contact-row-${index}">
@@ -683,6 +739,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function clearFilters() {
     // Reset all form fields
     document.getElementById('district').value = '';
+    document.getElementById('pincode').value = '';
+    document.getElementById('location').value = '';
     document.getElementById('age').value = '';
     document.getElementById('gender').value = '';
     document.getElementById('category').value = '';
@@ -693,6 +751,11 @@ function clearFilters() {
     document.getElementById('resultsSummary').classList.add('d-none');
     document.getElementById('noResults').classList.add('d-none');
     document.getElementById('professionalsGrid').innerHTML = '';
+    
+    // Clear URL parameters
+    const url = new URL(window.location);
+    url.search = '';
+    window.history.replaceState({}, '', url);
 }
 </script>
 

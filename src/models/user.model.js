@@ -7,23 +7,10 @@ const userSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    district: {
-      type: String,
-      required: true,
-    },
     phone: {
       type: String,
       required: true,
       unique: true,
-    },
-    address: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    pincode: {
-      type: String,
-      required: true,
     },
     email: {
       type: String,

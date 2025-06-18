@@ -64,7 +64,7 @@ const registerAsTelecaller = async (req, res) => {
 const renderTeleCallerSearch = async (req, res) => {
   try {
     const filters = req.query; 
-    console.log(filters);
+    console.log("filterskjhkj", filters);
     const telecallers = await TelecallerRepository.searchTelecallers(filters);
     res.status(200).json({ success: true,  telecallers});
   } catch (error) {
@@ -86,9 +86,6 @@ const renderSearchPage = async (req, res)  => {
         
         if (Object.values(searchParams).some(param => param !== '')) {
             let minAge = null;
-            if (searchParams.age) {
-                minAge = parseInt(searchParams.age);
-            }
 
             const filters = {
                 district: searchParams.district,

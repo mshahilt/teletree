@@ -266,64 +266,76 @@
 <!-- Filter Section -->
 <div class="container">
     <div class="filter-section">
-        <form>
-            <div class="row g-3">
-                <div class="col-md-3 col-6">
-                    <label for="district" class="form-label fw-semibold">District</label>
-                    <select class="form-select" id="district">
-                        <option selected disabled>Select District</option>
-                        <option>Alappuzha</option>
-                        <option>Ernakulam</option>
-                        <option>Idukki</option>
-                        <option>Kannur</option>
-                        <option>Kasaragod</option>
-                        <option>Kollam</option>
-                        <option>Kottayam</option>
-                        <option>Kozhikode</option>
-                        <option>Malappuram</option>
-                        <option>Palakkad</option>
-                        <option>Pathanamthitta</option>
-                        <option>Thiruvananthapuram</option>
-                        <option>Thrissur</option>
-                        <option>Wayanad</option>
-                    </select>
-                </div>
-                <div class="col-md-3 col-6">
-                    <label for="age" class="form-label fw-semibold">Age Range</label>
-                    <select class="form-select" id="age">
-                        <option selected disabled>Select Age</option>
-                        <option>18-25</option>
-                        <option>26-40</option>
-                        <option>41+</option>
-                    </select>
-                </div>
-                <div class="col-md-3 col-6">
-                    <label for="gender" class="form-label fw-semibold">Gender</label>
-                    <select class="form-select" id="gender">
-                        <option selected disabled>Select Gender</option>
-                        <option>Male</option>
-                        <option>Female</option>
-                        <option>Other</option>
-                    </select>
-                </div>
-                <div class="col-md-3 col-6">
-                    <label for="category" class="form-label fw-semibold">Category</label>
-                    <select class="form-select" id="category">
-                        <option selected disabled>Select Category</option>
-                        <option>Housekeeping</option>
-                        <option>Elderly Care</option>
-                        <option>Child Care</option>
-                        <option>Pet Care</option>
-                    </select>
-                </div>
-                <div class="col-12 text-center">
-                    <button type="submit" class="search-btn">
-                        <i class="fas fa-search me-2"></i>Search Professionals
-                    </button>
-                </div>
+        <div class="row g-3">
+            <div class="col-md-3 col-6">
+                <label for="district" class="form-label fw-semibold">District</label>
+                <select class="form-select" id="district">
+                    <option selected disabled>Select District</option>
+                    <option>Alappuzha</option>
+                    <option>Ernakulam</option>
+                    <option>Idukki</option>
+                    <option>Kannur</option>
+                    <option>Kasaragod</option>
+                    <option>Kollam</option>
+                    <option>Kottayam</option>
+                    <option>Kozhikode</option>
+                    <option>Malappuram</option>
+                    <option>Palakkad</option>
+                    <option>Pathanamthitta</option>
+                    <option>Thiruvananthapuram</option>
+                    <option>Thrissur</option>
+                    <option>Wayanad</option>
+                </select>
             </div>
-        </form>
-    </div>
+
+            <div class="col-md-3 col-6">
+                <label for="age" class="form-label fw-semibold">Age Range</label>
+                <select class="form-select" id="age">
+                    <option selected disabled>Select Age</option>
+                    <option>18-25</option>
+                    <option>26-40</option>
+                    <option>41+</option>
+                </select>
+            </div>
+
+            <div class="col-md-3 col-6">
+                <label for="gender" class="form-label fw-semibold">Gender</label>
+                <select class="form-select" id="gender">
+                    <option selected disabled>Select Gender</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <div class="col-md-3 col-6">
+                <label for="category" class="form-label fw-semibold">Category</label>
+                <select class="form-select" id="category">
+                    <option selected disabled>Select Category</option>
+                    <option>Housekeeping</option>
+                    <option>Elderly Care</option>
+                    <option>Child Care</option>
+                    <option>Pet Care</option>
+                </select>
+            </div>
+
+            <div class="col-md-3 col-6">
+                <label for="pincode" class="form-label fw-semibold">Pincode</label>
+                <input type="text" class="form-control" id="pincode" placeholder="Enter Pincode">
+            </div>
+            <div class="col-md-3 col-6">
+                <label for="localAddress" class="form-label fw-semibold">Pincode</label>
+                <input type="text" class="form-control" id="localAddress" placeholder="Enter Location">
+            </div>
+
+            <div class="col-12 text-center">
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search me-2"></i>Search Professionals
+                </button>
+            </div>
+        </div>
+</div>
+
 </div>
 
 <!-- Services Section -->
@@ -402,7 +414,7 @@
 
                     <div class="info-row">
                         <span class="info-label">Location</span>
-                        <span class="info-value"><%= prof.userId.address.split('\n').pop() %></span>
+                        <span class="info-value"><%= prof.address.fullAddress %></span>
                     </div>
                     <div id="contact-row">
                       <div class="info-row" >
@@ -579,6 +591,30 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Make functions globally available
     window.showContactInfo = showContactInfo;
+     const formButton = document.querySelector(".search-btn");
+
+  formButton.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const district = document.getElementById("district").value;
+    const age = document.getElementById("age").value;
+    const gender = document.getElementById("gender").value;
+    const category = document.getElementById("category").value;
+    const pincode = document.getElementById("pincode").value.trim();
+    const location = document.getElementById("localAddress").value.trim();
+
+    const params = new URLSearchParams();
+
+    if (district && district !== "Select District") params.append("district", district);
+    if (age && age !== "Select Age") params.append("age", age);
+    if (gender && gender !== "Select Gender") params.append("gender", gender);
+    if (category && category !== "Select Category") params.append("category", category);
+    if (pincode !== "") params.append("pincode", pincode);
+    if (localAddress !== "") params.append("location", location);
+
+    window.location.href = `/search?${params.toString()}`;
+    // console.log("params :", params);
+  });
 });
 </script>
 
