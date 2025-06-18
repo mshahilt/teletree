@@ -56,8 +56,13 @@ const getWorkerContactDetails = async (id) => {
     path: "userId",
     select: "email phone"
   });
-
-  return data?.userId || null;
+  const filteredData = {
+    email: data?.userId?.email,
+    phone: data?.userId?.phone,
+    cvFileName: data.cv,
+    certificateFileName: data.experienceCertificate
+  }
+  return filteredData || null;
 }
 
 

@@ -691,6 +691,7 @@
     <span class="info-hidden" id="cv-<%= index %>">
       <i class="fas fa-lock me-1"></i>Hidden
     </span>
+    
   </div>
 
   <!-- Experience Certificate -->
@@ -711,6 +712,14 @@
                         <div class="contact-item">
                             <span class="contact-label">Email:</span>
                             <span class="contact-value" id="email-value-<%= index %>">Loading...</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">CV:</span>
+                            <span class="contact-value" id="cv-value-<%= index %>">Loading...</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Experience:</span>
+                            <span class="contact-value" id="certificate-value-<%= index %>">Loading...</span>
                         </div>
                     </div>
 
@@ -744,9 +753,9 @@
                     </li>
                 </ul>
                 </div>
-                </div>
-                </div>
-                </div>
+            </div>
+        </div>
+    </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -828,7 +837,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const data = await response.json();
 
     if (data.success && data.contacts) {
-      // Hide the locked placeholders
       phoneElement.style.display = 'none';
       emailElement.style.display = 'none';
       cvElement.style.display = 'none';
@@ -841,18 +849,18 @@ document.addEventListener('DOMContentLoaded', function() {
       phoneValueElement.textContent = data.contacts.phone || 'Not available';
       emailValueElement.textContent = data.contacts.email || 'Not available';
 
-      if (data.contacts.cvFileName) {
+      if (data.contacts?.cvFileName) {
         cvValueElement.innerHTML = `
-          <a href="/uploads/cv/${data.contacts.cvFileName}" download>
+          <a href="/uploads/cv/${data.contacts?.cvFileName}" download>
             <i class="fas fa-download me-1"></i>Download CV
           </a>`;
       } else {
         cvValueElement.textContent = "Not available";
       }
 
-      if (data.contacts.certificateFileName) {
+      if (data.contacts?.certificateFileName) {
         certificateValueElement.innerHTML = `
-          <a href="/uploads/certificates/${data.contacts.certificateFileName}" download>
+          <a href="/uploads/certificates/${data.contacts?.certificateFileName}" download>
             <i class="fas fa-download me-1"></i>Download Certificate
           </a>`;
       } else {
