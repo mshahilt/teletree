@@ -2,8 +2,15 @@ const planService = require('../services/plan.service');
 
 const createPlan = async (req, res) => {
   try {
-    const plan = await planService.createPlan(req.body);
+    const user = req.session.user;
+    if (user){
+   const plan = await planService.createPlan(req.body);
     res.status(201).json({ success: true, data: plan });
+    }
+    else{
+      res.redirect('/login');
+    }
+ 
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });
   }

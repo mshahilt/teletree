@@ -26,7 +26,8 @@ const getLoginPage = (req, res) => {
 };
 
 const getSignupPage = (req, res) => {
-    res.render('pages/signup',  { title: "Login" });
+  const user=null;
+    res.render('pages/signup',  { title: "Login",user });
 };
 const getRegister= (req, res) => {
   let user = req.session.user;

@@ -668,7 +668,7 @@
                         <span class="info-value"><%= prof.address %></span>
 
                     </div>
-            <div id="contact-row">
+            <div id="contact-row-${index}">
   <!-- Phone -->
   <div class="info-row">
     <span class="info-label">Phone</span>
@@ -816,7 +816,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const emailValueElement = document.getElementById(`email-value-${index}`);
   const cvValueElement = document.getElementById(`cv-value-${index}`);
   const certificateValueElement = document.getElementById(`certificate-value-${index}`);
-  const contactRowDiv = document.getElementById("contact-row");
+const contactRowDiv = document.getElementById(`contact-row-${index}`);
+
 
   // Show loading state
   button.classList.add('loading');
@@ -843,11 +844,14 @@ document.addEventListener('DOMContentLoaded', function() {
       certificateElement.style.display = 'none';
 
       // Remove locked contact block
-      contactRowDiv.remove();
+    if (contactRowDiv) {
+  contactRowDiv.classList.add('d-none');
+}
 
-      // Show real contact info
-      phoneValueElement.textContent = data.contacts.phone || 'Not available';
-      emailValueElement.textContent = data.contacts.email || 'Not available';
+    // Show real contact info
+
+phoneValueElement.textContent = data.contacts.phone || 'Not available';
+emailValueElement.textContent = data.contacts.email || 'Not available';
 
       if (data.contacts?.cvFileName) {
         cvValueElement.innerHTML = `
