@@ -14,10 +14,10 @@ const telecallerSchema = new mongoose.Schema({
     type: String
   },
   cv: {
-    type: String // stores filename or file path
+    type: String 
   },
   experienceCertificate: {
-    type: String // stores filename or file path
+    type: String 
   },
   age: {
     type: Number,

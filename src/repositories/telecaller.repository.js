@@ -15,6 +15,11 @@ const searchTelecallers = async (filters) => {
     query['address.city'] = filters.district;
   }
 
+  if (filters.experience) {
+    const [minExp, maxExp] = filters.experience.split('-').map(Number);
+    query.experience = { $gte: minExp, $lte: maxExp };
+  }
+
   if (filters.location) {
     const words = filters.location.trim().split(/\s+/);
     const regexPattern = words.join('|');
