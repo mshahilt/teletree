@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getHomePage, signup, login, getSignupPage, getLoginPage,renderSearchPage ,getRegister ,registerAsTelecaller, getAboutPage, getContactPage, getMe, renderTeleCallerSearch } = require('../controllers/user.controller');
+const { getHomePage, signup, login, getSignupPage, getLoginPage,renderSearchPage ,getRegister,logout ,registerAsTelecaller, getAboutPage, getContactPage, getMe, renderTeleCallerSearch } = require('../controllers/user.controller');
 const upload = require('../middlewares/upload');  
 router.get('/', getHomePage);
 router.get('/getMe', getMe);
@@ -22,7 +22,7 @@ router.get('/login', getLoginPage);
 router.get('/tele-caller-search', renderTeleCallerSearch);
 router.get('/search', renderSearchPage);
 router.post('/login', login);
-
+router.post('/logout', logout);
 router.get('/registerAsTelecaller', getRegister);
 router.post('/registerAsTelecaller',upload.fields([{ name: 'profilePhoto' }, { name: 'cv' }, { name: 'experienceCertificate' }])
 , registerAsTelecaller);

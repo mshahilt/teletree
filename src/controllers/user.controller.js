@@ -134,12 +134,25 @@ const login = async (req, res, next) => {
   }
 };
 
+const logout = (req, res) => {  
+  req.session.destroy((err) => {
+      if (err) {
+          console.log(err)
+      }
+      else {
+          res.redirect("/")
+
+      }
+  })
+}
+
 
 
 
 module.exports = {
   signup,
   login,
+  logout,
   getHomePage,
   getRegister,
   getLoginPage,
