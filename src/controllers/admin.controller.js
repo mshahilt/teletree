@@ -28,6 +28,7 @@ const login = async (req, res) => {
     }
 
     req.session.admin = true;
+    req.session.user.role="admin";
     res.redirect("/admin");
   } catch (err) {
     console.log(err);

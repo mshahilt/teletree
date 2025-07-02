@@ -1,5 +1,6 @@
 const userService = require('../services/user.service');
 const TelecallerRepository = require("../repositories/telecaller.repository");
+const userRepository = require('../repositories/user.repository');
 const getHomePage = async(req, res) => {
   const user = req.session.user;
   let telecallers = await TelecallerRepository.getAll();
@@ -49,8 +50,14 @@ const signup = async (req, res, next) => {
 const registerAsTelecaller = async (req, res) => {
   try {
     const userData = req.body;
-    const thisUser = req.session.user;
-
+    const { name,phone,email,address}=req.body;
+    let thisUser = req.session.user;
+    console.log("req.session.user: ", req.session?.user);
+        console.log("req.session.admin: ", req.session?.admin);
+    if(thisUser?.role=='admin'||req.session.admin==true){
+      const tempUser={name,phone,email,address};
+      thisUser=await userRepository.createUser(tempUser);
+    }
     // Add filenames to userData
     if (req.files['profilePhoto']) {
       userData.profilePhoto = req.files['profilePhoto'][0].filename;

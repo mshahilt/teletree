@@ -24,6 +24,7 @@ const registerUser = async (userData, thisUser) => {
 
   const userId = thisUser._id;
 const {
+ 
   gender,
   experience,
   age,
