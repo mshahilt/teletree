@@ -25,7 +25,7 @@ app.use('/', require('./src/routes/user.routes'));
 app.use('/otp', require('./src/routes/otp.routes'));
 app.use('/plan', require('./src/routes/plan.routes'));
 app.use('/subscription', require('./src/routes/subscription.routes'));
-
+app.use('/admin', require('./src/routes/admin.routes'));
 app.use(require('./src/middlewares/errorHandler'));
 
 const PORT = process.env.PORT || 5000;
