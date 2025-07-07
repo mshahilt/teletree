@@ -36,6 +36,10 @@ const telecallerSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  district: {
+    type: String,
+    
+  },
   workType: {
   type: String,
   enum: ['Work From Home', 'Work From Office', 'Hybrid'],

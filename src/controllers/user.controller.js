@@ -5,7 +5,7 @@ const getHomePage = async(req, res) => {
   const user = req.session.user;
   let telecallers = await TelecallerRepository.getAll();
  
-    // console.log("telecallers: ", telecallers);
+    console.log("telecallers: ", telecallers);
   res.render('pages/home', { title: 'Home Page',user ,telecallers});
   // res.json(telecallers);
 };
