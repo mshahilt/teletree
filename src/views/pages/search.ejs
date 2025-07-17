@@ -257,8 +257,8 @@
         margin: 2rem 0;
     }
 </style>
+<!-- 
 
-<!-- Search Filter Section -->
 <div class="container">
     <div class="filter-section">
         <form id="searchForm">
@@ -340,10 +340,10 @@
         </form>
     </div>
 </div>
+ -->
 
-<!-- Search Results Section -->
 <div class="container py-5">
-    <!-- Initial Message -->
+ 
     <div class="initial-message" id="initialMessage">
         <div class="text-center">
             <i class="fas fa-search fa-4x mb-3"></i>
@@ -352,7 +352,7 @@
         </div>
     </div>
 
-    <!-- Loading State -->
+<!--    
     <div class="search-loading d-none" id="loadingMessage">
         <div class="text-center">
             <i class="fas fa-spinner fa-spin fa-4x text-muted mb-3"></i>
@@ -361,7 +361,7 @@
         </div>
     </div>
 
-    <!-- Results Summary -->
+  
     <div class="results-summary d-none" id="resultsSummary">
         <div class="row align-items-center">
             <div class="col-md-8">
@@ -370,14 +370,286 @@
             </div>
             <div class="col-md-4 text-md-end">
                 <small class="text-muted" id="activeFilters">
-                    <!-- Filter badges will be added here -->
+                   
                 </small>
             </div>
         </div>
-    </div>
+    </div> -->
+     <div class="row g-4">
+        <% professionals.forEach((prof, index) => { %>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="professional-card">
+                <div class="premium-badge">
+                    <i class="fas fa-crown me-1"></i>Premium
+                </div>
+                <div class="card-header">
+                    <img 
+                        src="/uploads/profilePhotos/<%= prof.profilePhoto %>" 
+                        alt="<%= prof.userId.name.toUpperCase() %>" 
+                        class="professional-avatar"
+                    >
+                </div>
+                <div class="professional-info">
+                    <div class="professional-name"><%= prof.userId.name.toUpperCase() %></div>
+                    <div class="professional-category"><%= prof.jobCategory %> Specialist</div>
 
-    <!-- No Results -->
-    <div class="no-results d-none" id="noResults">
+                    <div class="info-row">
+                        <span class="info-label">Experience</span>
+                        <span class="info-value"><%= prof.experience %> Years</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Age</span>
+                        <span class="info-value"><%= prof.age %> Years</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Languages</span>
+                        <span class="info-value"><%= prof.languages %></span>
+                    </div>
+                     <div class="info-row">
+                        <span class="info-label">work type</span>
+                        <span class="info-value"><%= prof.workType || 'N/A' %></span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">Location</span>
+                        <span class="info-value"><%= prof.district %></span>
+
+                    </div>
+            <div id="contact-row-${index}">
+  <!-- Phone -->
+  <div class="info-row">
+    <span class="info-label">Phone</span>
+    <span class="info-hidden" id="phone-<%= index %>">
+      <i class="fas fa-lock me-1"></i>Hidden
+    </span>
+  </div>
+
+  <!-- Email -->
+  <div class="info-row">
+    <span class="info-label">Email</span>
+    <span class="info-hidden" id="email-<%= index %>">
+      <i class="fas fa-lock me-1"></i>Hidden
+    </span>
+  </div>
+
+  <!-- CV -->
+  <div class="info-row">
+    <span class="info-label">CV</span>
+    <span class="info-hidden" id="cv-<%= index %>">
+      <i class="fas fa-lock me-1"></i>Hidden
+    </span>
+    
+  </div>
+
+  <!-- Experience Certificate -->
+  <div class="info-row">
+    <span class="info-label">Experience Certificate</span>
+    <span class="info-hidden" id="certificate-<%= index %>">
+      <i class="fas fa-lock me-1"></i>Hidden
+    </span>
+  </div>
+</div>
+
+                    <!-- Contact Info Container (Initially Hidden) -->
+                    <div class="contact-info d-none" id="contact-info-<%= index %>">
+                        <div class="contact-item">
+                            <span class="contact-label">Phone:</span>
+                            <span class="contact-value" id="phone-value-<%= index %>">Loading...</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Email:</span>
+                            <span class="contact-value" id="email-value-<%= index %>">Loading...</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">CV:</span>
+                            <span class="contact-value" id="cv-value-<%= index %>">Loading...</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Experience:</span>
+                            <span class="contact-value" id="certificate-value-<%= index %>">Loading...</span>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <button class="unlock-btn" id="action-btn-<%= index %>" data-prof-id="<%= prof._id %>" data-index="<%= index %>">
+                            <i class="fas fa-unlock me-2"></i>Unlock Contact Info
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+    </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let hasValidSubscription = false;
+    
+    // Check subscription status on page load
+    checkSubscriptionStatus();
+    
+    async function checkSubscriptionStatus() {
+        try {
+            const response = await fetch('/subscription/has', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            
+            const data = await response.json();
+            console.log("data: ", data);
+            hasValidSubscription = data.data || false;
+            
+            // Update all buttons based on subscription status
+            updateAllButtons();
+            
+        } catch (error) {
+            console.error('Error checking subscription status:', error);
+            hasValidSubscription = false;
+            updateAllButtons();
+        }
+    }
+    
+    function updateAllButtons() {
+        const buttons = document.querySelectorAll('[id^="action-btn-"]');
+        
+        buttons.forEach(button => {
+            const index = button.dataset.index;
+            
+            if (hasValidSubscription) {
+                button.innerHTML = '<i class="fas fa-eye me-2"></i>Show Contact Info';
+                button.className = 'show-contact-btn';
+                button.onclick = () => showContactInfo(button.dataset.profId, index);
+            } else {
+                button.innerHTML = '<i class="fas fa-unlock me-2"></i>Unlock Contact Info';
+                button.className = 'unlock-btn';
+                button.onclick = () => window.location.href = '/plan';
+            }
+        });
+    }
+    async function showContactInfo(profId, index) {
+  const button = document.getElementById(`action-btn-${index}`);
+  const phoneElement = document.getElementById(`phone-${index}`);
+  const emailElement = document.getElementById(`email-${index}`);
+  const cvElement = document.getElementById(`cv-${index}`);
+  const certificateElement = document.getElementById(`certificate-${index}`);
+
+  const contactInfoDiv = document.getElementById(`contact-info-${index}`);
+  const phoneValueElement = document.getElementById(`phone-value-${index}`);
+  const emailValueElement = document.getElementById(`email-value-${index}`);
+  const cvValueElement = document.getElementById(`cv-value-${index}`);
+  const certificateValueElement = document.getElementById(`certificate-value-${index}`);
+const contactRowDiv = document.getElementById(`contact-row-${index}`);
+
+
+  // Show loading state
+  button.classList.add('loading');
+  button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Loading...';
+
+  try {
+    console.log("profId", profId);
+    const response = await fetch('/subscription/getContacts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        professionalId: profId
+      })
+    });
+
+    const data = await response.json();
+
+    if (data.success && data.contacts) {
+      phoneElement.style.display = 'none';
+      emailElement.style.display = 'none';
+      cvElement.style.display = 'none';
+      certificateElement.style.display = 'none';
+
+      // Remove locked contact block
+    if (contactRowDiv) {
+  contactRowDiv.classList.add('d-none');
+}
+
+    // Show real contact info
+
+phoneValueElement.textContent = data.contacts.phone || 'Not available';
+emailValueElement.textContent = data.contacts.email || 'Not available';
+
+      if (data.contacts?.cvFileName) {
+        cvValueElement.innerHTML = `
+          <a href="/uploads/cv/${data.contacts?.cvFileName}" download>
+            <i class="fas fa-download me-1"></i>Download CV
+          </a>`;
+      } else {
+        cvValueElement.textContent = "Not available";
+      }
+
+      if (data.contacts?.certificateFileName) {
+        certificateValueElement.innerHTML = `
+          <a href="/uploads/certificates/${data.contacts?.certificateFileName}" download>
+            <i class="fas fa-download me-1"></i>Download Certificate
+          </a>`;
+      } else {
+        certificateValueElement.textContent = "Not available";
+      }
+
+      contactInfoDiv.classList.remove('d-none');
+
+      // Update button state
+      button.innerHTML = '<i class="fas fa-check me-2"></i>Contact Revealed';
+      button.classList.remove('loading');
+      button.disabled = true;
+      button.style.background = '#6c757d';
+
+    } else {
+      throw new Error(data.message || 'Failed to get contact information');
+    }
+
+  } catch (error) {
+    console.error('Error getting contact info:', error);
+    alert('Error getting contact information: ' + error.message);
+
+    // Reset button
+    button.classList.remove('loading');
+    button.innerHTML = '<i class="fas fa-eye me-2"></i>Show Contact Info';
+  }
+}
+
+    
+    // Make functions globally available
+    window.showContactInfo = showContactInfo;
+     const formButton = document.querySelector(".search-btn");
+
+  formButton.addEventListener("click", (e) => {
+    e.preventDefault();
+
+ const district = document.getElementById("district").value;
+const age = document.getElementById("age").value;
+const experience = document.getElementById("experience").value;
+const gender = document.getElementById("gender").value;
+const category = document.getElementById("category").value;
+const workType = document.getElementById("workType").value; // Add this line
+const pincode = document.getElementById("pincode").value.trim();
+const location = document.getElementById("localAddress").value.trim();
+
+const params = new URLSearchParams();
+if (district && district !== "Select District") params.append("district", district);
+if (age && age !== "Select Age") params.append("age", age);
+if (experience && experience !== "Select Experience") params.append("experience", experience);
+if (gender && gender !== "Select Gender") params.append("gender", gender);
+if (category && category !== "Select Category") params.append("category", category);
+if (workType && workType !== "Select Work type") params.append("workType", workType); // Add this line
+if (pincode !== "") params.append("pincode", pincode);
+if (location !== "") params.append("location", location);
+    window.location.href = `/search?${params.toString()}`;
+    // console.log("params :", params);
+  });
+});
+</script>
+    <!-- <div class="no-results d-none" id="noResults">
         <div class="text-center">
             <i class="fas fa-search fa-4x text-muted mb-3"></i>
             <h3 class="text-muted mb-3">No Professionals Found</h3>
@@ -388,9 +660,9 @@
         </div>
     </div>
 
-    <!-- Professionals Grid -->
+   
     <div class="row g-4" id="professionalsGrid">
-        <!-- Professional cards will be dynamically added here -->
+      
     </div>
 </div>
 
@@ -630,7 +902,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     <div class="info-row">
                         <span class="info-label">Location</span>
-                        <span class="info-value">${prof.address.fullAddress}</span>
+                        <span class="info-value">${prof.address}</span>
                     </div>
                     
                     <div id="contact-row-${index}">
@@ -772,7 +1044,7 @@ function clearFilters() {
     const url = new URL(window.location);
     url.search = '';
     window.history.replaceState({}, '', url);
-}
+} -->
 </script>
 
 <%- include('../partials/footer') %>

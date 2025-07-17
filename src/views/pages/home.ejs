@@ -516,6 +516,15 @@
                     <option>41+</option>
                 </select>
             </div>
+             <div class="col-md-3 col-6">
+                <label for="workType" class="form-label fw-semibold">Work type</label>
+                <select class="form-select" id="workType">
+                    <option selected disabled>Select Work type</option>
+                    <option>Work From Home</option>
+                    <option>Work From Office</option>
+                    <option>Hybrid</option>
+                </select>
+            </div>
             
             <div class="col-md-3 col-6">
                 <label for="experience" class="form-label fw-semibold">Experience Range</label>
@@ -963,24 +972,24 @@ emailValueElement.textContent = data.contacts.email || 'Not available';
   formButton.addEventListener("click", (e) => {
     e.preventDefault();
 
-    const district = document.getElementById("district").value;
-    const age = document.getElementById("age").value;
-    const experience = document.getElementById("experience").value;
-    const gender = document.getElementById("gender").value;
-    const category = document.getElementById("category").value;
-    const pincode = document.getElementById("pincode").value.trim();
-    const location = document.getElementById("localAddress").value.trim();
+ const district = document.getElementById("district").value;
+const age = document.getElementById("age").value;
+const experience = document.getElementById("experience").value;
+const gender = document.getElementById("gender").value;
+const category = document.getElementById("category").value;
+const workType = document.getElementById("workType").value; // Add this line
+const pincode = document.getElementById("pincode").value.trim();
+const location = document.getElementById("localAddress").value.trim();
 
-    const params = new URLSearchParams();
-
-    if (district && district !== "Select District") params.append("district", district);
-    if (age && age !== "Select Age") params.append("age", age);
-    if (experience && experience !== "Select Experience") params.append("experience", experience);
-    if (gender && gender !== "Select Gender") params.append("gender", gender);
-    if (category && category !== "Select Category") params.append("category", category);
-    if (pincode !== "") params.append("pincode", pincode);
-    if (localAddress !== "") params.append("location", location);
-
+const params = new URLSearchParams();
+if (district && district !== "Select District") params.append("district", district);
+if (age && age !== "Select Age") params.append("age", age);
+if (experience && experience !== "Select Experience") params.append("experience", experience);
+if (gender && gender !== "Select Gender") params.append("gender", gender);
+if (category && category !== "Select Category") params.append("category", category);
+if (workType && workType !== "Select Work type") params.append("workType", workType); // Add this line
+if (pincode !== "") params.append("pincode", pincode);
+if (location !== "") params.append("location", location);
     window.location.href = `/search?${params.toString()}`;
     // console.log("params :", params);
   });

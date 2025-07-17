@@ -42,6 +42,12 @@ const searchTelecallers = async (filters) => {
   if (filters.jobCategory) {
     query.jobCategory = filters.jobCategory;
   }
+console.log("query", query);
+console.log("filters", filters);
+  // Add workType filter
+  if (filters.workType) {
+    query.workType = filters.workType;
+  }
 
   const telecallers = await Telecaller.find(query)
     .populate({
@@ -49,10 +55,9 @@ const searchTelecallers = async (filters) => {
       select: 'name'
     })
     .lean();
-
+ 
   return telecallers;
 };
-
 
 
 

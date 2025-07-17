@@ -97,6 +97,7 @@ const renderSearchPage = async (req, res)  => {
         const searchParams = {
             district: req.query.district || '',
             age: req.query.age || '',
+            workType: req.query.workType || '',
             gender: req.query.gender || '',
             jobCategory: req.query.jobCategory || ''
         };
@@ -111,12 +112,13 @@ const renderSearchPage = async (req, res)  => {
                 district: searchParams.district,
                 gender: searchParams.gender,
                 jobCategory: searchParams.jobCategory,
+                workType: searchParams.workType,
                 age: minAge
             };
 
             professionals = await TelecallerRepository.searchTelecallers(filters);
         }
-
+console.log("professionals: ", professionals);
         res.render('pages/search', {
             professionals: professionals,
             searchParams: searchParams,
