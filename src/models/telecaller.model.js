@@ -42,7 +42,7 @@ const telecallerSchema = new mongoose.Schema({
   },
   workType: {
   type: String,
-  enum: ['Work From Home', 'Work From Office', 'Hybrid'],
+  enum: ['Work From Home', 'Work From Office', 'Hybrid','Field Sales Executive'],
   required: true
 },
 }, { timestamps: true });
