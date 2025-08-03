@@ -10,10 +10,11 @@ class SubscriptionService {
   if (!plan) {
     throw new Error('Invalid plan selected');
   }
-
+const expiryDate = new Date(Date.now() + 10 * 24 * 60 * 60 * 1000); // 10 days from now
   const subscriptionData = {
     userId,
     planId,
+    expiryDate,
     benefits: plan.benefits,
     numberOfUsagesLeft: plan.numberOfAllowedUsages,
     razorpayOrderId: razorpayOrderId,

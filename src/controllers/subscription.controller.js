@@ -120,19 +120,30 @@ const getSubscriptionById = async (req, res) => {
     res.status(404).json({ success: false, message: error.message });
   }
 };
-
-const viewFullProfileInfo = async(req, res) => {
+const viewFullProfileInfo = async (req, res) => {
   try {
     const userId = req.session?.user?._id;
     const workerId = req.body?.professionalId;
-    console.log("workerId : ", workerId);
+    console.log("workerId:", workerId);
+
     const profileInfo = await subscriptionService.viewWorkerContactInfo(userId, workerId);
-    console.log("profileInfo :",profileInfo);
+    console.log("profileInfo:", profileInfo);
+
+    if (!profileInfo || !profileInfo.expiryDate) {
+      return res.status(400).json({ success: false, message: "No valid subscription or expiry date found." });
+    }
+
+    if (Date.now() > new Date(profileInfo.expiryDate).getTime()) {
+      return res.status(400).json({ success: false, message: "Subscription Expired" });
+    }
+
     res.status(200).json({ success: true, contacts: profileInfo });
+
   } catch (error) {
-    res.status(400).json({ success: false, message: error.message }); 
+    res.status(400).json({ success: false, message: error.message });
   }
-}
+};
+
 
 const getHasSubscription = async(req, res) => {
   try {

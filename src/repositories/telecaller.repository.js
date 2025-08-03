@@ -12,7 +12,7 @@ const searchTelecallers = async (filters) => {
   console.log(filters.age);
 
   if (filters.district) {
-    query['address.city'] = filters.district;
+    query['district'] = filters.district;
   }
 
   if (filters.experience) {

@@ -86,6 +86,7 @@ const renderTeleCallerSearch = async (req, res) => {
     const filters = req.query; 
     console.log("filterskjhkj", filters);
     const telecallers = await TelecallerRepository.searchTelecallers(filters);
+    console.log("telecallers: ", telecallers);
     res.status(200).json({ success: true,  telecallers});
   } catch (error) {
     res.status(500).send('Error loading telecaller search page');
@@ -94,6 +95,7 @@ const renderTeleCallerSearch = async (req, res) => {
 
 const renderSearchPage = async (req, res)  => {
      try {
+     
         const searchParams = {
             district: req.query.district || '',
             age: req.query.age || '',

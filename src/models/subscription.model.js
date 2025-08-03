@@ -16,7 +16,7 @@ const SubscriptionSchema = new mongoose.Schema({
         default: []
     },
     verified: {
-    type: Boolean,
+        type: Boolean,
         default: false
     },
     numberOfUsagesLeft: {
@@ -41,9 +41,9 @@ const SubscriptionSchema = new mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        expires: 6 // 10 days in seconds
     }
 });
-
 
 module.exports = mongoose.model('Subscription', SubscriptionSchema);
