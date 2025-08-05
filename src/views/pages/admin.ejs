@@ -862,14 +862,13 @@
         </div>
 
         <!-- Experience -->
-        <div class="col-md-6">
+         <div class="col-md-6">
           <label class="form-label">
             <i class="bi bi-award me-2"></i>
-            Experience (Years) <span class="text-danger">*</span>
+            Experience (month or year) <span class="text-danger">*</span>
           </label>
-          <input type="number" name="experience" class="form-control" min="0" max="50" placeholder="Years of experience" required>
+          <input type="text" name="experience" class="form-control"  placeholder="(eg-: 1 month or 1 year)" required>
         </div>
-
         <!-- Languages -->
         <div class="col-md-6">
           <label class="form-label">
@@ -1194,8 +1193,8 @@
         errors.push('Age must be between 18 and 100');
       }
       
-      if (!formData.get('experience') || formData.get('experience') < 0) {
-        errors.push('Experience cannot be negative');
+      if (!formData.get('experience') ) {
+        errors.push('Experience cannot be empty');
       }
       
       if (!formData.get('languages')) {
