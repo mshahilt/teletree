@@ -700,6 +700,9 @@
 
     <div class="row g-4">
         <% telecallers.forEach((prof, index) => { %>
+            <%  if(prof.isBlocked == false){ %>
+                
+            
         <div class="col-12 col-md-6 col-lg-4">
             <div class="professional-card">
                 <div class="premium-badge">
@@ -803,6 +806,7 @@
                 </div>
             </div>
         </div>
+         <%}%>
         <% }); %>
     </div>
 </div>

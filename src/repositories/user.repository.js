@@ -12,6 +12,12 @@ const createUser = async (userData) => {
   return await User.create(userData);
 };
 
+
+module.exports = {
+  findMany: async () => {
+    return await User.find();  // Fetch all users
+  },
+};
 module.exports = {
   findByEmail,
   findByPhone,
