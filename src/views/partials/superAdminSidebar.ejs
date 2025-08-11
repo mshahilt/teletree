@@ -1,0 +1,42 @@
+   <!-- Mobile toggle button -->
+    <button class="mobile-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="user-profile">
+            <div class="user-image">
+                <i class="fas fa-user-circle" style="font-size: 40px;"></i>
+            </div>
+            <div class="user-name adminName">Jeemon</div>
+            <div class="user-designation">Admin</div>
+        </div>
+        
+        <ul class="nav">
+            <div>
+                 <li class="nav-item">
+                <a class="nav-link active" href="/superadmin">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span class="menu-title">Telecallers</span>
+                </a>
+            </li>
+            </div>
+           
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/superadmin/plans">
+                    <i class="fa-solid fa-gift"></i>
+                    <span class="menu-title">plans</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <form action="/superadmin/logout" method="post" style="margin: 0;">
+                    <button type="submit" class="nav-link logout-btn w-100 text-start">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="menu-title">Logout</span>
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </nav>

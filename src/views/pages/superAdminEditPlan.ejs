@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Plan</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            border: 1px solid #e9ecef;
+        }
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-bottom: none;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #495057;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            transform: translateY(-1px);
+        }
+        .benefit-item {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .benefit-input {
+            border: none;
+            background: transparent;
+            flex-grow: 1;
+            margin-right: 0.5rem;
+        }
+        .benefit-input:focus {
+            outline: none;
+            background-color: white;
+        }
+        .add-benefit-btn {
+            border: 2px dashed #6c757d;
+            background: transparent;
+            color: #6c757d;
+            transition: all 0.3s ease;
+        }
+        .add-benefit-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+            background-color: rgba(102, 126, 234, 0.1);
+        }
+        .currency-input {
+            position: relative;
+        }
+        .currency-symbol {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            font-weight: 600;
+        }
+        .currency-input input {
+            padding-left: 35px;
+        }
+        .readonly-field {
+            background-color: #f8f9fa;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="mb-0">
+                            <i class="fas fa-edit me-2"></i>
+                            Edit Plan
+                        </h3>
+                        <small class="opacity-75">Modify your subscription plan details</small>
+                    </div>
+                    <div class="card-body">
+                        <form action="/superadmin/editplan/<%= plan._id %>" method="POST" id="planForm">
+                            <!-- Plan Name -->
+                            <div class="mb-4">
+                                <label for="planName" class="form-label">
+                                    <i class="fas fa-tag me-2"></i>Plan Name
+                                </label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       id="planName" 
+                                       name="plan" 
+                                       value="<%= plan.plan %>" 
+                                       required>
+                                <div class="form-text">Enter a descriptive name for this plan (e.g., Basic, Premium, Pro)</div>
+                            </div>
+
+                            <!-- Plan Benefits -->
+                            <div class="mb-4">
+                                <label class="form-label">
+                                    <i class="fas fa-star me-2"></i>Plan Benefits
+                                </label>
+                                <div id="benefitsContainer">
+                                    <% if (plan.benefits && plan.benefits.length > 0) { %>
+                                        <% plan.benefits.forEach((benefit, index) => { %>
+                                            <div class="benefit-item">
+                                                <input type="text" 
+                                                       class="benefit-input" 
+                                                       name="benefits[]" 
+                                                       value="<%= benefit %>" 
+                                                       placeholder="Enter benefit description">
+                                                <button type="button" class="btn btn-sm btn-outline-danger remove-benefit">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        <% }) %>
+                                    <% } else { %>
+                                        <div class="benefit-item">
+                                            <input type="text" 
+                                                   class="benefit-input" 
+                                                   name="benefits[]" 
+                                                   placeholder="Enter benefit description">
+                                            <button type="button" class="btn btn-sm btn-outline-danger remove-benefit">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    <% } %>
+                                </div>
+                                <button type="button" class="btn btn-outline-secondary add-benefit-btn w-100 mt-2">
+                                    <i class="fas fa-plus me-2"></i>Add Another Benefit
+                                </button>
+                                <div class="form-text">List the key features and benefits included in this plan</div>
+                            </div>
+
+                            <!-- Amount -->
+                            <div class="mb-4">
+                                <label for="amount" class="form-label">
+                                    <i class="fas fa-dollar-sign me-2"></i>Plan Amount
+                                </label>
+                                <div class="currency-input">
+                                    <span class="currency-symbol">₹</span>
+                                    <input type="number" 
+                                           class="form-control" 
+                                           id="amount" 
+                                           name="amount" 
+                                           value="<%= plan.amount %>" 
+                                           min="0" 
+                                           step="0.01" 
+                                           required>
+                                </div>
+                                <div class="form-text">Enter the amount for this plan (in INR)</div>
+                            </div>
+
+                            <!-- Number of Allowed Usages -->
+                            <div class="mb-4">
+                                <label for="numberOfAllowedUsages" class="form-label">
+                                    <i class="fas fa-hashtag me-2"></i>Allowed Usages
+                                </label>
+                                <input type="number" 
+                                       class="form-control" 
+                                       id="numberOfAllowedUsages" 
+                                       name="numberOfAllowedUsages" 
+                                       value="<%= plan.numberOfAllowedUsages %>" 
+                                       min="1" 
+                                       required>
+                                <div class="form-text">Maximum number of times this plan can be used</div>
+                            </div>
+
+                            <!-- Readonly Fields -->
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label for="createdAt" class="form-label">
+                                        <i class="fas fa-calendar-plus me-2"></i>Created At
+                                    </label>
+                                    <input type="text" 
+                                           class="form-control readonly-field" 
+                                           id="createdAt" 
+                                           value="<%= new Date(plan.createdAt).toLocaleString() %>" 
+                                           readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="updatedAt" class="form-label">
+                                        <i class="fas fa-calendar-check me-2"></i>Updated At
+                                    </label>
+                                    <input type="text" 
+                                           class="form-control readonly-field" 
+                                           id="updatedAt" 
+                                           value="<%= new Date(plan.updatedAt).toLocaleString() %>" 
+                                           readonly>
+                                </div>
+                            </div>
+
+                            <!-- Plan ID (Hidden but displayed for reference) -->
+                            <div class="mb-4">
+                                <label for="planId" class="form-label">
+                                    <i class="fas fa-fingerprint me-2"></i>Plan ID
+                                </label>
+                                <input type="text" 
+                                       class="form-control readonly-field" 
+                                       id="planId" 
+                                       value="<%= plan._id %>" 
+                                       readonly>
+                                <div class="form-text">Unique identifier for this plan (read-only)</div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="d-flex gap-3 justify-content-end">
+                                <a href="/superadmin/plans" class="btn btn-outline-secondary">
+                                    <i class="fas fa-arrow-left me-2"></i>Cancel
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save me-2"></i>Update Plan
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const benefitsContainer = document.getElementById('benefitsContainer');
+            const addBenefitBtn = document.querySelector('.add-benefit-btn');
+
+            // Add new benefit
+            addBenefitBtn.addEventListener('click', function() {
+                const newBenefit = document.createElement('div');
+                newBenefit.className = 'benefit-item';
+                newBenefit.innerHTML = `
+                    <input type="text" 
+                           class="benefit-input" 
+                           name="benefits[]" 
+                           placeholder="Enter benefit description">
+                    <button type="button" class="btn btn-sm btn-outline-danger remove-benefit">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                benefitsContainer.appendChild(newBenefit);
+            });
+
+            // Remove benefit
+            benefitsContainer.addEventListener('click', function(e) {
+                if (e.target.closest('.remove-benefit')) {
+                    const benefitItem = e.target.closest('.benefit-item');
+                    if (benefitsContainer.children.length > 1) {
+                        benefitItem.remove();
+                    } else {
+                        // If it's the last benefit, just clear the input
+                        const input = benefitItem.querySelector('.benefit-input');
+                        input.value = '';
+                    }
+                }
+            });
+
+            // Form validation
+            document.getElementById('planForm').addEventListener('submit', function(e) {
+                const benefits = document.querySelectorAll('input[name="benefits[]"]');
+                const nonEmptyBenefits = Array.from(benefits).filter(input => input.value.trim() !== '');
+                
+                if (nonEmptyBenefits.length === 0) {
+                    e.preventDefault();
+                    alert('Please add at least one benefit for this plan.');
+                    return false;
+                }
+
+                // Remove empty benefit inputs before submission
+                benefits.forEach(input => {
+                    if (input.value.trim() === '') {
+                        input.closest('.benefit-item').remove();
+                    }
+                });
+            });
+
+            // Real-time amount formatting
+            const amountInput = document.getElementById('amount');
+            const amountDisplay = document.createElement('div');
+            amountDisplay.className = 'form-text text-success fw-bold';
+            amountInput.parentNode.appendChild(amountDisplay);
+
+            function updateAmountDisplay() {
+                const amount = parseFloat(amountInput.value) || 0;
+                const dollars = (amount / 100).toFixed(2);
+               
+            }
+
+            amountInput.addEventListener('input', updateAmountDisplay);
+            updateAmountDisplay(); // Initial display
+        });
+    </script>
+</body>
+</html>

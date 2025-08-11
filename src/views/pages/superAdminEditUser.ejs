@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Telecaller Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #1e40af;
+      --primary-green: #10b981;
+      --light-blue: #dbeafe;
+      --light-green: #d1fae5;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      min-height: 100vh;
+    }
+
+    .navbar-custom {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 2.5rem;
+      margin: 2rem auto;
+      max-width: 1000px;
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+      border-radius: 20px;
+      height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="25" cy="75" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="25" r="2.5" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+      animation: float 20s infinite linear;
+    }
+
+    @keyframes float {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .hero-banner h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin: 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-control, .form-select {
+      border-radius: 12px;
+      border: 2px solid #e5e7eb;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 0.25rem rgba(30, 64, 175, 0.1);
+      background: rgba(255, 255, 255, 1);
+    }
+
+    .form-control:disabled, .form-select:disabled {
+      background: rgba(248, 250, 252, 0.8);
+      color: #6b7280;
+      border-color: #d1d5db;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .update-btn {
+      background: linear-gradient(135deg, var(--primary-blue), var(--primary-green));
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 1rem 3rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 30px rgba(30, 64, 175, 0.3);
+    }
+
+    .update-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(30, 64, 175, 0.4);
+    }
+
+    .update-btn:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #ffffff;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .alert {
+      border-radius: 12px;
+      border: none;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1.5rem;
+    }
+
+    .info-badge {
+      background: linear-gradient(135deg, #e0f2fe, #b3e5fc);
+      color: #0277bd;
+      padding: 1.25rem 1.5rem;
+      border-radius: 16px;
+      border-left: 4px solid #0288d1;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 15px rgba(2, 136, 209, 0.1);
+    }
+
+    .photo-upload-container {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .photo-preview {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid var(--primary-blue);
+      object-fit: cover;
+      margin: 1rem auto;
+      display: block;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .photo-upload-label {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--light-blue), #bfdbfe);
+      color: var(--primary-blue);
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      border: 2px dashed var(--primary-blue);
+    }
+
+    .photo-upload-label:hover {
+      background: linear-gradient(135deg, #dbeafe, #93c5fd);
+      transform: translateY(-1px);
+    }
+
+    .crop-container {
+      max-height: 400px;
+      margin: 1rem 0;
+    }
+
+    .modal-content {
+      border-radius: 20px;
+      border: none;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15);
+    }
+
+    .modal-header {
+      border-bottom: 1px solid #e5e7eb;
+      border-radius: 20px 20px 0 0;
+      background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    }
+
+    .current-file-info {
+      background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+      border: 2px dashed #0ea5e9;
+      border-radius: 12px;
+      padding: 1rem;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    .current-file-info .file-icon {
+      font-size: 2rem;
+      color: #0ea5e9;
+      margin-bottom: 0.5rem;
+    }
+
+    .optional-update {
+      font-size: 0.85rem;
+      color: #6b7280;
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      .hero-banner h1 {
+        font-size: 2rem;
+      }
+      .form-container {
+        padding: 1.5rem;
+        margin: 1rem;
+      }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      backdrop-filter: blur(5px);
+    }
+
+    .loading-content {
+      text-align: center;
+      padding: 2rem;
+      border-radius: 16px;
+      background: white;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="loading-content">
+      <div class="loading-spinner mb-3" style="width: 40px; height: 40px; border-width: 4px;"></div>
+      <h5>Loading Profile Data...</h5>
+      <p class="text-muted mb-0">Please wait while we fetch your information</p>
+    </div>
+  </div>
+
+  <div class="container my-5">
+    <div class="hero-banner fade-in">
+      <h1>Edit Telecaller Profile</h1>
+    </div>
+  </div>
+
+  <div class="form-container fade-in">
+    <div class="text-center mb-4">
+      <h2 class="fw-bold text-gray-800" style="font-size: 2rem;">Update Your Profile</h2>
+      <p class="text-gray-600 mt-2">Keep your professional information up to date</p>
+    </div>
+    
+    <!-- Info Badge -->
+    <div class="info-badge">
+      <i class="bi bi-info-circle me-2"></i>
+      <strong>Note:</strong> You can update your profile information below. Your current data has been loaded for editing.
+    </div>
+    
+    <!-- Alert Messages -->
+    <div id="alertContainer"></div>
+    
+    <form id="editForm" enctype="multipart/form-data">
+      <div class="row g-4">
+        <!-- Profile Photo Upload -->
+       <div class="col-12 text-center mb-4">
+  <div class="photo-upload-container">
+    <% if (telecaller.profilePhoto) { %>
+    
+      <img id="photoPreview" class="photo-preview" src="/uploads/profilePhotos/<%= telecaller.profilePhoto %>" alt="Profile Preview">
+      <div id="photoPlaceholder" class="photo-preview bg-light d-flex align-items-center justify-content-center d-none">
+        <i class="bi bi-person-circle text-muted" style="font-size: 3rem;"></i>
+      </div>
+    <% } else { %>
+      <img id="photoPreview" class="photo-preview d-none" alt="Profile Preview">
+      <div id="photoPlaceholder" class="photo-preview bg-light d-flex align-items-center justify-content-center">
+        <i class="bi bi-person-circle text-muted" style="font-size: 3rem;"></i>
+      </div>
+    <% } %>
+
+    <div class="mt-3">
+      <input type="file" id="profileInput" class="d-none" accept="image/*" name="profilePhotoFile">
+      <label for="profileInput" class="photo-upload-label">
+        <i class="bi bi-camera me-2"></i>
+        Update Profile Photo
+      </label>
+      <input type="hidden" name="profilePhoto" id="croppedImageData" value="<%= telecaller.profilePhoto || '' %>">
+    </div>
+
+    <p class="text-muted mt-2 small optional-update">
+      <i class="bi bi-info-circle me-1"></i>
+      Leave blank to keep current photo
+    </p>
+  </div>
+</div>
+
+
+        <!-- Basic Information -->
+        <div class="col-md-6">
+          <label class="form-label">
+            <i class="bi bi-person me-2"></i>
+            Name <span class="text-danger">*</span>
+          </label>
+          <input type="text" name="name" value="<%= telecaller.userId.name %>" class="form-control" placeholder="Enter your name" required>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">
+            <i class="bi bi-telephone me-2"></i>
+            Phone Number <span class="text-danger">*</span>
+          </label>
+          <input type="text" name="phone" value="<%= telecaller.userId.phone %>" class="form-control" placeholder="Enter phone number" required>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">
+            <i class="bi bi-envelope me-2"></i>
+            Email <span class="text-danger">*</span>
+          </label>
+          <input type="email" name="email" class="form-control" value="<%= telecaller.userId.email %>" placeholder="Enter email address" required>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">
+            <i class="bi bi-geo-alt me-2"></i>
+            Address <span class="text-danger">*</span>
+          </label>
+          <input type="text" name="address" value="<%= telecaller.district %>" class="form-control" placeholder="Enter your address" required>
+        </div>
+
+        <!-- Gender Selection -->
+        <div class="col-md-6">
+          <label class="form-label">
+            <i class="bi bi-gender-ambiguous me-2"></i>
+            Gender <span class="text-danger">*</span>
+          </label>
+         <select name="gender" class="form-select" required>
+  <option value="">Select Gender</option>
+  <option value="Male" <%= telecaller.gender === 'Male' ? 'selected' : '' %>>Male</option>
+  <option value="Female" <%= telecaller.gender === 'Female' ? 'selected' : '' %>>Female</option>
+  <option value="Other" <%= telecaller.gender === 'Other' ? 'selected' : '' %>>Other</option>
+</select>
+        </div>
+
+        <!-- Age -->
+        <div class="col-md-6">
+          <label class="form-label">
+            <i class="bi bi-calendar me-2"></i>
+            Age <span class="text-danger">*</span>
+          </label>
+          <input type="number" name="age" value="<%= telecaller.age %>" class="form-control" min="18" max="100" placeholder="Enter your age" required>
+        </div>
+
+        <!-- Experience -->
+        <div class="col-md-6">
+          <label class="form-label">
+            <i class="bi bi-award me-2"></i>
+            Experience (month or year) <span class="text-danger">*</span>
+          </label>
+          <input type="text" name="experience" value="<%= telecaller.experience %>" class="form-control" placeholder="(eg-: 1 month or 1 year)" required>
+        </div>
+
+        <!-- Languages -->
+        <div class="col-md-6">
+          <label class="form-label">
+            <i class="bi bi-translate me-2"></i>
+            Languages Known <span class="text-danger">*</span>
+          </label>
+          <input type="text" name="languages" value="<%= telecaller.languages %>" class="form-control" placeholder="e.g. English, Hindi, Arabic" required>
+        </div>
+
+        <!-- Job Category -->
+        <div class="col-12">
+          <label class="form-label">
+            <i class="bi bi-briefcase me-2"></i>
+            Job Category <span class="text-danger">*</span>
+          </label>
+        <select name="jobCategory" class="form-select" required>
+  <option value="">Select Your Specialty</option>
+  <option value="Tele calling" <%= telecaller.jobCategory === 'Tele calling' ? 'selected' : '' %>>Tele calling</option>
+  <option value="Tele sales" <%= telecaller.jobCategory === 'Tele sales' ? 'selected' : '' %>>Tele sales</option>
+  <option value="Tele marketing" <%= telecaller.jobCategory === 'Tele marketing' ? 'selected' : '' %>>Tele marketing</option>
+  <option value="Direct sales" <%= telecaller.jobCategory === 'Direct sales' ? 'selected' : '' %>>Direct sales</option>
+  <option value="Direct marketing" <%= telecaller.jobCategory === 'Direct marketing' ? 'selected' : '' %>>Direct marketing</option>
+</select>
+
+        </div>
+
+        <!-- File Uploads -->
+        <div class="row g-4">
+          <!-- Upload CV -->
+          <div class="col-md-6">
+            <label class="form-label">
+              <i class="bi bi-paperclip me-2"></i>
+              Update CV
+            </label>
+            <input type="file" name="cv" class="form-control" accept=".pdf,.doc,.docx">
+            <small class="text-muted">Accepted formats: PDF, DOC, DOCX</small>
+         <div id="currentCvInfo" class="current-file-info <%= telecaller.cv ? '' : 'd-none' %>">
+  <i class="bi bi-file-earmark-pdf file-icon"></i>
+  <div>
+    <strong>Current CV:</strong> 
+    <span id="currentCvName"><%= telecaller.cv %></span>
+  </div>
+  <small class="optional-update">Upload new file to replace current CV</small>
+</div>
+          </div>
+
+          <!-- Upload Experience Certificate -->
+       <div class="col-md-6">
+  <label class="form-label">
+    <i class="bi bi-file-earmark-text me-2"></i>
+    Update Experience Certificate
+  </label>
+  <input type="file" name="experienceCertificate" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+  <small class="text-muted">Accepted formats: PDF, JPG, PNG</small>
+
+  <div id="currentCertInfo" class="current-file-info <%= telecaller.experienceCertificate ? '' : 'd-none' %>">
+    <i class="bi bi-file-earmark-text file-icon"></i>
+    <div>
+      <strong>Current Certificate:</strong>
+      <a href="/uploads/experienceCertificates/<%= telecaller.experienceCertificate %>" target="_blank" id="currentCertName">
+        <%= telecaller.experienceCertificate %>
+      </a>
+    </div>
+    <small class="optional-update">Upload new file to replace current certificate</small>
+  </div>
+</div>
+
+        </div>
+
+        <!-- Work Type -->
+        <div class="col-md-12">
+          <label class="form-label">
+            <i class="bi bi-briefcase me-2"></i>
+            Work Type <span class="text-danger">*</span>
+          </label>
+         <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="workType" id="home" value="Work From Home" 
+         <%= telecaller.workType === 'Work From Home' ? 'checked' : '' %> required>
+  <label class="form-check-label" for="home">Work from Home</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="workType" id="office" value="Work From Office" 
+         <%= telecaller.workType === 'Work From Office' ? 'checked' : '' %> required>
+  <label class="form-check-label" for="office">Work from Office</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="workType" id="hybrid" value="Hybrid" 
+         <%= telecaller.workType === 'Hybrid' ? 'checked' : '' %> required>
+  <label class="form-check-label" for="hybrid">Hybrid</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="workType" id="field" value="Field Sales Executive" 
+         <%= telecaller.workType === 'Field Sales Executive' ? 'checked' : '' %> required>
+  <label class="form-check-label" for="field">Field Sales Executive</label>
+</div>
+        </div>
+      </div>
+
+      <div class="mt-5 text-center">
+        <button type="submit" id="updateBtn" class="update-btn">
+          <span id="updateBtnText">Update My Profile</span>
+          <span id="updateBtnSpinner" class="loading-spinner d-none ms-2"></span>
+        </button>
+        <p class="mt-3 text-muted small">
+          <i class="bi bi-shield-check me-1"></i>
+          Your updated information will be verified before activation
+        </p>
+      </div>
+    </form>
+  </div>
+
+  <!-- Crop Modal -->
+  <div class="modal fade" id="cropModal" tabindex="-1" aria-labelledby="cropModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">
+            <i class="bi bi-crop me-2"></i>
+            Crop Your Profile Photo
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="crop-container">
+            <img id="imagePreview" style="max-width: 100%; display: block;">
+          </div>
+          <div class="text-center mt-3">
+            <p class="text-muted mb-0">
+              <i class="bi bi-info-circle me-1"></i>
+              Drag to reposition and use the corners to resize
+            </p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" id="cropBtn" class="btn btn-primary">
+            <i class="bi bi-check2 me-2"></i>
+            Apply Crop
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let cropper;
+    let currentTelecallerData = null;
+    const profileInput = document.getElementById('profileInput');
+    const imagePreview = document.getElementById('imagePreview');
+    const photoPreview = document.getElementById('photoPreview');
+    const photoPlaceholder = document.getElementById('photoPlaceholder');
+    const cropModal = new bootstrap.Modal(document.getElementById('cropModal'));
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    
+    // Load existing telecaller data
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        showAlert('Loading your profile data...', 'info');
+        
+        // Get telecaller ID from URL params or use current user
+        const urlParams = new URLSearchParams(window.location.search);
+        const telecallerId = urlParams.get('id') || 'me'; // Use 'me' for current logged-in user
+        
+        const response = await fetch(`/getMe`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch telecaller profile');
+        }
+
+        const data = await response.json();
+        console.log('Fetched telecaller data:', data);
+        
+        // Check if user has telecaller profile
+        if (data.thisUser && data.thisUser.telecallerProfile) {
+          currentTelecallerData = data.thisUser.telecallerProfile;
+        } else if (data.thisUser) {
+          // Use basic user data if telecaller profile doesn't exist
+          currentTelecallerData = data.thisUser;
+        } else {
+          throw new Error('No user data found');
+        }
+
+        // Populate form fields with existing data
+        await populateForm(currentTelecallerData);
+
+        // Hide loading overlay
+        loadingOverlay.style.display = 'none';
+        showAlert('Profile data loaded successfully!', 'success');
+
+      } catch (error) {
+        console.error('Error fetching telecaller profile:', error);
+        showAlert('Failed to load profile data. Please refresh the page and try again.', 'danger');
+        loadingOverlay.style.display = 'none';
+      }
+    });
+
+    // Populate form with existing data
+    async function populateForm(data) {
+      console.log('Populating form with data:', data);
+      
+      try {
+        // Basic information - fill all fields with existing data
+        if (data.name) {
+          document.querySelector('input[name="name"]').value = data.name;
+        }
+        if (data.phone) {
+          document.querySelector('input[name="phone"]').value = data.phone;
+        }
+        if (data.email) {
+          document.querySelector('input[name="email"]').value = data.email;
+        }
+        if (data.address) {
+          document.querySelector('input[name="address"]').value = data.address;
+        }
+        if (data.age) {
+          document.querySelector('input[name="age"]').value = data.age;
+        }
+        if (data.experience) {
+          document.querySelector('input[name="experience"]').value = data.experience;
+        }
+        if (data.languages) {
+          document.querySelector('input[name="languages"]').value = data.languages;
+        }
+        
+        // Select fields
+        if (data.gender) {
+          const genderSelect = document.querySelector('select[name="gender"]');
+          genderSelect.value = data.gender;
+          console.log('Set gender to:', data.gender);
+        }
+        
+        if (data.jobCategory) {
+          const jobCategorySelect = document.querySelector('select[name="jobCategory"]');
+          jobCategorySelect.value = data.jobCategory;
+          console.log('Set job category to:', data.jobCategory);
+        }
+        
+        // Work type radio buttons
+        if (data.workType) {
+          const workTypeRadio = document.querySelector(`input[name="workType"][value="${data.workType}"]`);
+          if (workTypeRadio) {
+            workTypeRadio.checked = true;
+            console.log('Set work type to:', data.workType);
+          }
+        }
+
+        // Profile photo
+        if (data.profilePhoto) {
+          // Check if it's a full URL or relative path
+          const photoUrl = data.profilePhoto.startsWith('http') ? data.profilePhoto : `/uploads/${data.profilePhoto}`;
+          photoPreview.src = photoUrl;
+          photoPreview.classList.remove('d-none');
+          photoPlaceholder.classList.add('d-none');
+          photoPreview.onerror = function() {
+            console.log('Error loading profile photo, using placeholder');
+            photoPreview.classList.add('d-none');
+            photoPlaceholder.classList.remove('d-none');
+          };
+        }
+
+        // File information display
+        if (data.cv) {
+          document.getElementById('currentCvInfo').classList.remove('d-none');
+          const cvName = data.cv.split('/').pop() || 'current_cv.pdf';
+          document.getElementById('currentCvName').textContent = cvName;
+        }
+
+        if (data.experienceCertificate) {
+          document.getElementById('currentCertInfo').classList.remove('d-none');
+          const certName = data.experienceCertificate.split('/').pop() || 'current_certificate.pdf';
+          document.getElementById('currentCertName').textContent = certName;
+        }
+
+        // Add visual feedback that fields are populated
+        document.querySelectorAll('.form-control, .form-select').forEach(input => {
+          if (input.value && input.value.trim() !== '') {
+            input.classList.add('is-valid');
+          }
+        });
+
+        console.log('Form populated successfully');
+        
+      } catch (error) {
+        console.error('Error populating form:', error);
+        showAlert('Some fields could not be populated. Please check and fill missing information.', 'warning');
+      }
+    }
+
+    // Handle profile photo upload
+    profileInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        showAlert('Please select a valid image file.', 'warning');
+        return;
+      }
+
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        showAlert('Image size should be less than 5MB.', 'warning');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        imagePreview.src = reader.result;
+        cropModal.show();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Initialize cropper when modal is shown
+    document.getElementById('cropModal').addEventListener('shown.bs.modal', () => {
+      cropper = new Cropper(imagePreview, {
+        aspectRatio: 1,
+        viewMode: 2,
+        dragMode: 'move',
+        autoCropArea: 0.8,
+        restore: false,
+        guides: true,
+        center: true,
+        highlight: false,
+        cropBoxMovable: true,
+        cropBoxResizable: true,
+        toggleDragModeOnDblclick: false,
+        minContainerWidth: 400,
+        minContainerHeight: 300,
+        background: false,
+        modal: true,
+        zoomable: true,
+        scalable: true,
+        rotatable: true,
+        checkOrientation: false
+      });
+    });
+
+    // Destroy cropper when modal is hidden
+    document.getElementById('cropModal').addEventListener('hidden.bs.modal', () => {
+      if (cropper) {
+        cropper.destroy();
+        cropper = null;
+      }
+    });
+
+    // Handle crop button click
+    document.getElementById('cropBtn').addEventListener('click', () => {
+      if (!cropper) return;
+
+      const canvas = cropper.getCroppedCanvas({
+        width: 300,
+        height: 300,
+        minWidth: 256,
+        minHeight: 256,
+        maxWidth: 512,
+        maxHeight: 512,
+        fillColor: '#fff',
+        imageSmoothingEnabled: true,
+        imageSmoothingQuality: 'high',
+      });
+
+      const croppedImageData = canvas.toDataURL('image/jpeg', 0.9);
+      document.getElementById('croppedImageData').value = croppedImageData;
+      
+      // Show preview
+      photoPreview.src = croppedImageData;
+      photoPreview.classList.remove('d-none');
+      photoPlaceholder.classList.add('d-none');
+      
+      cropModal.hide();
+      showAlert('Profile photo updated successfully!', 'success');
+    });
+
+    // Show alert messages
+    function showAlert(message, type = 'info') {
+      const alertContainer = document.getElementById('alertContainer');
+      const alertDiv = document.createElement('div');
+      alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+      
+      const iconMap = {
+        success: 'bi-check-circle-fill',
+        danger: 'bi-exclamation-triangle-fill',
+        warning: 'bi-exclamation-triangle-fill',
+        info: 'bi-info-circle-fill'
+      };
+      
+      alertDiv.innerHTML = `
+        <i class="bi ${iconMap[type]} me-2"></i>
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      `;
+      alertContainer.appendChild(alertDiv);
+      
+      // Auto-dismiss after 5 seconds
+      setTimeout(() => {
+        if (alertDiv.parentNode) {
+          alertDiv.remove();
+        }
+      }, 5000);
+    }
+
+    // Form validation
+    function validateForm(formData) {
+      const errors = [];
+      
+      if (!formData.get('gender')) {
+        errors.push('Gender is required');
+      }
+      
+      if (!formData.get('age') || formData.get('age') < 18 || formData.get('age') > 100) {
+        errors.push('Age must be between 18 and 100');
+      }
+      
+      if (!formData.get('experience')) {
+        errors.push('Experience cannot be empty');
+      }
+      
+      if (!formData.get('languages')) {
+        errors.push('Languages are required');
+      }
+      
+      if (!formData.get('jobCategory')) {
+        errors.push('Job category is required');
+      }
+
+      if (!formData.get('workType')) {
+        errors.push('Work type is required');
+      }
+      
+      return errors;
+    }
+
+    // Handle form submission
+    document.getElementById('editForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+      const updateBtn = document.getElementById('updateBtn');
+      const updateBtnText = document.getElementById('updateBtnText');
+      const updateBtnSpinner = document.getElementById('updateBtnSpinner');
+
+      // Validate form
+      const validationErrors = validateForm(formData);
+      if (validationErrors.length > 0) {
+        showAlert(validationErrors.join('<br>'), 'danger');
+        return;
+      }
+
+      // Show loading state
+      updateBtn.disabled = true;
+      updateBtnText.classList.add('d-none');
+      updateBtnSpinner.classList.remove('d-none');
+
+      try {
+        console.log("Processing form data...");
+
+        const form = new FormData();
+
+        // Append basic fields
+        form.append('name', formData.get('name'));
+        form.append('phone', formData.get('phone'));
+        form.append('email', formData.get('email'));
+        form.append('address', formData.get('address'));
+        form.append('experience', formData.get('experience'));
+        form.append('age', formData.get('age'));
+        form.append('gender', formData.get('gender'));
+        form.append('languages', formData.get('languages'));
+        form.append('jobCategory', formData.get('jobCategory'));
+        form.append('workType', formData.get('workType'));
+
+        // Handle profile photo if updated
+        const base64Data = document.getElementById('croppedImageData').value;
+        if (base64Data) {
+          const blob = await (await fetch(base64Data)).blob();
+          form.append('profilePhoto', blob, 'profile.jpg');
+        }
+
+        // Append CV if updated
+        const cvFile = formData.get('cv');
+        if (cvFile && cvFile.size > 0) {
+          form.append('cv', cvFile);
+        }
+
+        // Append Experience Certificate if updated
+        const experienceCertFile = formData.get('experienceCertificate');
+        if (experienceCertFile && experienceCertFile.size > 0) {
+          form.append('experienceCertificate', experienceCertFile);
+        }
+
+        // Get telecaller ID for update
+        const urlParams = new URLSearchParams(window.location.search);
+        const telecallerId = urlParams.get('id') || (currentTelecallerData ? currentTelecallerData._id : 'me');
+
+        // Submit form via fetch - use the correct endpoint
+        const response = await fetch(`/updateTelecallerProfile`, {
+          method: 'PUT',
+          body: form
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          showAlert('🎉 Profile updated successfully! Your changes have been saved.', 'success');
+          
+          // Update current data
+          currentTelecallerData = { ...currentTelecallerData, ...result.telecaller };
+          
+          // Scroll to top
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+
+          // Optionally redirect after success
+          setTimeout(() => {
+            // window.location.href = '/telecaller-dashboard';
+          }, 2000);
+
+        } else {
+          showAlert(result.message || 'Update failed. Please try again.', 'danger');
+        }
+
+      } catch (error) {
+        console.error('Error during update:', error);
+        showAlert('Network error. Please check your connection and try again.', 'danger');
+      } finally {
+        updateBtn.disabled = false;
+        updateBtnText.classList.remove('d-none');
+        updateBtnSpinner.classList.add('d-none');
+      }
+    });
+
+    // Add input animations and validations
+    document.querySelectorAll('.form-control, .form-select').forEach(input => {
+      input.addEventListener('focus', function() {
+        this.parentElement.classList.add('focused');
+      });
+      
+      input.addEventListener('blur', function() {
+        this.parentElement.classList.remove('focused');
+        
+        // Real-time validation
+        if (this.hasAttribute('required') && !this.value.trim()) {
+          this.classList.add('is-invalid');
+        } else {
+          this.classList.remove('is-invalid');
+          this.classList.add('is-valid');
+        }
+      });
+      
+      input.addEventListener('input', function() {
+        if (this.classList.contains('is-invalid')) {
+          this.classList.remove('is-invalid');
+        }
+      });
+    });
+
+    // Age validation
+    document.querySelector('input[name="age"]').addEventListener('input', function() {
+      const age = parseInt(this.value);
+      if (age && (age < 18 || age > 100)) {
+        this.setCustomValidity('Age must be between 18 and 100');
+      } else {
+        this.setCustomValidity('');
+      }
+    });
+
+    // Experience validation
+    document.querySelector('input[name="experience"]').addEventListener('input', function() {
+      const experience = this.value.trim();
+      if (!experience) {
+        this.setCustomValidity('Experience is required');
+      } else {
+        this.setCustomValidity('');
+      }
+    });
+
+    // Languages formatting
+    document.querySelector('input[name="languages"]').addEventListener('blur', function() {
+      if (this.value) {
+        const languages = this.value.split(',').map(lang => 
+          lang.trim().charAt(0).toUpperCase() + lang.trim().slice(1).toLowerCase()
+        ).join(', ');
+        this.value = languages;
+      }
+    });
+
+    // Enhanced keyboard navigation
+    const formInputs = document.querySelectorAll('.form-control, .form-select');
+    formInputs.forEach((input, index) => {
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && e.target.type !== 'textarea') {
+          e.preventDefault();
+          const nextInput = formInputs[index + 1];
+          if (nextInput) {
+            nextInput.focus();
+            nextInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }
+      });
+    });
+
+    // Associate labels with inputs for better accessibility
+    document.querySelectorAll('.form-label').forEach(label => {
+      const input = label.parentElement.querySelector('.form-control, .form-select');
+      if (input && !input.id) {
+        const id = 'input_' + Math.random().toString(36).substr(2, 9);
+        input.id = id;
+        label.setAttribute('for', id);
+      }
+    });
+
+    // Fade-in animation on load
+    window.addEventListener('load', function() {
+      document.querySelectorAll('.fade-in').forEach((element, index) => {
+        setTimeout(() => {
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }, index * 200);
+      });
+    });
+
+    // Handle file input changes to show file names
+    document.querySelector('input[name="cv"]').addEventListener('change', function() {
+      if (this.files[0]) {
+        showAlert(`New CV selected: ${this.files[0].name}`, 'info');
+      }
+    });
+
+    document.querySelector('input[name="experienceCertificate"]').addEventListener('change', function() {
+      if (this.files[0]) {
+        showAlert(`New certificate selected: ${this.files[0].name}`, 'info');
+      }
+    });
+
+    // Add unsaved changes warning
+    let formChanged = false;
+    document.querySelectorAll('#editForm input, #editForm select, #editForm textarea').forEach(input => {
+      input.addEventListener('change', () => {
+        formChanged = true;
+      });
+    });
+
+    window.addEventListener('beforeunload', (e) => {
+      if (formChanged) {
+        e.preventDefault();
+        e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
+      }
+    });
+
+    // Reset form changed flag on successful submission
+    document.getElementById('editForm').addEventListener('submit', () => {
+      formChanged = false;
+    });
+
+    // Utility function to handle API errors
+    function handleApiError(error, response) {
+      if (response && response.status === 401) {
+        showAlert('Session expired. Please log in again.', 'warning');
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 2000);
+      } else if (response && response.status === 403) {
+        showAlert('You do not have permission to edit this profile.', 'danger');
+      } else if (response && response.status === 404) {
+        showAlert('Telecaller profile not found.', 'danger');
+      } else {
+        showAlert('An error occurred. Please try again.', 'danger');
+      }
+    }
+
+    // Add confirmation dialog for sensitive operations
+    function confirmUpdate() {
+      return confirm('Are you sure you want to update your profile? This will overwrite your existing information.');
+    }
+
+    // Enhanced form submission with confirmation
+    const originalSubmitHandler = document.getElementById('editForm').onsubmit;
+    document.getElementById('editForm').addEventListener('submit', function(e) {
+      if (!confirmUpdate()) {
+        e.preventDefault();
+        return false;
+      }
+    }, true);
+  </script>
+</body>
+</html>

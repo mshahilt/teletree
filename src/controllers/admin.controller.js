@@ -3,6 +3,8 @@ const TelecallerRepository = require("../repositories/telecaller.repository");
 const userRepository = require('../repositories/user.repository');
 const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
+const Telecaller = require('../models/telecaller.model');
+const planService = require('../services/plan.service');
 const getLoginPage = (req, res) => {
     if (req.session.admin) {
         res.redirect("/admin")
@@ -92,20 +94,40 @@ const getSupAdminPanel = async (req, res) => {
     const skip = (page - 1) * limit;
 
     // Total number of users
-    const totalUsers = await User.countDocuments();
+    const totalUsers = await Telecaller.countDocuments();
 
     // Total number of pages
     const totalPages = Math.ceil(totalUsers / limit);
 
     // Fetch users with pagination
-    const users = await User.find().skip(skip).limit(limit).lean();
+   const telecallers = await Telecaller.find()
+  .skip(skip)
+  .limit(limit)
+  .populate('userId') // Only select specific fields
+  .lean();
 
     res.render("pages/superAdmin", {
       title: "Admin Panel",
-      users,
+      telecallers,
       currentPage: page,
       totalPages,
     });
+  } catch (err) {
+    console.error("Error fetching users:", err);
+    res.status(500).send("Something went wrong");
+  }
+};
+
+const getSupAdminPlans = async (req, res) => {
+  if (req.session.supAdmin !== true) {
+    return res.redirect("/superadmin/login");
+  }
+
+  try {
+       const user = req.session.user;
+        const plans = await planService.getAllPlans();
+        
+    res.render("pages/superAdminPlans", { title: 'plan Page',user, plans });
   } catch (err) {
     console.error("Error fetching users:", err);
     res.status(500).send("Something went wrong");
@@ -122,7 +144,7 @@ const blockUser = async (req, res) => {
         res.redirect("/superadmin")
     }
     catch (err) {
-       
+        res.status(500).send("Something went wrong");
     }
 
 }
@@ -136,8 +158,81 @@ const unblockUser = async (req, res) => {
         res.redirect("/superadmin")
     }
     catch (err) {
+        res.status(500).send("Something went wrong");
+    }
+
+
+}
+const editPlan = async (req, res) => {
+
+    try {
+       
+        id = req.params.id
+      
+      if (req.session.supAdmin !== true) {
+            return res.redirect("/superadmin/login");
+          }else{
+            const updateData = req.body;
+            
+            // Update the plan
+            const updatedPlan = await planService.updatePlan(id, updateData);
+            
+            if (updatedPlan) {
+                // Redirect to plans list or show success message
+                res.redirect("/superadmin/plans?success=Plan updated successfully");
+          }
+        }
        
     }
+    catch (err) {
+        res.status(500).send("Something went wrong");
+    }
+
+
+}
+const getEditUser = async (req, res) => {
+
+    try {
+      console.log("i am hgkml,")
+        id = req.params.id
+        if (req.session.supAdmin !== true) {
+          console.log("i am not be here")
+            return res.redirect("/superadmin/login");
+          }else{
+            console.log("i am should be here")
+            let telecaller = await Telecaller.findById(id).populate('userId');
+            console.log(telecaller)
+            res.render("pages/superAdminEditUser", { title: "Edit Plan", telecaller })
+          }
+      
+
+     
+    }
+    catch (err) {
+      res.status(500).send("Something went wrong");  
+    }
+
+
+}
+const getEditPlan = async (req, res) => {
+
+    try {
+       console.log("i am hereeeeeeeeeeeeeeeeeeeeeeee222222")
+        id = req.params.id
+        if (req.session.supAdmin !== true) {
+            return res.redirect("/superadmin/login");
+          }else{
+            let plan = await planService.getPlanById(id);
+            res.render("pages/superAdminEditPlan", { title: "Edit Plan", plan })
+          }
+      
+
+     
+    }
+    catch (err) {
+      res.status(500).send("Something went wrong");  
+    }
+
 
 }
 const superAdminlogout = (req, res) => {  
@@ -156,9 +251,13 @@ const superAdminlogout = (req, res) => {
 module.exports = {
 unblockUser,
   blockUser,
+  getSupAdminPlans,
+  getEditPlan,
   superAdminlogout,
+  editPlan,
   login,
   supLogin,
+  getEditUser,
 getSupAdminPanel,
   getAdminPanel,
 getSupLoginPage,
