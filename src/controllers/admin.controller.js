@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
 const Telecaller = require('../models/telecaller.model');
 const planService = require('../services/plan.service');
+const subscriptionService = require('../services/subscription.service');
 const getLoginPage = (req, res) => {
     if (req.session.admin) {
         res.redirect("/admin")
@@ -134,6 +135,31 @@ const getSupAdminPlans = async (req, res) => {
   }
 };
 
+const getSupAdminRevenue = async (req, res) => {
+  if (req.session.supAdmin !== true) {
+    return res.redirect("/superadmin/login");
+  }
+
+  try {
+    const user = req.session.user;
+    const subscriptions = await subscriptionService.getAllSubscriptions();
+
+    // Only count successful payments
+    const totalRevenue = subscriptions
+      .filter(sub => sub.status === 'paid')
+      .reduce((sum, sub) => sum + (sub.amount || 0), 0);
+
+    res.render("pages/superAdminRevenue", { 
+      title: 'Revenue Page',
+      user, 
+      subscriptions,
+      totalRevenue
+    });
+  } catch (err) {
+    console.error("Error fetching revenue:", err);
+    res.status(500).send("Something went wrong");
+  }
+};
 const blockUser = async (req, res) => {
 
     try {
@@ -258,6 +284,7 @@ unblockUser,
   login,
   supLogin,
   getEditUser,
+  getSupAdminRevenue,
 getSupAdminPanel,
   getAdminPanel,
 getSupLoginPage,

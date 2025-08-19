@@ -11,59 +11,66 @@ const createSubscription = async (req, res) => {
     res.status(400).json({ success: false, message: error.message });
   }
 };
-
-const createRazorPayOrder = async(req, res) => {
+const createRazorPayOrder = async (req, res) => {
   try {
-  const { planId, amount } = req.body;
-  console.log("🔔 [Create Order] Request received for Plan ID:", planId, "with amount:", amount);
-
-  const plans = await planService.getAllPlans();
-  const plan = plans.find(p => p.id === planId);
-
-  if (!plan) {
-    console.warn("❌ [Create Order] Invalid Plan ID:", planId);
-    return res.status(400).json({
-      success: false,
-      message: 'Invalid plan selected'
-    });
-  }
-
-  if (amount !== plan.amount * 100) {
-    console.warn("❌ [Create Order] Amount mismatch. Expected:", plan.amount * 100, "Received:", amount);
-    return res.status(400).json({
-      success: false,
-      message: 'Amount mismatch'
-    });
-  }
-
-  console.log("✅ [Create Order] Plan validated:", plan.plan);
-  console.log("user id" , req.session?.user?.id);
-  console.log("user id" , req.session?.user);
-
-  const options = {
-    amount,
-    currency: 'INR',
-    receipt: `receipt_${Date.now()}`,
-    notes: {
-      planId,
-      planName: plan.plan,
-      userId: req.session?.user?._id || 'guest'
+    if (!req.session.user) {
+      console.warn("❌ [Create Order] Unauthorized request - user not logged in");
+      return res.status(401).json({
+        success: false,
+        message: 'Please login to subscribe to a plan'
+      });
     }
-  };
 
-  console.log("📦 [Create Order] Creating Razorpay order with options:", options);
+    const { planId, amount } = req.body;
+    console.log("🔔 [Create Order] Request received for Plan ID:", planId, "with amount:", amount);
 
-  const order = await razorpay.orders.create(options);
-  console.log("🎉 [Create Order] Razorpay order created successfully:", order.id);
+    const plans = await planService.getAllPlans();
+    const plan = plans.find(p => p.id === planId);
 
-  await subscriptionService.createSubscription({userId:req.session?.user?._id, planId, razorpayOrderId:order.id});
-  console.log("✅ [Subscription] Temporary subscription stored with status 'created'");
+    if (!plan) {
+      console.warn("❌ [Create Order] Invalid Plan ID:", planId);
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid plan selected'
+      });
+    }
 
-  res.json({
-    success: true,
-    order,
-    razorpayKeyId: process.env.RAZORPAYKEYID
-  });
+    if (amount !== plan.amount * 100) {
+      console.warn("❌ [Create Order] Amount mismatch. Expected:", plan.amount * 100, "Received:", amount);
+      return res.status(400).json({
+        success: false,
+        message: 'Amount mismatch'
+      });
+    }
+
+    console.log("✅ [Create Order] Plan validated:", plan.plan);
+
+    const options = {
+      amount,
+      currency: 'INR',
+      receipt: `receipt_${Date.now()}`,
+      notes: {
+        planId,
+        planName: plan.plan,
+        userId: req.session?.user?._id || 'guest'
+      }
+    };
+
+    const order = await razorpay.orders.create(options);
+    console.log("🎉 [Create Order] Razorpay order created successfully:", order.id);
+
+    await subscriptionService.createSubscription({
+      userId: req.session?.user?._id,
+      planId,
+      razorpayOrderId: order.id
+    });
+    console.log("✅ [Subscription] Temporary subscription stored with status 'created'");
+
+    res.json({
+      success: true,
+      order,
+      razorpayKeyId: process.env.RAZORPAYKEYID
+    });
 
   } catch (error) {
     console.error("🔥 [Create Order] Error creating order or subscription:", error.message, error.stack);
@@ -72,7 +79,7 @@ const createRazorPayOrder = async(req, res) => {
       message: 'Server error while creating order'
     });
   }
-}
+};
 
 const verifyRazorPayPayment = async (req, res) => {
    try {

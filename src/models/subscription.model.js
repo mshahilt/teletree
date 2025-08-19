@@ -34,6 +34,10 @@ const SubscriptionSchema = new mongoose.Schema({
     razorpaySignature: {
         type: String
     },
+    amount: {   // 💰 Add this field
+        type: Number,
+        required: true
+    },
     status: {
         type: String,
         enum: ['created', 'paid', 'failed'],
@@ -42,7 +46,7 @@ const SubscriptionSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        expires: 6 // 10 days in seconds
+        expires: 864000 // 10 days in seconds
     }
 });
 

@@ -282,21 +282,27 @@
                     
                     const rzp = new Razorpay(options);
                     rzp.open();
-                } else {
-                    alert('Error creating order: ' + data.message);
-                    // Reset button state
-                    button.classList.remove('loading');
-                    button.innerHTML = '<i class="fas fa-crown me-2"></i>Subscribe Now';
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Something went wrong. Please try again.');
-                // Reset button state
-                button.classList.remove('loading');
-                button.innerHTML = '<i class="fas fa-crown me-2"></i>Subscribe Now';
-            });
+               } else {
+        if (data.message.includes('login')) {
+            alert(data.message);
+            window.location.href = '/login';  // Redirect to login page
+        } else {
+            alert('Error creating order: ' + data.message);
         }
+
+        // Reset button state
+        button.classList.remove('loading');
+        button.innerHTML = '<i class="fas fa-crown me-2"></i>Subscribe Now';
+    }
+})
+.catch(error => {
+    console.error('Error:', error);
+    alert('Error creating order. Please try again.');
+    // Reset button state
+    button.classList.remove('loading');
+    button.innerHTML = '<i class="fas fa-crown me-2"></i>Subscribe Now';
+});
+}
 
         // Verify payment
         function verifyPayment(paymentResponse, planId) {

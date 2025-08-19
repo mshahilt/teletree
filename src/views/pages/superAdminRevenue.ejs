@@ -11,6 +11,104 @@
     <title>Document</title>
 </head>
 <style>
+      .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #128c7e;
+            color: #FFF;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+        
+        .btn-gradient {
+            background: linear-gradient(135deg, #007bff, #6f42c1);
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #0056b3, #5a2d91);
+            transform: scale(1.05);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #28a745;
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .plan-card {
+            position: relative;
+            height: 100%;
+        }
+        
+        .plan-card.popular {
+            border: 2px solid #28a745;
+            transform: scale(1.05);
+        }
     body {
             margin: 0;
             padding: 0;
@@ -232,88 +330,22 @@
     <!-- Main content -->
     <div class="main-content">
         <div class="content-wrapper">
-            <div class="page-header">
-                <h1 class="page-title">Users</h1>
-                <form action="/superadmin/logout" method="POST">
-                    <button type="submit" class="btn btn-danger">
-                        <i class="fas fa-sign-out-alt me-2"></i>Logout
-                    </button>
-                </form>
-            </div>
-            
-            <div class="table-wrapper">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>edit</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                     
-                        <% telecallers.forEach(user => {%>
-                        <tr>
-                            <td><%=user.userId.name%></td>
-                            <td><%=user.userId.email%></td>
-                            <td><%=user.userId.phone%></td>
-                            <td>
-                              <a href="/superadmin/editUser/<%= user._id %>" class="btn btn-warning btn-sm">
-    <i class="fa-solid fa-user-pen me-1"></i> Edit
-</a>
-                            </td>
-                            <td class="text-center">
-                                <div class="d-flex justify-content-center gap-2">
-                                    <%if(user.userId.isBlock==false) {%>
-                                    <form action="/superadmin/block/<%= user.userId._id %>?_method=PATCH" method="post">
-                                        <button type="submit" class="btn btn-warning btn-sm">
-                                            <i class="fa-solid fa-user-large-slash me-1"></i>Block
-                                        </button>
-                                    </form>
-                                    <%} else {%>
-                                    <form action="/superadmin/unblock/<%= user.userId._id %>?_method=PATCH" method="post">
-                                        <button type="submit" class="btn btn-success btn-sm">
-                                            <i class="fa-solid fa-user-check me-1"></i>Unblock
-                                        </button>
-                                    </form>
-                                    <% } %>
-                                </div>
-                            </td>
-                        </tr>
-                        <% }) %>
-                       
-                    </tbody>
-                </table>
-            </div>
-            
-            <!-- Pagination -->
-            <div class="w-100 d-flex justify-content-center mt-4">
-             
-                <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
-                            <a class="page-link" href="?page=<%= currentPage - 1 %>" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <% for (let i = 1; i <= totalPages; i++) { %>
-                        <li class="page-item <%= i === currentPage ? 'active' : '' %>">
-                            <a class="page-link" href="?page=<%= i %>"><%= i %></a>
-                        </li>
-                        <% } %>
-                        <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
-                            <a class="page-link" href="?page=<%= currentPage + 1 %>" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-               
+             <div class="row mb-4">
+  <div class="col-md-4">
+    <div class="card shadow-sm border-0 rounded-lg">
+      <div class="card-body text-center">
+        <h5 class="card-title text-muted">Total Revenue</h5>
+        <h2 class="text-success fw-bold">₹ <%= totalRevenue.toLocaleString() %></h2>
+      </div>
+    </div>
+  </div>
+</div>
             </div>
         </div>
     </div>
+    
+            
+          
 
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>

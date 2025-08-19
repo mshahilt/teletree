@@ -14,6 +14,7 @@ const expiryDate = new Date(Date.now() + 10 * 24 * 60 * 60 * 1000); // 10 days f
   const subscriptionData = {
     userId,
     planId,
+    amount: plan.amount,
     expiryDate,
     benefits: plan.benefits,
     numberOfUsagesLeft: plan.numberOfAllowedUsages,

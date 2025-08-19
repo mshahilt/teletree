@@ -1,7 +1,7 @@
 const PlanRepository = require('../repositories/plan.repository');
 
 class PlanService {
-  async createPlan(planData) {
+  async dcreatePlan(planData) {
     // logic/validation here if needed
     return await PlanRepository.createPlan(planData);
   }
